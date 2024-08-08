@@ -1,0 +1,17 @@
+article {
+    img {
+        max-width: 100%;;
+    }
+}
+
+// most of the images are black with transparent backgrounds;
+//   these filters soften them a bit when in light mode
+//   and invert them to an off-white in dark mode.
+// the files themselves remain full-contrast for the PDF.
+img.lineArt {
+    filter: var(--img-filter);
+}
+
+img.cover {
+    filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.5));
+}

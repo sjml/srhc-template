@@ -1,0 +1,33 @@
+{% set nav = collections.all | navFilter | eleventyNavigation | flattenNav %}
+{% set selfNav = nav | getNavPage(page.url) %}
+{% set next = selfNav.next %}
+{% set prev = selfNav.prev %}
+{% if sitedata.skipSectionIndexesInPageNav %}
+    {% if not prev.parent %}
+        {% set prev = prev.prev %}
+        {% set prevParent = nav | getNavPage(prev.parent) %}
+        {% set prevPrefix %}<span class="previousSectionName">{{ prevParent.title }}: </span>{% endset %}
+    {% endif %}
+    {% if not next.parent %}
+        {% set next = next.next %}
+        {% set nextParent = nav | getNavPage(next.parent) %}
+        {% set nextPrefix %}<span class="nextSectionName">{{ nextParent.title }}: </span>{% endset %}
+    {% endif %}
+{% endif %}
+
+<nav class="pageNavigation">
+    <section class="navigationPrevious">
+        {% if prev %}
+            <a rel="prev" href="{{prev.url}}"><span class="navigationArrow">←</span>{{ prevPrefix | safe }}{{ prev.title }}</a>
+        {% else %}
+            <a href="/"><span class="homePageReturn"><span class="navigationArrow">↑</span>(Homepage)</span></a>
+        {% endif %}
+    </section>
+    <section class="navigationNext">
+        {% if next %}
+            <a rel="next" href="{{next.url}}">{{ nextPrefix | safe }}{{ next.title }}<span class="navigationArrow">→</span></a>
+        {% else %}
+            <a href="/"><span class="homePageReturn">(Homepage)<span class="navigationArrow">↑</span></span></a>
+        {% endif %}
+    </section>
+</nav>

@@ -1,0 +1,17 @@
+{
+  "compressionTypes": [
+    ["br", "brotli", "br"],
+    ["gz", "gzip", "gzip"]
+  ],
+  "compressibleFiles": [
+    ["html", "text/html"],
+    ["xml", "application/xml"],
+    ["css", "text/css"],
+    ["js", "text/javascript"],
+    ["txt", "text/plain"],
+    ["md", "text/markdown"],
+    ["json", "application/json"],
+    ["svg", "image/svg+xml"],
+    ["mobi", "application/x-mobipocket-ebook"]
+  ]
+}

@@ -1,0 +1,295 @@
+@use "_config";
+@use "_defaults";
+@use "utils";
+
+@if not config.$buildingForKindle {
+    .kindle-only {
+        display: none;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+}
+
+body {
+    margin: 0 auto;
+
+    max-width: defaults.$body-max-width;
+    min-width: defaults.$body-min-width;
+
+    display: flex;
+}
+
+nav.tableOfContents {
+    z-index: 101;
+    position: sticky;
+    top: 0;
+    padding: 2rem 1rem;
+
+    background-color: var(--background-color);
+    height: 100vh;
+    overflow-y: auto;
+
+    flex: 0 0 defaults.$menu-width;
+
+    transition:
+        flex-basis defaults.$transition-responsive-timing,
+        transform defaults.$transition-responsive-timing,
+        box-shadow defaults.$transition-responsive-timing,
+        background-color defaults.$transition-theme-timing;
+    @include utils.transition-accessibility;
+}
+
+.tableOfContentsToggle {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    // offsetting visual from the main padding below
+    margin-top: -(defaults.$padding-base);
+    margin-left: -(defaults.$padding-double);
+
+    background-color: var(--background-color-offset);
+    box-shadow: var(--shadow-color) 0px 5px 10px;
+    width: 50px;
+    height: 50px;
+    padding: defaults.$padding-eighth;
+    border-radius: 0 0 defaults.$border-radius 0;
+    opacity: 0;
+
+    display: flex;
+
+    transition-duration: defaults.$transition-theme-timing;
+    transition-property: background-color, opacity;
+    @include utils.transition-accessibility;
+}
+
+.tableOfContentsToggleOff, .tableOfContentsToggleOn {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    padding: 9px 0 0 9px;
+
+    display: flex;
+
+    transition-duration: defaults.$transition-responsive-timing;
+    transition-property: opacity;
+    @include utils.transition-accessibility;
+}
+
+.tableOfContentsToggleOn {
+    opacity: 0;
+}
+
+#tableOfContentsToggle {
+    display: none;
+
+    transition-duration: defaults.$transition-responsive-timing;
+    transition-property: transform;
+    @include utils.transition-accessibility;
+}
+
+main {
+    padding: defaults.$padding-base defaults.$padding-double defaults.$padding-double defaults.$padding-double;
+}
+
+main > header,
+main > footer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: defaults.$padding-base;
+}
+
+hr {
+    height: 1px;
+    border: none;
+    background-color: var(--background-color-offset);
+
+    transition-duration: defaults.$transition-theme-timing;
+    transition-property: background-color;
+    @include utils.transition-accessibility;
+}
+
+main > footer {
+    .licenseInformation {
+        width: 100%;
+        border-top: 1px solid var(--background-color-offset);
+        padding-top: defaults.$padding-base;
+        padding-left: defaults.$padding-base;
+
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: defaults.$padding-half defaults.$padding-base;
+
+        transition-duration: defaults.$transition-theme-timing;
+        transition-property: border-color;
+        @include utils.transition-accessibility;
+
+        p {
+            margin: 0;
+        }
+        > a {
+            display: flex;
+        }
+
+        .licenseDescription {
+            min-width: 13rem;
+            max-width: 30rem;
+
+            flex: 1 0;
+        }
+    }
+}
+
+article img.cover {
+    float: left;
+    margin: defaults.$padding-half defaults.$padding-double defaults.$padding-half 0;
+
+    width: 25rem;
+    max-width: 25vw;
+
+    transition: max-width defaults.$transition-responsive-timing;
+}
+
+// responsiveness
+@media screen and (max-width: defaults.$md-breakpoint) {
+    main {
+        padding: defaults.$padding-base defaults.$padding-half defaults.$padding-half defaults.$padding-half;
+    }
+
+    nav.tableOfContents {
+        flex: 0 0 defaults.$tiny-menu-width;
+
+        .siteBranding {
+            a {
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    article img.cover {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        max-width: 50vw;
+    }
+}
+
+.revisionData {
+    margin-top: defaults.$padding-quadruple;
+    margin-bottom: defaults.$padding-base;
+
+    font-size: defaults.$font-size-x-small;
+    line-height: 1.0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    .shortRevisionString {
+        display: none;
+    }
+}
+
+.littlefoot__popover.is-active.is-above {
+    z-index: 200;
+}
+
+@media screen and (max-width: defaults.$sm-breakpoint) {
+    main {
+        padding: defaults.$padding-half defaults.$padding-base defaults.$padding-base defaults.$padding-base;
+    }
+
+    article img.cover {
+        max-width: 75vw;
+    }
+
+    nav.tableOfContents {
+        margin-left: -(defaults.$menu-width);
+
+        flex: 0 0 defaults.$menu-width;
+        transform: translateX(0);
+    }
+
+    main .tableOfContentsToggle {
+        margin-left: -(defaults.$padding-base);
+
+        opacity: 1.0;
+        cursor: pointer;
+
+        transform: translateX(0);
+        transition-duration: defaults.$transition-responsive-timing;
+        transition-property: transform;
+        @include utils.transition-accessibility;
+    }
+
+    .revisionData {
+        .shortRevisionString {
+            display: inline;
+        }
+        .fullRevisionString {
+            display: none;
+        }
+    }
+
+    #tocMainOverlay {
+        position: fixed;
+        top:0;
+        left:0;
+        z-index: 50;
+
+        height: 100vh;
+        width: 100vw;
+        background-color: var(--background-color);
+        opacity: 0;
+        pointer-events: none;
+
+        transition-duration: defaults.$transition-responsive-timing;
+        transition-property: opacity;
+    }
+
+    #tableOfContentsToggle:checked ~ main #tocMainOverlay {
+        opacity: 0.75;
+        pointer-events: all;
+    }
+
+    // bring in a low-hanging shadow on the ToC,
+    //   to avoid casting onto the toggler
+    #tableOfContentsToggle:checked + nav.tableOfContents {
+        box-shadow: var(--shadow-color) 5px 57px 20px;
+    }
+    // slide the toggler shadow down a little bit to cover the seam
+    //   (also makes it appear higher up, but very subtle, almost indisernable effect)
+    #tableOfContentsToggle:checked ~ main .tableOfContentsToggle {
+        box-shadow: var(--shadow-color) 0px 10px 10px;
+    }
+
+    // actually bring in the table of contents
+    #tableOfContentsToggle:checked + nav.tableOfContents,
+    #tableOfContentsToggle:checked ~ main .tableOfContentsToggle
+    {
+        transform: translateX(defaults.$menu-width);
+    }
+
+    #tableOfContentsToggle:checked ~ main .tableOfContentsToggle {
+        .tableOfContentsToggleOff {
+            opacity: 0;
+        }
+        .tableOfContentsToggleOn {
+            opacity: 1;
+        }
+    }
+}
+

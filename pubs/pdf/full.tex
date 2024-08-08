@@ -1,0 +1,38 @@
+\documentclass[
+    extrafontsizes,
+    14pt,
+    oneside,
+    USenglish
+]{memoir}
+
+\input{config/packages}
+\input{config/styling}
+\input{config/code}
+
+\begin{document}
+    \includepdf[fitpaper]{../../resources/demo-assets/fakeCoverBig.pdf}
+    \frontmatter
+        \input{srcs/title}
+        \input{srcs/rights}
+
+        \aliaspagestyle{chapter}{empty}
+        \setcounter{tocdepth}{0}
+        \begin{KeepFromToc}
+        \tableofcontents
+        \end{KeepFromToc}
+
+        \pagenumbering{roman}
+        \setcounter{page}{0}
+        \aliaspagestyle{chapter}{plain}
+        \input{./srcs/prelims.tex}
+
+    \mainmatter
+        \setlength{\topskip}{1.6\topskip}
+        \checkandfixthelayout
+        \sloppybottom
+
+        \pagenumbering{arabic}
+        \addtocounter{page}{-1}
+        \input{./srcs/main.tex}
+
+\end{document}

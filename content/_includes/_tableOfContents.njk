@@ -1,0 +1,29 @@
+{% if collections.in_menu.length > 0 %}
+    <ol class="specialMenu">
+    {% for mi in collections.in_menu %}
+        {% set miClasses = "specialMenuItem" %}
+        {% if mi.url == page.url %}
+            {% set miClasses = "currentPage specialMenuItem" %}
+        {% endif %}
+        <li class="{{miClasses}}"{% if mi.url == page.url %} aria-current="page"{% endif %}>
+            <a href="{{ mi.url }}">{{  mi.data.title }}</a>
+        </li>
+    {% endfor %}
+    </ol>
+{% endif %}
+
+{% set nav = collections.all | navFilter | eleventyNavigation %}
+<ol class="menuList">
+    {% for section in nav %}
+    <li>
+        {{ section.title }}
+        <ol>
+            {% for subPage in section.children %}
+            <li {% if subPage.url == page.url %} class="currentPage" aria-current="page"{% endif %}>
+                <a href="{{ subPage.url }}">{{ subPage.title }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </li>
+    {% endfor %}
+</ol>

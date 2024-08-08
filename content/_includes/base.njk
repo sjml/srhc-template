@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    {% include "_themeSelectorHeadInject.njk" %}
+    {% include "_htmlHead.njk" %}
+    {% block head_inject %}{% endblock %}
+</head>
+<body>
+    <input type="checkbox" name="tableOfContentsToggle" id="tableOfContentsToggle">
+    <nav class="tableOfContents">
+        <header class="siteBranding">
+            <a href="/">
+                {% if sitedata.siteIcon %}
+                <img src="{{sitedata.siteIcon}}" alt="Icon for _{{ sitedata.title }}_">
+                {% endif %}
+                <span class="siteTitle">{{sitedata.title}}</span>
+            </a>
+        </header>
+        {% include "_tableOfContents.njk" %}
+    </nav>
+    <main>
+        <label for="tableOfContentsToggle">
+            <div class="tableOfContentsToggle">
+                <div class="tableOfContentsToggleOff">
+                    {% inlineFile "static/img/toc-toggle-off.svg" %}
+                </div>
+                <div class="tableOfContentsToggleOn">
+                    {% inlineFile "static/img/toc-toggle-on.svg" %}
+                </div>
+            </div>
+        </label>
+        <header>
+            {% include "_themeSelector.njk" %}
+            <aside class="notice print-only" aria-hidden="true">
+                If you’re printing this out, you might prefer the
+                PDF version available from this same site. It’s
+                formatted much more nicely for the printed page.
+                But I’m not going to stop you printing this!
+                You do you.
+                <span class="link">
+                    <a href="https://shaneliesegang.com/srhc/full">https://shaneliesegang.com/srhc/full</a>
+                </span>
+            </aside>
+            {% block mainHeader %}{% endblock %}
+        </header>
+        {% block main %}{% endblock %}
+        <footer>
+            {% block mainFooter %}{% endblock %}
+            <section class="licenseInformation">
+                <a class="licenseImgLink" rel="license" href="{{ sitedata.licenseHumanUrl }}">
+                    <img alt="{{ sitedata.licenseName }}" src="{{ sitedata.licenseImg }}" />
+                </a>
+                <p class="licenseDescription">
+                    This work is licensed under a <a rel="license" href="{{ sitedata.licenseHumanUrl }}">{{ sitedata.licenseName }}</a>.
+                </p>
+            </section>
+        </footer>
+    </main>
+    {% block end_of_body %}{% endblock %}
+    {% include "_themeSelectorBodyScript.njk" %}
+    <script>
+        const toggleCheck = document.getElementById("tableOfContentsToggle");
+        const mainElement = document.querySelector("body > main");
+
+        if (mainElement) {
+        const overlay = document.createElement("div");
+        overlay.id = "tocMainOverlay";
+
+        overlay.onclick = (ev) => {
+            toggleCheck.checked = false;
+        }
+
+        mainElement.insertBefore(overlay, mainElement.firstChild);
+        }
+    </script>
+    <script src="/js/littlefoot.js" type="application/javascript"></script>
+    <script type="application/javascript">
+        littlefoot.littlefoot()
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "base.njk" %}
+
+{% block head_inject %}
+    {% if redirect %}
+        <meta http-equiv="refresh" content="0; url={{ redirect }}">
+    {% endif %}
+{% endblock %}
+
+{% block mainHeader %}
+    {% if not no_nav %}
+        {% include "_pageNav.njk" %}
+    {%endif %}
+{% endblock %}
+
+{% block main %}
+    <article>
+        {% if title %}
+            <header>
+                <h1>{{ title }}</h1>
+            </header>
+        {% endif %}
+
+        {{ content | safe }}
+
+        {% set nav = collections.all | navFilter | eleventyNavigation(url) | first %}
+        <ol class="sectionPages">
+        {% for subPage in nav.children %}
+            <li><a href="{{ subPage.url }}">{{ subPage.title }}</a></li>
+        {%- endfor %}
+        </ol>
+    </article>
+
+{% endblock %}

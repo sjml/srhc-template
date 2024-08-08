@@ -1,0 +1,48 @@
+---
+# doing this in liquid because Nunjucks appears incapable of
+#   outputting a backlash in a template string
+#   https://github.com/mozilla/nunjucks/issues/625
+permalink: .htaccess
+no_nav: true
+layout: false
+---
+# serve the pre-generated 404
+ErrorDocument 404 {{ "/404.html" | url }}
+
+# serve markdown files as plain text with utf8 encoding
+AddType "text/markdown; charset=UTF-8" md
+
+<Files "buildInformation.json">
+  Require all denied
+</Files>
+
+
+## AUTOMATICALLY GENERATED rules for serving compressed assets.
+## This should go in an .htaccess file somewhere.
+## It assumes pre-compressed files sitting alongside their originals.
+
+<IfModule mod_headers.c>
+{%- for ft in compression.compressibleFiles -%}
+{% for ct in compression.compressionTypes %}
+  # Serve {{ct[1]}}-compressed .{{ft[0]}} files if they exist and client accepts {{ct[1]}}
+  RewriteCond %{HTTP:Accept-encoding} {{ct[0]}}
+  RewriteCond %{REQUEST_FILENAME}\.{{ct[0]}} -s
+  RewriteRule ^(.*)\.{{ft[0]}} $1\.{{ft[0]}}\.{{ct[0]}} [QSA]
+{% endfor -%}
+{% endfor %}
+  # Serve correct content types and prevent double compression
+{%- for ft in compression.compressibleFiles -%}
+{% for ct in compression.compressionTypes %}
+  RewriteRule \.{{ft[0]}}\.{{ct[0]}}$ - [T={{ft[1]}},{%for ctx in compression.compressionTypes%}E=no-{{ctx[1]}}:1{%if not forloop.last%},{%endif%}{%endfor%}]
+{%- endfor -%}
+{% endfor %}
+
+  # Serve correct encodings and force proxies to cache
+  # compressed content separately from non-compressed.
+{%- for ct in compression.compressionTypes %}
+  <FilesMatch "({% for ft in compression.compressibleFiles%}\.{{ft[0]}}\.{{ct[0]}}{%if not forloop.last%}|{%endif%}{%endfor%})">
+    Header set Content-Encoding {{ct[2]}}
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+{%- endfor %}
+</IfModule>

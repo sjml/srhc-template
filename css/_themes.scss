@@ -1,0 +1,205 @@
+@use "sass:math";
+
+@use "_config";
+@use "_defaults";
+@use "fonts";
+@use "code";
+@use "utils";
+
+@mixin light-styles {
+    --body-font-weight-base: #{fonts.$body-font-weight-base};
+    --body-font-weight-bold: #{fonts.$body-font-weight-bold};
+    --body-font-weight-black: #{fonts.$body-font-weight-black};
+    --code-font-weight-base: #{fonts.$code-font-weight-base - 50};
+    --code-font-weight-bold: #{fonts.$code-font-weight-bold};
+    --font-color: #{defaults.$body-font-color-light};
+    --background-color: #{defaults.$body-background-light};
+    --background-color-offset: #{defaults.$body-background-light-offset};
+    --link-color: #{defaults.$color-link-light};
+    --link-visited-color: #{defaults.$color-visited-link-light};
+    --code-background-color: #{defaults.$code-background-color-light};
+    --pre-background-color: #{defaults.$pre-background-color-light};
+    --shadow-color: #{defaults.$shadow-color-light};
+    --color-scheme: #{defaults.$color-scheme-light};
+    --img-filter: invert(#{defaults.$svg-inversion-light});
+
+    @if config.$buildingForWeb {
+        .littlefoot {
+            --popover-text-color: #{defaults.$body-font-color-light};
+            --popover-background-color: #{defaults.$body-background-light};
+            --popover-scroll-indicator-color: #{defaults.$body-font-color-light};
+        }
+    }
+
+    @include code.code-webLight;
+}
+
+@mixin dark-styles {
+    --body-font-weight-base: #{fonts.$body-font-weight-base - 100};
+    --body-font-weight-bold: #{fonts.$body-font-weight-bold - 100};
+    --body-font-weight-black: #{fonts.$body-font-weight-black - 100};
+    --code-font-weight-base: #{fonts.$code-font-weight-base - 50};
+    --code-font-weight-bold: #{fonts.$code-font-weight-bold};
+    --font-color: #{defaults.$body-font-color-dark};
+    --background-color: #{defaults.$body-background-dark};
+    --background-color-offset: #{defaults.$body-background-dark-offset};
+    --link-color: #{defaults.$color-link-dark};
+    --link-visited-color: #{defaults.$color-visited-link-dark};
+    --code-background-color: #{defaults.$code-background-color-dark};
+    --pre-background-color: #{defaults.$pre-background-color-dark};
+    --shadow-color: #{defaults.$shadow-color-dark};
+    --color-scheme: #{defaults.$color-scheme-dark};
+    --img-filter: invert(#{defaults.$svg-inversion-dark});
+
+    @if config.$buildingForWeb {
+        .littlefoot {
+            --popover-text-color: #{defaults.$body-font-color-dark};
+            --popover-background-color: #{defaults.$body-background-dark};
+            --popover-scroll-indicator-color: #{defaults.$body-font-color-dark};
+        }
+    }
+
+    @include code.code-webDark;
+}
+
+body {
+    color: var(--font-color);
+    background-color: var(--background-color);
+
+    transition-duration: defaults.$transition-theme-timing;
+    transition-property: background-color, color;
+    @include utils.transition-accessibility;
+}
+
+a {
+    color: var(--link-color);
+
+    transition-duration: defaults.$transition-theme-timing;
+    transition-property: color;
+    @include utils.transition-accessibility;
+
+    &:visited {
+        color: var(--link-visited-color);
+
+        transition-duration: defaults.$transition-theme-timing;
+        transition-property: color;
+        @include utils.transition-accessibility;
+    }
+}
+
+
+@if not config.$buildingForWeb {
+    :root {
+        color-scheme: var(--color-scheme);
+
+        @include light-styles;
+
+        @if not config.$buildingForKindle {
+            @media (prefers-color-scheme: dark) {
+                @include dark-styles;
+            }
+        }
+    }
+}
+@else {
+    :root {
+        color-scheme: var(--color-scheme);
+
+        @include light-styles;
+
+        &[data-theme-selection="dark"] {
+            @include dark-styles;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            &[data-theme-selection="system"] {
+                @include dark-styles;
+            }
+        }
+    }
+
+
+    //// GUI shenanigans below here
+    @media (scripting: none) {
+        #themeSelectorGUI {
+            display: none;
+        }
+    }
+
+    #themeSelectorGUI {
+        $tsWidth: 4.25rem;
+        $tsTransitionDuration: 250ms;
+
+        background-color: var(--background-color-offset);
+        width: $tsWidth;
+        height: math.div($tsWidth, 2);
+        border-radius: math.div($tsWidth, 4);
+
+        display: flex;
+        justify-content: center;
+
+        transition-duration: $tsTransitionDuration;
+        transition-property: background-color;
+
+        .lozenge {
+            position: relative;
+
+            background-color: var(--font-color);
+            width: math.div($tsWidth, 2);
+            height: math.div($tsWidth, 2);
+            border-radius: math.div($tsWidth, 4);
+            pointer-events: none;
+
+            transition-duration: $tsTransitionDuration;
+            transition-timing-function: ease-out;
+            transition-property: transform, background-color;
+
+            .theme-lightImg, .theme-systemImg, .theme-darkImg {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                color: var(--background-color);
+                height: 100%;
+                width: 100%;
+                pointer-events: none;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                transition-duration: $tsTransitionDuration;
+                transition-property: opacity, color;
+
+                svg {
+                    height: math.div($tsWidth, 2) * 0.85;
+                    width: math.div($tsWidth, 2) * 0.85;
+                }
+            }
+        }
+    }
+
+    [data-theme-selection="light"] .lozenge {
+        transform: translateX(-50%);
+    }
+
+    [data-theme-selection="dark"] .lozenge {
+        transform: translateX(50%);
+    }
+
+    [data-theme-selection="light"] {
+        .theme-darkImg, .theme-systemImg {
+            opacity: 0;
+        }
+    }
+    [data-theme-selection="system"] {
+        .theme-lightImg, .theme-darkImg {
+            opacity: 0;
+        }
+    }
+    [data-theme-selection="dark"] {
+        .theme-lightImg, .theme-systemImg {
+            opacity: 0;
+        }
+    }
+}

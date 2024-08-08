@@ -1,0 +1,34 @@
+\begin{titlingpage}%
+
+    % grab the small caps version of this for the title page
+    \newfontfamily{\titleseriffont}{AlegreyaSC}[
+        Path           = ../../resources/fonts/AlegreyaSC/,
+        Extension      = .ttf,
+        UprightFont    = *-Regular,
+        ItalicFont     = *-Italic,
+        BoldFont       = *-Medium,
+        BoldItalicFont = *-ExtraBoldItalic
+    ]
+    \titleseriffont{
+        \pagestyle{empty}%
+        \begingroup%
+        \vfill%
+            \hbox{%
+                \hspace*{0.1\textwidth}%
+                \rule{2pt}{\textheight}
+                \hspace*{0.05\textwidth}%
+                \parbox[b]{0.75\textwidth}{
+                    \vbox{%
+                        \vspace{0.1\textheight}
+                        {\noindent\HUGE\bfseries Nulla Laborum\\[0.1\baselineskip]
+                                Exercitation\\[0.1\baselineskip]Nostrud}\\[8\baselineskip]
+                        {\LARGE Lorem Ipsum, PhD}\par
+                        \vspace{0.2\textheight}
+                        % {\noindent © 2022}\\[\baselineskip]
+                    }% end of vbox
+                }% end of parbox
+            }% end of hbox
+        \vfill
+        \endgroup
+    }% end of titleseriffont
+\end{titlingpage}

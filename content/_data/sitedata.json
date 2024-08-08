@@ -1,0 +1,18 @@
+{
+  "title": "Nulla Laborum Exercitation Nostrud",
+  "titleAbbreviation": "nlen",
+  "url": "https://example.com/nlen",
+  "description": "Mollit exercitation irure veniam ea nulla laborum exercitation nostrud id deserunt ad elit laborum irure.",
+  "authorName": "Lorem Ipsum",
+  "authorInitials": "LI",
+  "authorUrl": "https://example.com",
+  "siteIcon": "/img/demo-icon.svg",
+
+  "licenseHumanUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "licenseLegalUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode",
+  "licenseImg": "/img/by-nc-sa.svg",
+  "licenseName": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License",
+  "licenseId": "CC-BY-NC-SA-4.0",
+
+  "skipSectionIndexesInPageNav": true
+}

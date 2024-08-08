@@ -1,0 +1,163 @@
+@use "_config";
+
+@if config.$buildingForWeb {
+    // body font
+    @font-face {
+        font-family: "Alegreya";
+        font-style: normal;
+        font-weight: 400 900;
+        font-display: block;
+        src: url('../fonts/Alegreya/Alegreya-VariableFont_wght.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: "Alegreya";
+        font-style: italic;
+        font-weight: 400 900;
+        font-display: block;
+        src: url('../fonts/Alegreya/Alegreya-Italic-VariableFont_wght.woff2') format('woff2');
+    }
+
+    // code font
+    @font-face {
+        font-family: "Cascadia Mono";
+        font-style: normal;
+        font-weight: 200 700;
+        font-display: block;
+        src: url('../fonts/CascadiaMono/CascadiaMono.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: "Cascadia Mono";
+        font-style: italic;
+        font-weight: 200 700;
+        font-display: block;
+        src: url('../fonts/CascadiaMono/CascadiaMonoItalic.woff2') format('woff2');
+    }
+
+    // Hebrew font only available as static
+    @font-face {
+        font-family: "David Libre";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url('../fonts/DavidLibre/DavidLibre-Regular.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: "David Libre";
+        font-style: normal;
+        font-weight: 700;
+        font-display: block;
+        src: url('../fonts/DavidLibre/DavidLibre-Medium.woff2') format('woff2');
+    }
+}
+
+// sadly, most ebook platforms don't do variable fonts
+@else if config.$buildingForEbook {
+    // even more sadly, Kindle doesn't play well with custom fonts at all
+    @if not config.$buildingForKindle {
+        // body fonts
+        @font-face {
+            font-family: "Alegreya";
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url('../fonts/Alegreya-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Alegreya";
+            font-style: italic;
+            font-weight: 400;
+            font-display: block;
+            src: url('../fonts/Alegreya-Italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Alegreya";
+            font-style: normal;
+            font-weight: 700;
+            font-display: block;
+            src: url('../fonts/Alegreya-Bold.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Alegreya";
+            font-style: italic;
+            font-weight: 700;
+            font-display: block;
+            src: url('../fonts/Alegreya-BlackItalic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Alegreya";
+            font-style: normal;
+            font-weight: 900;
+            font-display: block;
+            src: url('../fonts/Alegreya-Black.woff2') format('woff2');
+        }
+
+        // code fonts
+        @font-face {
+            font-family: "Cascadia Mono";
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url('../fonts/CascadiaMono-SemiLight.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Cascadia Mono";
+            font-style: italic;
+            font-weight: 400;
+            font-display: block;
+            src: url('../fonts/CascadiaMono-SemiLightItalic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Cascadia Mono";
+            font-style: normal;
+            font-weight: 700;
+            font-display: block;
+            src: url('../fonts/CascadiaMono-Bold.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "Cascadia Mono";
+            font-style: italic;
+            font-weight: 700;
+            font-display: block;
+            src: url('../fonts/CascadiaMono-BoldItalic.woff2') format('woff2');
+        }
+
+        // Hebrew font only available as static
+        @font-face {
+            font-family: "David Libre";
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+            src: url('../fonts/DavidLibre-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: "David Libre";
+            font-style: normal;
+            font-weight: 700;
+            font-display: block;
+            src: url('../fonts/DavidLibre-Medium.woff2') format('woff2');
+        }
+    }
+}
+
+$body-font-weight-base: 400 !default;
+$body-font-weight-semibold: 500 !default;
+$body-font-weight-bold: 700 !default;
+$body-font-weight-black: 800 !default;
+
+$code-font-weight-base: 400 !default;
+$code-font-weight-extralight: 200 !default;
+$code-font-weight-light: 300 !default;
+$code-font-weight-semilight: 350 !default;
+$code-font-weight-semibold: 600 !default;
+$code-font-weight-bold: 700 !default;
