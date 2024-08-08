@@ -8,7 +8,7 @@ article {
 //   these filters soften them a bit when in light mode
 //   and invert them to an off-white in dark mode.
 // the files themselves remain full-contrast for the PDF.
-img.lineArt {
+.lineArt {
     filter: var(--img-filter);
 }
 

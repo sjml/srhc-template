@@ -143,7 +143,7 @@ article {
   }
 
   blockquote {
-    margin: defaults.$padding-base 0;
+    margin: defaults.$padding-base defaults.$padding-double;
 
     padding: defaults.$padding-half defaults.$padding-base;
     border-left: defaults.$padding-quarter solid var(--background-color-offset);
