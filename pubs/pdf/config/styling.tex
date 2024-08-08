@@ -92,6 +92,9 @@
 \renewcommand{\cftchapterfont}{}
 \renewcommand{\cftchapterpagefont}{}
 
+\usepackage{framed}
+\usepackage{mdframed}
+
 % blockquotes should be ragged-right and have a line to the left
 \setlength{\FrameSep}{0em}
 \setlength{\fboxrule}{2.5pt}
@@ -109,11 +112,14 @@
   {\begin{customleftbar}\oldquote\raggedright}
   {\endoldquote\end{customleftbar}}
 
-% % put a nice gray box behind our code
-\usepackage{framed}
-\newenvironment{Shaded}{\begin{shaded}}{\end{shaded}}
+% put a nice gray box behind our code
+\newenvironment{Shaded}{%
+  \begin{mdframed}[%
+    backgroundcolor=shadecolor, innertopmargin=15pt, innerbottommargin=15pt,
+    innerleftmargin=20pt, innerrightmargin=20pt, linewidth=0pt, roundcorner=0pt]}%
+  {\end{mdframed}}
 
-% % put the gray box around inline code, too
+% put the gray box around inline code, too
 \usepackage{tcolorbox}
 \definecolor{codecolor}{RGB}{233,236,239} % $gray-200
 \newtcbox{\codebox}[1][]{on line,colback=codecolor,arc=1pt,boxsep=0pt,left=3pt,right=3pt,top=3pt,bottom=3pt,boxrule=0pt}
