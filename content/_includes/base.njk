@@ -20,14 +20,14 @@
     </nav>
     <main>
         <label for="tableOfContentsToggle">
-            <div class="tableOfContentsToggle">
-                <div class="tableOfContentsToggleOff">
+            <span class="tableOfContentsToggle">
+                <span class="tableOfContentsToggleOff">
                     {% inlineFile "static/img/toc-toggle-off.svg" %}
-                </div>
-                <div class="tableOfContentsToggleOn">
+                </span>
+                <span class="tableOfContentsToggleOn">
                     {% inlineFile "static/img/toc-toggle-on.svg" %}
-                </div>
-            </div>
+                </span>
+            </span>
         </label>
         <header>
             {% include "_themeSelector.njk" %}
@@ -73,8 +73,8 @@
         mainElement.insertBefore(overlay, mainElement.firstChild);
         }
     </script>
-    <script src="/js/littlefoot.js" type="application/javascript"></script>
-    <script type="application/javascript">
+    <script src="/js/littlefoot.js"></script>
+    <script>
         littlefoot.littlefoot()
     </script>
 </body>
