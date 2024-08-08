@@ -183,6 +183,10 @@ article {
     .littlefoot {
         --popover-font-family: #{defaults.$font-family-body};
         --popover-font-size: #{defaults.$font-size-small};
+
+        code {
+            font-size: defaults.$font-size-x-small;
+        }
     }
 
     .littlefoot__button {
