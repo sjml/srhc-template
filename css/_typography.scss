@@ -179,7 +179,6 @@ article {
 }
 
 @if config.$buildingForWeb {
-    // littlefoot stylings
     .littlefoot {
         --popover-font-family: #{defaults.$font-family-body};
         --popover-font-size: #{defaults.$font-size-small};
@@ -197,5 +196,22 @@ article {
 nav {
     a, a:hover {
         text-decoration: none;
+    }
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+
+    border-top: 1px solid var(--font-color);
+    border-collapse: collapse;
+
+    td {
+        padding: 0 defaults.$padding-base;
+    }
+
+    th {
+        padding-top: defaults.$padding-half;
+        border-bottom: .75px solid var(--font-color);
     }
 }

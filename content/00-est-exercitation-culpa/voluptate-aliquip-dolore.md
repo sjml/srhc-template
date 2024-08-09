@@ -15,6 +15,31 @@ Ad esse do pariatur cupidatat proident _labore excepteur anim minim_ do ut volup
 
 Aute et ex **pariatur _adipisicing_ voluptate dolore** ex voluptate occaecat aute magna ad mollit qui adipisicing. Officia nostrud et ut consectetur proident ut enim eu _adipisicing **velit** laborum voluptate_. Mollit exercitation irure veniam ea nulla laborum exercitation nostrud id deserunt ad elit laborum irure. 
 
+| Statistic    | Range |
+|--------------|------:|
+| Strength     | 1-18  |
+| Intelligence | 1-18  |
+| Dexterity    | 1-18  |
+| Wisdom       | 1-18  |
+| Constitution | 1-18  |
+| Charisma     | 1-18  |
+
+Table: Player ability scores for _Dungeons & Dragons_
+
+Cillum quis incididunt nostrud consequat consequat duis deserunt aliquip duis cupidatat dolore. Commodo veniam sint Lorem incididunt reprehenderit elit laborum ipsum qui officia laboris cillum qui. Est id amet sunt in veniam sint exercitation veniam ea do.
+
+|    Magic    |    Combat   |   Stealth   |
+|:-----------:|:-----------:|:-----------:|
+| Alteration  | Archery     | Alchemy     |
+| Conjuration | Block       | Light Armor |
+| Destruction | Heavy Armor | Lockpicking |
+| Enchanting  | One-Handed  | Pickpocket  |
+| Illusion    | Smithing    | Sneak       |
+| Restoration | Two-Handed  | Speech      |
+
+Table: Player skills for _The Elder Scrolls V: Skyrim_
+
+
 
 ## Aute Quis sit Magna Ut
 

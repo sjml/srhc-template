@@ -7,6 +7,21 @@
 \usepackage{enumitem}
 \usepackage{pdfpages}
 
+\usepackage{longtable,booktabs,array}
+\usepackage{multirow}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{caption}
+\captionsetup[table]{labelformat=empty}
+\let\oldlongtable\longtable
+\renewcommand{\longtable}{\vspace{0.5em}\oldlongtable}
+
 \usepackage{graphicx}
 \makeatletter
 \newsavebox\pandoc@box
@@ -22,6 +37,7 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
 
 
 
