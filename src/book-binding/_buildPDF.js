@@ -33,7 +33,7 @@ export default function main() {
   const imgSrcList = child_process.spawnSync("pandoc", [
       "--from", "markdown+implicit_header_references-implicit_figures",
       "--to", "json", // dummy output
-      "--lua-filter", path.join(ROOT_PATH, "pubs", "_filters", "getImageList.lua"),
+      "--lua-filter", path.join(ROOT_PATH, "src", "pandocFilters", "getImageList.lua"),
       "-o", "/dev/null"
     ],
     { input: actualContent }
@@ -78,7 +78,7 @@ export default function main() {
     "--shift-heading-level-by=-1",
     "--top-level-division", "part",
     "--highlight-style", "pygments",
-    "--lua-filter", path.join(ROOT_PATH, "pubs", "_filters", "latexFilters.lua"),
+    "--lua-filter", path.join(ROOT_PATH, "src", "pandocFilters", "latexFilters.lua"),
     "--syntax-definition", path.join("resources", "syntax-highlighting", "pymod", "pymod.xml"),
   ];
 

@@ -34,7 +34,7 @@ export default async function main() {
   const imgSrcList = child_process.spawnSync("pandoc", [
       "--from", "markdown+implicit_header_references-implicit_figures",
       "--to", "json", // dummy output
-      "--lua-filter", path.join(ROOT_PATH, "pubs", "_filters", "getImageList.lua"),
+      "--lua-filter", path.join(ROOT_PATH, "src", "pandocFilters", "getImageList.lua"),
       "-o", "/dev/null"
     ],
     { input: actualContent }
