@@ -17,4 +17,4 @@ Below is just dummy text showing off various formatting options. Enjoy!
 
 ----
 
-{% renderFile "resources/demo-assets/formatTest.md" %}
+{% inlineFile "resources/demo-assets/formatTest.md" %}

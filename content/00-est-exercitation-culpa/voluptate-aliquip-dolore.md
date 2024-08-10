@@ -7,7 +7,7 @@ The following section is just so there is a sample of richer formatting early on
 
 (This is the same set of tests that appears on the front page of the web site.)
 
-{% renderFile "resources/demo-assets/formatTest.md" %}
+{% inlineFile "resources/demo-assets/formatTest.md" %}
 
 ----
 
