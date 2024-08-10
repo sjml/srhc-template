@@ -214,4 +214,10 @@ table {
         padding-top: defaults.$padding-half;
         border-bottom: .75px solid var(--font-color);
     }
+
+    &, * {
+        transition-property: border-color;
+        transition-duration: 500ms;
+        @include utils.transition-accessibility;
+    }
 }
