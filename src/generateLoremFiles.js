@@ -138,10 +138,12 @@ function generateChapterContent(sectionIdx, chapterIdx) {
   content += "\n";
 
   if (sectionIdx == 0 && chapterIdx == 0) {
-    const fmtTestContent = fs.readFileSync(
-      path.join(__dirname, "..", "resources", "demo-assets", "formatTest.md"))
-      .toString("utf-8");
-    content = "The following section is just so there is a sample of richer formatting early on in the book.\n\n" + fmtTestContent + "----\n\n" + content;
+    content = [
+      "The following section is just so there is a sample of richer formatting early on in the book.",
+      "(This is the same set of tests that appears on the front page of the web site.)",
+      '{% renderFile "resources/demo-assets/formatTest.md" %}',
+      "----",
+      content].join("\n\n");
   }
 
   return [chapTitle, content];
@@ -177,7 +179,7 @@ for (const [sectionTitle, sectionContent] of Object.entries(allContent)) {
   const sectDirPath = path.join(OUTPUT_FOLDER, sectionSlug);
   fs.mkdirSync(sectDirPath);
   const sectIndexPath = path.join(sectDirPath, "index.md");
-  fs.writeFileSync(sectIndexPath, `---\ntitle: ${sectionTitle}\nlayout: sectionIndex\n---\n\n`);
+  fs.writeFileSync(sectIndexPath, `---\ntitle: ${sectionTitle}\nlayout: sectionIndex\norder: ${sectIdx}\n---\n\n`);
   fileCount += 1;
 
   for (const [slug, content] of Object.entries(sectionContent)) {

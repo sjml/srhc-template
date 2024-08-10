@@ -11,8 +11,6 @@ export default function (eleventyConfig) {
   //    getPreviousNavCollectionItem
   //    getNextNavCollectionItem
   eleventyConfig.addFilter("flattenNav", function(navCollection) {
-    navCollection = navCollection.sort((a,b) => a.key.localeCompare(b.key));
-
     const flattened = [];
     function explore(entries) {
       for (const e of entries) {

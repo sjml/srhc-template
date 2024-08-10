@@ -203,8 +203,14 @@ table {
     margin-left: auto;
     margin-right: auto;
 
-    border-top: 1px solid var(--font-color);
+    border-top: 2px solid var(--font-color);
+    border-bottom: 2px solid var(--font-color);
     border-collapse: collapse;
+
+    caption {
+        margin-bottom: defaults.$padding-quarter;
+        line-height: 1.2;
+    }
 
     td {
         padding: 0 defaults.$padding-base;
@@ -219,5 +225,21 @@ table {
         transition-property: border-color;
         transition-duration: 500ms;
         @include utils.transition-accessibility;
+    }
+}
+
+table ~ table {
+    margin-top: defaults.$padding-double;
+}
+
+@media screen and (max-width: defaults.$md-breakpoint) {
+    table {
+        font-size: defaults.$font-size-small;
+    }
+}
+
+@media screen and (max-width: defaults.$sm-breakpoint) {
+    table {
+        font-size: defaults.$font-size-x-small;
     }
 }
