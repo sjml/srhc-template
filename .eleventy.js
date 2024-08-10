@@ -32,7 +32,7 @@ export default function(eleventyConfig) {
     prettify(eleventyConfig);
     buildInfo(eleventyConfig);
     cacheBust(eleventyConfig);
-    postBuild(eleventyConfig);
+    // postBuild(eleventyConfig);
   }
 
   eleventyConfig.setServerPassthroughCopyBehavior("passthrough");
