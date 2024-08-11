@@ -206,19 +206,34 @@ table {
     border-top: 2px solid var(--font-color);
     border-bottom: 2px solid var(--font-color);
     border-collapse: collapse;
+    line-height: 1.2;
 
     caption {
         margin-bottom: defaults.$padding-quarter;
-        line-height: 1.2;
     }
 
-    td {
+    th, td {
         padding: 0 defaults.$padding-base;
+    }
+    th:nth-child(1), td:nth-child(1) {
+        padding-left: 0;
+    }
+    th:nth-last-child(1), td:nth-last-child(1) {
+        padding-right: 0;
     }
 
     th {
-        padding-top: defaults.$padding-half;
+        padding-top: defaults.$padding-quarter;
+        padding-bottom: defaults.$padding-quarter;
         border-bottom: .75px solid var(--font-color);
+
+        font-weight: inherit; /* turn off default bolding by most clients */
+    }
+    tbody > tr:nth-child(1) > td {
+        padding-top: defaults.$padding-quarter;
+    }
+    tbody > tr:nth-last-child(1) > td {
+        padding-bottom: defaults.$padding-quarter;
     }
 
     &, * {
