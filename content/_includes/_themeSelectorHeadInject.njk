@@ -2,11 +2,3 @@
     const theme = localStorage.{{ sitedata.titleAbbreviation }}ThemeSelection || "system";
     document.documentElement.dataset.themeSelection = theme;
 </script>
-<noscript>
-    <!-- this is getting handled with a CSS media query too, but just being safe -->
-    <style>
-        #themeSelectorGUI {
-            display: none;
-        }
-    </style>
-</noscript>

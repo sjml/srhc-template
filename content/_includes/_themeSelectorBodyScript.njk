@@ -8,6 +8,7 @@
         }
     }
     const themeSelector = document.getElementById("themeSelectorGUI");
+    themeSelector.style.display = "flex";
     if (themeSelector) {
         themeSelector.addEventListener("click", (evt) => {
             const clickPos = evt.offsetX / themeSelectorGUI.clientWidth;

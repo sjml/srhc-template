@@ -120,12 +120,6 @@ a {
 
 
     //// GUI shenanigans below here
-    @media (scripting: none) {
-        #themeSelectorGUI {
-            display: none;
-        }
-    }
-
     #themeSelectorGUI {
         $tsWidth: 4.25rem;
         $tsTransitionDuration: 250ms;
@@ -135,7 +129,10 @@ a {
         height: math.div($tsWidth, 2);
         border-radius: math.div($tsWidth, 4);
 
-        display: flex;
+        // none of the no-scripting things seem to actually work,
+        //   so instead we just hide by default and use a script to
+        //   display it.
+        display: none;
         justify-content: center;
 
         transition-duration: $tsTransitionDuration;
