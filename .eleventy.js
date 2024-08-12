@@ -31,7 +31,9 @@ export default function(eleventyConfig) {
   if (process.env.ENVIRONMENT === "production") {
     prettify(eleventyConfig);
     buildInfo(eleventyConfig);
-    cacheBust(eleventyConfig);
+    cacheBust(eleventyConfig, {
+      globstring: "**/*.{css,js,png,jpg,jpeg,gif,mp4,ico,svg,pdf,epub,azw3,mobi}"
+    });
     // postBuild(eleventyConfig);
   }
 
