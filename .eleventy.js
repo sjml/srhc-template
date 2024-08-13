@@ -32,9 +32,10 @@ export default function(eleventyConfig) {
     prettify(eleventyConfig);
     buildInfo(eleventyConfig);
     cacheBust(eleventyConfig, {
-      globstring: "**/*.{css,js,png,jpg,jpeg,gif,mp4,ico,svg,pdf,epub,azw3,mobi}"
+      globstring: "**/*.{css,js,png,jpg,jpeg,gif,mp4,ico,svg,pdf,epub,azw3,mobi}",
+      runAsync: false,
     });
-    // postBuild(eleventyConfig);
+    postBuild(eleventyConfig);
   }
 
   eleventyConfig.setServerPassthroughCopyBehavior("passthrough");

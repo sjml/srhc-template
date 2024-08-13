@@ -67,11 +67,3 @@ export default function (eleventyConfig) {
     }
   );
 };
-
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  console.log("Pre-compressing files in output directory...");
-  const sitePath = path.join(__dirname, "..", "..", "_site");
-  for (const fp of walkDir(sitePath)) {
-    compressMe(fp);
-  }
-}

@@ -41,7 +41,7 @@
     "@csstools/postcss-sass": "^5.1.1",
     "@prettier/plugin-xml": "^3.4.1",
     "concurrently": "^8.2.2",
-    "eleventy-auto-cache-buster": "^0.5.0",
+    "eleventy-auto-cache-buster": "^0.6.0",
     "eleventy-plugin-pandoc": "github:sjml/eleventy-plugin-pandoc#v1.0.2",
     "happy-dom": "^14.12.3",
     "jsdom": "^24.1.1",
