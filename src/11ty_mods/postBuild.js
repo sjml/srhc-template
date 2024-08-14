@@ -3,6 +3,7 @@ import path from "node:path";
 import child_process from "node:child_process";
 
 import { optimize } from "svgo";
+import { globSync } from "glob";
 
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -60,6 +61,11 @@ export default function (eleventyConfig) {
   eleventyConfig.on(
     "eleventy.after",
     ({ dir, results, runMode, outputMode }) => {
+      console.log("Cleaning up markdown cruft...");
+      globSync(path.join(dir.output, "full", "*.md")).forEach(f => {
+        fs.rmSync(f);
+      });
+
       console.log("Pre-compressing files in output directory...");
       for (const fp of walkDir(dir.output)) {
         compressMe(fp);

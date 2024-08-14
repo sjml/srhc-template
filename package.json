@@ -19,16 +19,13 @@
     "css:build": "concurrently --prefixColors blue.bold,cyan.bold,yellow.bold,red.bold npm:css:build-*",
     "css:watch": "concurrently --prefixColors blue.bold,cyan.bold,yellow.bold,red.bold npm:css:watch-*",
     "css:clean": "rm -rf ./css/out/*",
-
     "site:build": "eleventy",
     "site:watch": "eleventy --serve --incremental",
     "site:clean": "rm -rf ./_site",
     "site:bench": "DEBUG=Eleventy:Benchmark* eleventy",
     "site:benchserve": "npm run site:bench -- --serve",
-
     "watch": "concurrently --prefixColors bgGreen.bold,bgBlue.bold,bgRed.bold npm:*:watch",
     "serve": "npm run watch",
-
     "build": "concurrently --max-processes 1 --prefixColors bgGreen.bold,bgBlue.bold,bgRed.bold npm:*:build",
     "buildbooks": "npm run css:build && eleventy --incremental=./content/full/full_md.njk && node src/book-binding/buildBooks.js",
     "builddist": "./src/buildFullDist.sh",
@@ -43,6 +40,7 @@
     "concurrently": "^8.2.2",
     "eleventy-auto-cache-buster": "^0.6.0",
     "eleventy-plugin-pandoc": "github:sjml/eleventy-plugin-pandoc#v1.0.2",
+    "glob": "^11.0.0",
     "happy-dom": "^14.12.3",
     "jsdom": "^24.1.1",
     "lorem-ipsum": "^2.0.8",

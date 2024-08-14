@@ -45,15 +45,16 @@ export default function main() {
 
   console.log("PDF Build: Prepping image links and converting SVGs...");
   imgSrcList.stdout.toString("utf-8").split("\n").forEach(src => {
-    if (src.endsWith(".svg")) {
-      const outSrc = `${src.slice(0, -4)}.pdf`;
+    const clean = src.split("?v=")[0];
+    if (clean.endsWith(".svg")) {
+      const outSrc = `${clean.slice(0, -4)}.pdf`;
       const outPath = path.join(TMP_DIR, outSrc);
       fs.mkdirSync(path.dirname(outPath), {recursive: true});
       const convProc = child_process.spawnSync("rsvg-convert", [
         "--keep-aspect-ratio",
         "--format", "pdf1.5",
         "--output", outPath,
-        path.join(ROOT_PATH, "static", src)
+        path.join(ROOT_PATH, "static", clean)
       ]);
       if (convProc.status != 0) {
         console.error(`RSVG-CONVERT ERROR: ${convProc.stderr}`);
