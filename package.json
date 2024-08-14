@@ -19,13 +19,17 @@
     "css:build": "concurrently --prefixColors blue.bold,cyan.bold,yellow.bold,red.bold npm:css:build-*",
     "css:watch": "concurrently --prefixColors blue.bold,cyan.bold,yellow.bold,red.bold npm:css:watch-*",
     "css:clean": "rm -rf ./css/out/*",
+
     "site:build": "eleventy",
+    "site:mdbuild": "eleventy --incremental=./content/full/full_md.njk",
     "site:watch": "eleventy --serve --incremental",
     "site:clean": "rm -rf ./_site",
     "site:bench": "DEBUG=Eleventy:Benchmark* eleventy",
     "site:benchserve": "npm run site:bench -- --serve",
+
     "watch": "concurrently --prefixColors bgGreen.bold,bgBlue.bold,bgRed.bold npm:*:watch",
     "serve": "npm run watch",
+
     "build": "concurrently --max-processes 1 --prefixColors bgGreen.bold,bgBlue.bold,bgRed.bold npm:*:build",
     "buildbooks": "npm run css:build && eleventy --incremental=./content/full/full_md.njk && node src/book-binding/buildBooks.js",
     "builddist": "./src/buildFullDist.sh",
