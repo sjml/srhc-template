@@ -68,6 +68,10 @@ article {
         pointer-events: none;
         text-decoration: none;
         color: var(--background-color-offset);
+
+        transition-property: opacity;
+        transition-duration: defaults.$transition-responsive-timing;
+        @include utils.transition-accessibility;
     }
 
     &:hover a.header-anchor {
