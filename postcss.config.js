@@ -7,6 +7,7 @@ export default (ctx) => { return {
   plugins: [
     postcssSass({
       outputStyle: "compressed",
+      silenceDeprecations: ["legacy-js-api"],
     }),
     ctx.file.basename === "web.scss" ? null : postcssVars()
   ],
