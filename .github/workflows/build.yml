@@ -28,7 +28,7 @@ jobs:
         EPUBCHECK_VERSION=$(gh release list --repo w3c/epubcheck --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | cut -c2-)
         wget https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK_VERSION}/epubcheck-${EPUBCHECK_VERSION}.zip
         unzip epubcheck-${EPUBCHECK_VERSION}.zip
-        mv epubcheck-5.1.0 $HOME/.local/bin
+        mv epubcheck-${EPUBCHECK_VERSION} $HOME/.local/bin
         printf "#!/bin/bash\njava -jar $HOME/.local/bin/epubcheck-${EPUBCHECK_VERSION}/epubcheck.jar \"\$@\"" > $HOME/.local/bin/epubcheck
         chmod +x $HOME/.local/bin/epubcheck
       env:
