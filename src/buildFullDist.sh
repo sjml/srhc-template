@@ -2,10 +2,15 @@
 
 set -e
 
-npm run clean
-npm run css:build
-npm run site:mdbuild
-node src/book-binding/buildBooks.js
-mkdir -p _site/downloads
+cd "$(dirname "$0")"
+cd ..
+
+FULL_MD=1 deno task build
+deno run -A src/book-binding/buildBooks.ts
 cp static/downloads/* _site/downloads/
-ENVIRONMENT=production npm run site:build
+PRODUCTION_MODE=1 deno task build
+
+cd _site
+dprint fmt --config=../resources/html-output-dprint.json
+cd ..
+

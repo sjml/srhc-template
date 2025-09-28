@@ -1,0 +1,16 @@
+  ---------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- ------- -------
+  command           9pt    10pt   11pt   12pt   14pt   17pt   20pt   25pt   30pt   36pt    48pt    60pt
+  ---------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- ------- -------
+  `\miniscule`      4pt    5pt    6pt    7pt    8pt    9pt    10pt   11pt   12pt   14pt    17pt    20pt
+  `\tiny`           5pt    6pt    7pt    8pt    9pt    10pt   11pt   12pt   14pt   17pt    20pt    25pt
+  `\scriptsize`     6pt    7pt    8pt    9pt    10pt   11pt   12pt   14pt   17pt   20pt    25pt    30pt
+  `\footnotesize`   7pt    8pt    9pt    10pt   11pt   12pt   14pt   17pt   20pt   25pt    30pt    36pt
+  `\small`          8pt    9pt    10pt   11pt   12pt   14pt   17pt   20pt   25pt   30pt    36pt    48pt
+  `\normalsize`     9pt    10pt   11pt   12pt   14pt   17pt   20pt   25pt   30pt   36pt    48pt    60pt
+  `\large`          10pt   11pt   12pt   14pt   17pt   20pt   25pt   30pt   36pt   48pt    60pt    72pt
+  `\Large`          11pt   12pt   14pt   17pt   20pt   25pt   30pt   36pt   48pt   60pt    72pt    84pt
+  `\LARGE`          12pt   14pt   17pt   20pt   25pt   30pt   36pt   48pt   60pt   72pt    84pt    96pt
+  `\huge`           14pt   17pt   20pt   25pt   30pt   36pt   48pt   60pt   72pt   84pt    96pt    108pt
+  `\Huge`           17pt   20pt   25pt   30pt   36pt   48pt   60pt   72pt   84pt   96pt    108pt   120pt
+  `\HUGE`           20pt   25pt   30pt   36pt   48pt   60pt   72pt   84pt   96pt   108pt   120pt   132pt
+  ---------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- ------- -------

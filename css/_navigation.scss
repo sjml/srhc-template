@@ -1,121 +1,121 @@
-@use "_defaults";
+@use "defaults";
 
 nav.tableOfContents {
-    @media print {
-        display: none;
-    }
+	@media print {
+		display: none;
+	}
 
-    .siteBranding {
-        margin-bottom: defaults.$padding-double;
+	.siteBranding {
+		margin-bottom: defaults.$padding-double;
 
-        font-weight: var(--body-font-weight-bold);
-        font-size: defaults.$font-size-large;
+		font-weight: var(--body-font-weight-bold);
+		font-size: defaults.$font-size-large;
 
-        a {
-            display: flex;
+		a {
+			display: flex;
 
-            .siteTitle {
-                display: block;
+			.siteTitle {
+				display: block;
 
-                text-align: center;
-            }
+				text-align: center;
+			}
 
-            img {
-                margin-right: defaults.$padding-half;
+			img {
+				margin-right: defaults.$padding-half;
 
-                width: 5.0rem;
-            }
-        }
-    }
+				width: 5.0rem;
+			}
+		}
+	}
 
-    a, a:visited {
-        color: var(--font-color);
-    }
+	a, a:visited {
+		color: var(--font-color);
+	}
 
-    a:hover {
-        opacity: 50%;
-    }
+	a:hover {
+		opacity: 50%;
+	}
 
-    ol.specialMenu {
-        margin-bottom: defaults.$padding-double;
-    }
+	ol.specialMenu {
+		margin-bottom: defaults.$padding-double;
+	}
 
-    ol.menuList,
-    ol.specialMenu {
-        padding: 0;
-        list-style: none;
-        font-size: defaults.$font-size-small;
-        font-weight: var(--body-font-weight-bold);
+	ol.menuList,
+	ol.specialMenu {
+		padding: 0;
+		list-style: none;
+		font-size: defaults.$font-size-small;
+		font-weight: var(--body-font-weight-bold);
 
-        ol {
-            list-style: none;
-            padding-left: defaults.$padding-half;
-            font-weight: var(--body-font-weight-base);
+		ol {
+			list-style: none;
+			padding-left: defaults.$padding-half;
+			font-weight: var(--body-font-weight-base);
 
-            li {
-                margin: defaults.$padding-base;
-            }
-        }
+			li {
+				margin: defaults.$padding-base;
+			}
+		}
 
-        li.currentPage::marker {
-            content: "➤ ";
-            color: var(--link-color);
-        }
+		li.currentPage::marker {
+			content: "➤ ";
+			color: var(--link-color);
+		}
 
-        li ol {
-            color: var(--font-color);
+		li ol {
+			color: var(--font-color);
 
-            a, a:visited {
-                color: var(--font-color);
-            }
-        }
-    }
+			a, a:visited {
+				color: var(--font-color);
+			}
+		}
+	}
 }
 
 nav.pageNavigation {
-    // we think we want this but we don't
-    //   it makes the width of the element stay the same,
-    //   so we end up with a bunch of extra space when
-    //   it breaks.
-    // https://developer.chrome.com/docs/css-ui/css-text-wrap-balance#balancing_won%E2%80%99t_change_the_inline-size_of_the_element
-    // text-wrap: balance;
+	// we think we want this but we don't
+	//   it makes the width of the element stay the same,
+	//   so we end up with a bunch of extra space when
+	//   it breaks.
+	// https://developer.chrome.com/docs/css-ui/css-text-wrap-balance#balancing_won%E2%80%99t_change_the_inline-size_of_the_element
+	// text-wrap: balance;
 
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 
-    .navigationArrow {
-        font-size: defaults.$font-size-x-large;
-        font-weight: bold;
-        line-height: 0px;
-    }
-    section.navigationPrevious,
-    section.navigationNext {
-        padding: defaults.$padding-half;
-        line-height: 30px;
-    }
+	.navigationArrow {
+		font-size: defaults.$font-size-x-large;
+		font-weight: bold;
+		line-height: 0px;
+	}
+	section.navigationPrevious,
+	section.navigationNext {
+		padding: defaults.$padding-half;
+		line-height: 30px;
+	}
 
-    section.navigationPrevious {
-        border-right: 1px solid var(--background-color-offset);
-        text-align: right;
+	section.navigationPrevious {
+		border-right: 1px solid var(--background-color-offset);
+		text-align: right;
 
-        .navigationArrow::after {
-            content: " "; // non-breaking space
-        }
-    }
-    section.navigationNext {
-        text-align: left;
+		.navigationArrow::after {
+			content: " "; // non-breaking space
+		}
+	}
+	section.navigationNext {
+		text-align: left;
 
-        .navigationArrow::before {
-            content: " "; // non-breaking space
-        }
-    }
+		.navigationArrow::before {
+			content: " "; // non-breaking space
+		}
+	}
 
-    .homePageReturn, .previousSectionName, .nextSectionName {
-        font-weight: var(--body-font-weight-bold);
-    }
+	.homePageReturn, .previousSectionName, .nextSectionName {
+		font-weight: var(--body-font-weight-bold);
+	}
 }
 
 ol.sectionPages {
-    list-style: circle;
+	list-style: circle;
 }

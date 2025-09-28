@@ -1,0 +1,37 @@
+{{ set next = nav.nextPage(url, "!no_nav=true") }}
+{{ set prev = nav.previousPage(url, "!no_nav=true") }}
+{{ if prev && prev.url == "/" }}
+	{{ set prev = undefined }}
+{{ /if }}
+{{ if sitedata.skipSectionIndexesInPageNav }}
+	{{ if prev && prev.layout === "sectionIndex.vto" }}
+		{{ set prev = nav.previousPage(prev.url, "!no_nav=true") }}
+		{{ if prev && prev.url !== "/" }}
+			{{ set prevPrefix }}<span class="previousSectionName">{{ nav.breadcrumb(prev.url).reverse()[1].data.title }}: </span>{{ /set }}
+		{{ else }}
+			{{ set prev = undefined }}
+		{{ /if }}
+	{{ /if }}
+	{{ if next && next.layout === "sectionIndex.vto" }}
+		{{ set nextPrefix }}<span class="nextSectionName">{{ next.title }}: </span>{{ /set }}
+		{{ set next = nav.nextPage(next.url, "!no_nav=true") }}
+	{{ /if }}
+{{ /if }} {{# sitedata.skipSectionIndexesInPageNav #}}
+
+
+<nav class="pageNavigation">
+	<section class="navigationPrevious">
+		{{ if prev }}
+			<a rel="prev" href="{{ prev.url }}"><span class="navigationArrow">←</span>{{ prevPrefix }}{{ prev.title }}</a>
+		{{ else }}
+			<a href="/"><span class="homePageReturn"><span class="navigationArrow">↑</span>(Homepage)</span></a>
+		{{ /if }} {{# prev #}}
+	</section>
+	<section class="navigationNext">
+		{{ if next}}
+			<a rel="next" href="{{ next.url }}">{{ nextPrefix }}{{ next.title }}<span class="navigationArrow">→</span></a>
+		{{ else }}
+			<a href="/"><span class="homePageReturn">(Homepage)<span class="navigationArrow">↑</span></span></a>
+		{{ /if }} {{# next #}}
+	</section>
+</nav>

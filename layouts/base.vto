@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	{{ include "_themeSelectorHeadInject.vto" }}
+	{{ include "_htmlHead.vto" }}
+	{{ headInject }}
+</head>
+<body>
+	<input type="checkbox" name="tableOfContentsToggle" id="tableOfContentsToggle">
+		<nav class="tableOfContents">
+		<header class="siteBranding">
+			<a href="/">
+				{{ if sitedata.siteIcon }}
+				<img src="{{sitedata.siteIcon}}" alt="Icon for _{{ sitedata.title }}_">
+				{{ /if }}
+				<span class="siteTitle">{{sitedata.title}}</span>
+			</a>
+		</header>
+		{{ include "_tableOfContents.vto" }}
+	</nav>
+	<main>
+		<label for="tableOfContentsToggle">
+			<span class="tableOfContentsToggle">
+				<span class="tableOfContentsToggleOff">
+					<img src="/img/toc-toggle-off.svg" inline />
+				</span>
+				<span class="tableOfContentsToggleOn">
+					<img src="/img/toc-toggle-on.svg" inline />
+				</span>
+			</span>
+		</label>
+		<header>
+			{{ include "_themeSelector.vto" }}
+			<aside class="notice print-only" aria-hidden="true">
+				If you’re printing this out, you might prefer the
+				PDF version available from this same site. It’s
+				formatted much more nicely for the printed page.
+				But I’m not going to stop you printing this!
+				You do you.
+				<span class="link">
+					<a href="{{ sitedata.url }}/full">{{ sitedata.url }}/full</a>
+				</span>
+			</aside>
+			{{ mainHeader }}
+		</header>
+		{{ main }}
+		<footer>
+			{{ mainFooter }}
+			<section class="licenseInformation">
+				<a class="licenseImgLink" rel="license" href="{{ sitedata.licenseHumanUrl }}">
+					<img alt="{{ sitedata.licenseName }}" src="{{ sitedata.licenseImg }}" />
+				</a>
+				<p class="licenseDescription">
+					This work is licensed under a <a rel="license" href="{{ sitedata.licenseHumanUrl }}">{{ sitedata.licenseName }}</a>.
+				</p>
+			</section>
+		</footer>
+	</main>
+	{{ endOfBody }}
+	{{ include "_themeSelectorBodyScript.vto" }}
+	<script>
+		const toggleCheck = document.getElementById("tableOfContentsToggle");
+		const mainElement = document.querySelector("body > main");
+
+		if (mainElement) {
+			const overlay = document.createElement("div");
+			overlay.id = "tocMainOverlay";
+
+			overlay.onclick = (ev) => {
+				toggleCheck.checked = false;
+			}
+
+			mainElement.insertBefore(overlay, mainElement.firstChild);
+		}
+	</script>
+	<script src="/js/littlefoot.js"></script>
+	<script>
+		littlefoot.littlefoot()
+	</script>
+</body>
+</html>

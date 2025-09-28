@@ -1,38 +1,38 @@
-@use "_defaults";
+@use "defaults";
 
 .print-only {
-    display: none;
+	display: none;
 }
 
 .notice.print-only {
-  margin-bottom: defaults.$padding-base;
-  max-width: 550px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: defaults.$padding-base;
-  border: 1px solid defaults.$black;
+	margin-bottom: defaults.$padding-base;
+	max-width: 550px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: defaults.$padding-base;
+	border: 1px solid defaults.$black;
 
-  .link {
-    display: block;
-    margin: defaults.$padding-base auto 0 auto;
-    text-align: center;
-  }
+	.link {
+		display: block;
+		margin: defaults.$padding-base auto 0 auto;
+		text-align: center;
+	}
 }
 
 @media print {
-  .print-only {
-    display: block;
-  }
+	.print-only {
+		display: block;
+	}
 
-  nav.pageNavigation {
-    display: none;
-  }
+	nav.pageNavigation {
+		display: none;
+	}
 
-  nav.tableOfContents {
-    display: none;
-  }
+	nav.tableOfContents {
+		display: none;
+	}
 
-  main {
-    display: block;
-  }
+	main {
+		display: block;
+	}
 }

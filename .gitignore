@@ -1,11 +1,7 @@
 /_site
-/css/out
-/pubs/pdf/srcs/main.tex
-/pubs/pdf/srcs/prelims.tex
-/static/downloads/*
+/_cache
 /tmp
 
-/.vscode
-/node_modules
+/static/downloads/*
 
-/lorem
+/.vscode

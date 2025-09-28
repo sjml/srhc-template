@@ -1,0 +1,33 @@
+{{ layout "base.vto" }}
+
+	{{ slot headInject }}
+		{{ if redirect }}
+			<meta http-equiv="refresh" content="0; url={{ redirect }}">
+		{{ /if }} {{# redirect #}}
+	{{ /slot }} {{# headInject #}}
+
+	{{ slot mainHeader }}
+		{{ if !no_nav }}
+			{{ include "_pageNav.vto" }}
+		{{ /if }}
+	{{ /slot }} {{# mainHeader #}}
+
+	{{ slot main }}
+		<article>
+			{{ if title }}
+				<header>
+					<h1>{{ title }}</h1>
+				</header>
+			{{ /if }}
+
+			{{ content }}
+
+			<ol class="sectionPages">
+			{{ for subPage of nav.menu(url).children }}
+				<li><a href="{{ subPage.data.url }}">{{ subPage.data.title }}</a></li>
+			{{ /for }}
+			</ol>
+		</article>
+	{{ /slot }} {{# main #}}
+
+{{ /layout }} {{# base.vto #}}

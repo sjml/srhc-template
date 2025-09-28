@@ -1,23 +1,23 @@
-@use "_defaults";
+@use "defaults";
 
 // just for testing; not included in build by default because
 //   putting display information into classes is gross
 
 span.xx-small {
-    font-size: defaults.$font-size-xx-small;
+	font-size: defaults.$font-size-xx-small;
 }
 span.x-small {
-    font-size: defaults.$font-size-x-small;
+	font-size: defaults.$font-size-x-small;
 }
 span.small {
-    font-size: defaults.$font-size-small;
+	font-size: defaults.$font-size-small;
 }
 span.large {
-    font-size: defaults.$font-size-large;
+	font-size: defaults.$font-size-large;
 }
 span.x-large {
-    font-size: defaults.$font-size-x-large;
+	font-size: defaults.$font-size-x-large;
 }
 span.xx-large {
-    font-size: defaults.$font-size-xx-large;
+	font-size: defaults.$font-size-xx-large;
 }

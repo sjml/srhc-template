@@ -1,0 +1,28 @@
+---
+no_nav: true
+layout: false
+full_md: true
+---
+# {{ sitedata.title }}
+by [{{sitedata.authorName}}]({{sitedata.authorUrl}})
+
+![_{{sitedata.title}}_ cover image]({{sitedata.url}}/img/cover.svg){.cover}
+
+----
+
+## License Information
+
+{{ include "../../resources/licensing/licensing_page.md" }}
+----
+{{ for section of nav.menu("/", "!no_nav=true").children }}
+
+
+## {{section.data.title}}
+
+{{ for subPage of section.children }}
+### {{ subPage.data.title }}
+{{ set fpath }}{{ subPage.data.page.src.path }}{{ subPage.data.page.src.ext }}{{/set-}}
+{{ set contents }}{{ include `../../${fpath}` }}{{/set-}}
+{{ contents |> pandoc({pandocArgs: ["--to", "markdown", "--shift-heading-level-by", "2", "--id-prefix", subPage.data.basename]}) }}
+{{/for}}
+{{/for}}

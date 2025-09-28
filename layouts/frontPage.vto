@@ -1,0 +1,19 @@
+{{ layout "base.vto" }}
+
+	{{ slot main }}
+		<article>
+			{{ if sitedata.title }}
+				<header>
+					<h1>{{ sitedata.title }}</h1>
+					{{ if (sitedata.authorName) && (sitedata.authorUrl) }}
+						by <a href="{{ sitedata.authorUrl }}" rel="author">{{sitedata.authorName}}</a>
+					{{ else if sitedata.authorName }}
+						by {{sitedata.authorName}}
+					{{ /if }} {{# sitedata.title #}}
+				</header>
+			{{ /if }} {{# sitedata.title #}}
+			{{ content }}
+		</article>
+	{{ /slot }} {{# main #}}
+
+{{ /layout }} {{# base.vto #}}

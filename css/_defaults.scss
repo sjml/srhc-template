@@ -1,0 +1,98 @@
+@use "config";
+
+$font-family-body: "Alegreya", "Times New Roman", Times, serif !default;
+$font-family-code: "Cascadia Mono", "Courier Prime", "Courier New", "Courier", monospace !default;
+
+$font-size-base: 20px !default;
+$font-size-xx-small: 0.55rem  !default;
+$font-size-x-small:  0.7rem   !default;
+$font-size-small:    0.875rem !default;
+$font-size-large:    1.3rem   !default;
+$font-size-x-large:  1.6rem   !default;
+$font-size-xx-large: 2.0rem   !default;
+
+$padding-base: 1rem !default;
+$padding-eighth:     $padding-base * 0.125 !default;
+$padding-quarter:    $padding-base * 0.25  !default;
+$padding-half:       $padding-base * 0.5   !default;
+$padding-double:     $padding-base * 2.0   !default;
+$padding-triple:     $padding-base * 3.0   !default;
+$padding-quadruple:  $padding-base * 4.0   !default;
+
+$border-radius: 0.5rem !default;
+
+$white:    #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000000 !default;
+
+$color-link-light: #05b !default;
+$color-visited-link-light: $color-link-light !default;
+
+$color-link-dark: #b0d4ff !default;
+$color-visited-link-dark: $color-link-dark !default;
+
+$body-background-light: $white !default;
+$body-background-light-offset: $gray-300 !default;
+$body-font-color-light: $gray-800 !default;
+$code-background-color-light: $gray-200 !default;
+$pre-background-color-light: $gray-100 !default;
+$shadow-color-light: $gray-600 !default;
+$svg-inversion-light: 20% !default;
+
+$body-background-dark: $gray-800 !default;
+$body-background-dark-offset: $gray-600 !default;
+$body-font-color-dark: $gray-100 !default;
+$code-background-color-dark: $gray-700 !default;
+$pre-background-color-dark: $gray-700 !default;
+$shadow-color-dark: $gray-900 !default;
+$svg-inversion-dark: 92% !default;
+
+$transition-theme-timing: 500ms !default;
+$transition-responsive-timing: 250ms !default;
+
+$color-scheme-light: light !default;
+$color-scheme-dark: dark !default;
+
+$body-min-width: 14rem !default;
+$body-max-width: 60rem !default;
+
+$menu-width: 16rem !default;
+$tiny-menu-width: 12rem !default;
+
+$sm-breakpoint: $menu-width + $body-min-width * 1.75 !default;
+$md-breakpoint: $menu-width + $body-min-width * 2.5  !default;
+
+
+@if config.$buildingForKindle {
+	$font-family-body: initial;
+	$font-family-code: initial;
+
+	$font-size-base: 1em;
+	$font-size-xx-small: xx-small;
+	$font-size-x-small:  x-small;
+	$font-size-small:    small;
+	$font-size-large:    large;
+	$font-size-x-large:  x-large;
+	$font-size-xx-large: xx-large;
+
+	$color-link-light: initial;
+	$color-visited-link-light: initial;
+
+	$color-link-dark: initial;
+	$color-visited-link-dark: initial;
+
+	$body-background-light: $white;
+	$body-background-light-offset: $gray-300;
+	$body-font-color-light: $black;
+	$code-background-color-light: none;
+	$pre-background-color-light: none;
+	$svg-inversion-light: none;
+}

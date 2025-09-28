@@ -1,0 +1,29 @@
+{{ set specialMenuItems = search.pages("in_menu") }}
+{{ if specialMenuItems.length > 0 }}
+	<ol class="specialMenu">
+		{{ for mi of specialMenuItems }}
+			{{ set miClasses = "specialMenuItem" }}
+			{{ if mi.url == page.data.url }}
+				{{ set miClasses = "currentPage specialMenuItem" }}
+			{{ /if }}
+			<li class="{{miClasses}}"{{ if mi.url == page.data.url }} aria-current="page"{{/if}}>
+				<a href="{{ mi.url }}">{{mi.title}}</a>
+			</li>
+		{{ /for }}
+	</ol>
+{{ /if }}
+
+<ol class="menuList">
+	{{ for section of nav.menu("/", "!no_nav=true").children }}
+		<li>
+			{{ section.data.title }}
+			<ol>
+				{{ for subPage of section.children }}
+					<li {{ if url === subPage.data.url }}class="currentPage" aria-current="page"{{/if}}>
+						<a href="{{ subPage.data.url }}">{{ subPage.data.title }}</a>
+					</li>
+				{{ /for }}
+			</ol>
+		</li>
+	{{ /for }}
+</ol>

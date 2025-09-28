@@ -11,14 +11,14 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install librsvg2-bin imagemagick ghostscript calibre
+        sudo apt-get install librsvg2-bin imagemagick ghostscript calibre deno dprint
     - uses: pandoc/actions/setup@main
       name: Install Pandoc (latest)
     - name: Set Tool Path
       run: |
         mkdir -p $HOME/.local/bin
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Install Tectonic and EPUBCheck
+    - name: Install Tectonic (latest) and EPUBCheck (latest)
       run: |
         TECTONIC_VERSION=$(gh release list --repo tectonic-typesetting/tectonic --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | sed -nr 's/.*@(.*)/\1/p')
         wget https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-gnu.tar.gz
@@ -37,10 +37,10 @@ jobs:
       name: Checkout Source Code
     - name: Setup Project
       run: |
-        npm install
+        deno install
     - name: Build Site and Books
       run: |
-        npm run builddist
+        ./src/buildFullDist.sh
       env:
         ELEVENTY_PREFIX_PATH: projects/srhc-template
     - name: Get Short Git Rev

@@ -1,321 +1,321 @@
-// This file was generated from src/generateCodeHighlightingStyles.js.
+// This file was generated from src/generateCodeHighlightingStyles.ts.
 // Don't edit directly!
 
 @mixin code-webLight {
-  code {
-    /* Alert */
-    span.al {
-      color: #177500;
-      font-weight: bold;
-      font-style: italic;
-    }
+	code {
+		/* Alert */
+		span.al {
+			color: #177500;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Annotation */
-    span.an {
-      color: #177500;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* Annotation */
+		span.an {
+			color: #177500;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Attribute */
-    span.at {
-      color: #880073;
-    }
+		/* Attribute */
+		span.at {
+			color: #880073;
+		}
 
-    /* BaseN */
-    span.bn {
-      color: #1c01ce;
-    }
+		/* BaseN */
+		span.bn {
+			color: #1c01ce;
+		}
 
-    /* BuiltIn */
-    span.bu {
-      color: #880073;
-      font-weight: bold;
-    }
+		/* BuiltIn */
+		span.bu {
+			color: #880073;
+			font-weight: bold;
+		}
 
-    /* Char */
-    span.ch {
-      color: #c41a16;
-    }
+		/* Char */
+		span.ch {
+			color: #c41a16;
+		}
 
-    /* Comment */
-    span.co {
-      color: #177500;
-      font-style: italic;
-    }
+		/* Comment */
+		span.co {
+			color: #177500;
+			font-style: italic;
+		}
 
-    /* CommentVar */
-    span.cv {
-      color: #177500;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* CommentVar */
+		span.cv {
+			color: #177500;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Constant */
-    span.cn {
-      color: #000000;
-    }
+		/* Constant */
+		span.cn {
+			color: #000000;
+		}
 
-    /* ControlFlow */
-    span.cf {
-      color: #880073;
-      font-weight: bold;
-    }
+		/* ControlFlow */
+		span.cf {
+			color: #880073;
+			font-weight: bold;
+		}
 
-    /* DataType */
-    span.dt {
-      color: #880073;
-    }
+		/* DataType */
+		span.dt {
+			color: #880073;
+		}
 
-    /* DecVal */
-    span.dv {
-      color: #1c01ce;
-    }
+		/* DecVal */
+		span.dv {
+			color: #1c01ce;
+		}
 
-    /* Documentation */
-    span.do {
-      color: #177500;
-      font-style: italic;
-    }
+		/* Documentation */
+		span.do {
+			color: #177500;
+			font-style: italic;
+		}
 
-    /* Error */
-    span.er {
-      color: #000000;
-      background-color: #ff0000;
-      font-weight: bold;
-    }
+		/* Error */
+		span.er {
+			color: #000000;
+			background-color: #ff0000;
+			font-weight: bold;
+		}
 
-    /* Float */
-    span.fl {
-      color: #1c01ce;
-    }
+		/* Float */
+		span.fl {
+			color: #1c01ce;
+		}
 
-    /* Function */
-    span.fu {
-      color: #3f6e75;
-      font-weight: bold;
-    }
+		/* Function */
+		span.fu {
+			color: #3f6e75;
+			font-weight: bold;
+		}
 
-    /* Import */
-    span.im {
-      color: #880073;
-      font-weight: bold;
-    }
+		/* Import */
+		span.im {
+			color: #880073;
+			font-weight: bold;
+		}
 
-    /* Information */
-    span.in {
-      color: #177500;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* Information */
+		span.in {
+			color: #177500;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Keyword */
-    span.kw {
-      color: #880073;
-    }
+		/* Keyword */
+		span.kw {
+			color: #880073;
+		}
 
-    /* Operator */
-    span.op {
-      color: #000000;
-    }
+		/* Operator */
+		span.op {
+			color: #000000;
+		}
 
-    /* Preprocessor */
-    span.pp {
-      color: #633820;
-      font-style: italic;
-    }
+		/* Preprocessor */
+		span.pp {
+			color: #633820;
+			font-style: italic;
+		}
 
-    /* SpecialChar */
-    span.sc {
-      color: #c41a16;
-    }
+		/* SpecialChar */
+		span.sc {
+			color: #c41a16;
+		}
 
-    /* SpecialString */
-    span.ss {
-      color: #880073;
-    }
+		/* SpecialString */
+		span.ss {
+			color: #880073;
+		}
 
-    /* String */
-    span.st {
-      color: #c41a16;
-    }
+		/* String */
+		span.st {
+			color: #c41a16;
+		}
 
-    /* Variable */
-    span.va {
-      color: #000000;
-    }
+		/* Variable */
+		span.va {
+			color: #000000;
+		}
 
-    /* VerbatimString */
-    span.vs {
-      color: #c41a16;
-    }
+		/* VerbatimString */
+		span.vs {
+			color: #c41a16;
+		}
 
-    /* Warning */
-    span.wa {
-      color: #177500;
-      font-weight: bold;
-      font-style: italic;
-    }
-  }
+		/* Warning */
+		span.wa {
+			color: #177500;
+			font-weight: bold;
+			font-style: italic;
+		}
+	}
 }
 
 
 @mixin code-webDark {
-  code {
-    /* Alert */
-    span.al {
-      color: #caf2c0;
-      font-weight: bold;
-      font-style: italic;
-    }
+	code {
+		/* Alert */
+		span.al {
+			color: #caf2c0;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Annotation */
-    span.an {
-      color: #caf2c0;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* Annotation */
+		span.an {
+			color: #caf2c0;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Attribute */
-    span.at {
-      color: #fbc0f1;
-    }
+		/* Attribute */
+		span.at {
+			color: #fbc0f1;
+		}
 
-    /* BaseN */
-    span.bn {
-      color: #c3baff;
-    }
+		/* BaseN */
+		span.bn {
+			color: #c3baff;
+		}
 
-    /* BuiltIn */
-    span.bu {
-      color: #fbc0f1;
-      font-weight: bold;
-    }
+		/* BuiltIn */
+		span.bu {
+			color: #fbc0f1;
+			font-weight: bold;
+		}
 
-    /* Char */
-    span.ch {
-      color: #ffc1bf;
-    }
+		/* Char */
+		span.ch {
+			color: #ffc1bf;
+		}
 
-    /* Comment */
-    span.co {
-      color: #caf2c0;
-      font-style: italic;
-    }
+		/* Comment */
+		span.co {
+			color: #caf2c0;
+			font-style: italic;
+		}
 
-    /* CommentVar */
-    span.cv {
-      color: #caf2c0;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* CommentVar */
+		span.cv {
+			color: #caf2c0;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Constant */
-    span.cn {
-      color: #ffffff;
-    }
+		/* Constant */
+		span.cn {
+			color: #ffffff;
+		}
 
-    /* ControlFlow */
-    span.cf {
-      color: #fbc0f1;
-      font-weight: bold;
-    }
+		/* ControlFlow */
+		span.cf {
+			color: #fbc0f1;
+			font-weight: bold;
+		}
 
-    /* DataType */
-    span.dt {
-      color: #fbc0f1;
-    }
+		/* DataType */
+		span.dt {
+			color: #fbc0f1;
+		}
 
-    /* DecVal */
-    span.dv {
-      color: #c3baff;
-    }
+		/* DecVal */
+		span.dv {
+			color: #c3baff;
+		}
 
-    /* Documentation */
-    span.do {
-      color: #caf2c0;
-      font-style: italic;
-    }
+		/* Documentation */
+		span.do {
+			color: #caf2c0;
+			font-style: italic;
+		}
 
-    /* Error */
-    span.er {
-      color: #ffffff;
-      background-color: #ff0000;
-      font-weight: bold;
-    }
+		/* Error */
+		span.er {
+			color: #ffffff;
+			background-color: #ff0000;
+			font-weight: bold;
+		}
 
-    /* Float */
-    span.fl {
-      color: #c3baff;
-    }
+		/* Float */
+		span.fl {
+			color: #c3baff;
+		}
 
-    /* Function */
-    span.fu {
-      color: #9af2ff;
-      font-weight: bold;
-    }
+		/* Function */
+		span.fu {
+			color: #9af2ff;
+			font-weight: bold;
+		}
 
-    /* Import */
-    span.im {
-      color: #fbc0f1;
-      font-weight: bold;
-    }
+		/* Import */
+		span.im {
+			color: #fbc0f1;
+			font-weight: bold;
+		}
 
-    /* Information */
-    span.in {
-      color: #caf2c0;
-      font-weight: bold;
-      font-style: italic;
-    }
+		/* Information */
+		span.in {
+			color: #caf2c0;
+			font-weight: bold;
+			font-style: italic;
+		}
 
-    /* Keyword */
-    span.kw {
-      color: #fbc0f1;
-    }
+		/* Keyword */
+		span.kw {
+			color: #fbc0f1;
+		}
 
-    /* Operator */
-    span.op {
-      color: #ffffff;
-    }
+		/* Operator */
+		span.op {
+			color: #ffffff;
+		}
 
-    /* Preprocessor */
-    span.pp {
-      color: #633820;
-      font-style: italic;
-    }
+		/* Preprocessor */
+		span.pp {
+			color: #633820;
+			font-style: italic;
+		}
 
-    /* SpecialChar */
-    span.sc {
-      color: #ffc1bf;
-    }
+		/* SpecialChar */
+		span.sc {
+			color: #ffc1bf;
+		}
 
-    /* SpecialString */
-    span.ss {
-      color: #fbc0f1;
-    }
+		/* SpecialString */
+		span.ss {
+			color: #fbc0f1;
+		}
 
-    /* String */
-    span.st {
-      color: #ffc1bf;
-    }
+		/* String */
+		span.st {
+			color: #ffc1bf;
+		}
 
-    /* Variable */
-    span.va {
-      color: #ffffff;
-    }
+		/* Variable */
+		span.va {
+			color: #ffffff;
+		}
 
-    /* VerbatimString */
-    span.vs {
-      color: #ffc1bf;
-    }
+		/* VerbatimString */
+		span.vs {
+			color: #ffc1bf;
+		}
 
-    /* Warning */
-    span.wa {
-      color: #caf2c0;
-      font-weight: bold;
-      font-style: italic;
-    }
-  }
+		/* Warning */
+		span.wa {
+			color: #caf2c0;
+			font-weight: bold;
+			font-style: italic;
+		}
+	}
 }
 
-// End of src/generateCodeHighlightingStyles.js generation.
+// End of src/generateCodeHighlightingStyles.ts generation.

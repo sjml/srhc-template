@@ -1,0 +1,42 @@
+{{ layout "base.vto" }}
+
+	{{ slot mainHeader }}
+		{{ if !no_nav }}
+			{{ include "_pageNav.vto" }}
+		{{ /if }}
+	{{ /slot }} {{# mainHeader #}}
+
+	{{ slot mainFooter }}
+		{{ if !no_nav }}
+			{{ include "_pageNav.vto" }}
+		{{ /if }}
+	{{ /slot }} {{# mainFooter #}}
+
+	{{ slot endOfBody }}
+		<script>
+			const myEntry = document.querySelector("nav.tableOfContents .menuList li.currentPage");
+			if (myEntry) {
+				const parent = myEntry.offsetParent;
+				const parentBounding = parent.getBoundingClientRect();
+				const clientBounding = myEntry.getBoundingClientRect();
+				parent.scrollTo({
+					behavior: "instant",
+					top: clientBounding.bottom - parentBounding.bottom + (parentBounding.height / 2)
+				});
+			}
+		</script>
+	{{ /slot }} {{# endOfBody #}}
+
+	{{ slot main }}
+		<article>
+			{{ if title }}
+				<header>
+					<h1>{{ title }}</h1>
+				</header>
+			{{ /if }}
+
+			{{ content }}
+		</article>
+	{{ /slot }} {{# main #}}
+
+{{ /layout }} {{# base.vto #}}

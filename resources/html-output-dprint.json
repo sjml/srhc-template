@@ -1,0 +1,13 @@
+{
+	"includes": [
+		"**/*.html"
+	],
+	"useTabs": true,
+	"markup": {
+		"scriptIndent": true
+	},
+	"plugins": [
+		"https://plugins.dprint.dev/g-plane/markup_fmt-v0.24.0.wasm",
+		"https://plugins.dprint.dev/typescript-0.95.11.wasm"
+	]
+}

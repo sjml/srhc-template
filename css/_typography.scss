@@ -1,264 +1,264 @@
-@use "_config";
-@use "_defaults";
+@use "config";
+@use "defaults";
 @use "utils";
 
 :root {
-    font-size: defaults.$font-size-base;
+		font-size: defaults.$font-size-base;
 }
 
 body {
-    font-family: defaults.$font-family-body;
-    font-variant-ligatures: common-ligatures;
-    font-feature-settings: "liga", "clig";
+		font-family: defaults.$font-family-body;
+		font-variant-ligatures: common-ligatures;
+		font-feature-settings: "liga", "clig";
 
-    font-weight: var(--body-font-weight-base);
-    @if not config.$buildingForKindle {
-        letter-spacing: 0.4px;
-        text-rendering: optimizeLegibility;
-    }
+		font-weight: var(--body-font-weight-base);
+		@if not config.$buildingForKindle {
+				letter-spacing: 0.4px;
+				text-rendering: optimizeLegibility;
+		}
 }
 
 strong {
-    font-weight: var(--body-font-weight-bold);
+		font-weight: var(--body-font-weight-bold);
 }
 
 @if not config.$buildingForKindle {
-    :lang(he) {
-        font-family: "David Libre", sans-serif;
-    }
-    :lang(la) {
-        font-style: italic;
-    }
+		:lang(he) {
+				font-family: "David Libre", sans-serif;
+		}
+		:lang(la) {
+				font-style: italic;
+		}
 }
 
 code {
-    font-family: defaults.$font-family-code;
-    font-variant-ligatures: none;
-    font-feature-settings: normal;
-    font-weight: var(--code-font-weight-base);
+		font-family: defaults.$font-family-code;
+		font-variant-ligatures: none;
+		font-feature-settings: normal;
+		font-weight: var(--code-font-weight-base);
 }
 
 a, a:visited {
-    text-decoration-style: dotted;
-    color: var(--link-color);
+		text-decoration-style: dotted;
+		color: var(--link-color);
 }
 
 h1 {
-    font-size: defaults.$font-size-xx-large;
-    font-weight: var(--body-font-weight-black);
-    font-feature-settings: "smcp" on;
+		font-size: defaults.$font-size-xx-large;
+		font-weight: var(--body-font-weight-black);
+		font-feature-settings: "smcp" on;
 }
 
 .footnote-ref {
-    font-weight: bold;
+		font-weight: bold;
 }
 
 article {
-  line-height: 1.6;
+	line-height: 1.6;
 
-  h1, h2, h3, h4, h5, h6 {
-    line-height: 1.0;
-    margin-top: defaults.$padding-double;
-    margin-bottom: defaults.$padding-base;
+	h1, h2, h3, h4, h5, h6 {
+		line-height: 1.0;
+		margin-top: defaults.$padding-double;
+		margin-bottom: defaults.$padding-base;
 
-    a.header-anchor {
-        margin-left: defaults.$padding-quarter;
+		a.header-anchor {
+				margin-left: defaults.$padding-quarter;
 
-        opacity: 0;
-        pointer-events: none;
-        text-decoration: none;
-        color: var(--background-color-offset);
+				opacity: 0;
+				pointer-events: none;
+				text-decoration: none;
+				color: var(--background-color-offset);
 
-        transition-property: opacity;
-        transition-duration: defaults.$transition-responsive-timing;
-        @include utils.transition-accessibility;
-    }
+				transition-property: opacity;
+				transition-duration: defaults.$transition-responsive-timing;
+				@include utils.transition-accessibility;
+		}
 
-    &:hover a.header-anchor {
-        opacity: 1;
-        pointer-events: all;
-    }
-  }
+		&:hover a.header-anchor {
+				opacity: 1;
+				pointer-events: all;
+		}
+	}
 
-  h2 {
-    font-size: defaults.$font-size-x-large;
-    font-weight: var(--body-font-weight-bold);
-  }
+	h2 {
+		font-size: defaults.$font-size-x-large;
+		font-weight: var(--body-font-weight-bold);
+	}
 
-  h3 {
-    font-size: defaults.$font-size-large;
-    font-weight: var(--body-font-weight-bold);
-  }
+	h3 {
+		font-size: defaults.$font-size-large;
+		font-weight: var(--body-font-weight-bold);
+	}
 
-  h4 {
-    font-weight: var(--body-font-weight-bold);
-  }
+	h4 {
+		font-weight: var(--body-font-weight-bold);
+	}
 
-  h5 {
-    font-size: defaults.$font-size-base;
-    font-weight: var(--body-font-weight-base);
-    text-decoration: underline;
-  }
+	h5 {
+		font-size: defaults.$font-size-base;
+		font-weight: var(--body-font-weight-base);
+		text-decoration: underline;
+	}
 
-  h6 {
-    font-size: defaults.$font-size-base;
-    font-weight: var(--body-font-weight-base);
-    font-style: italic;
-  }
+	h6 {
+		font-size: defaults.$font-size-base;
+		font-weight: var(--body-font-weight-base);
+		font-style: italic;
+	}
 
-  h4, h5, h6 {
-    margin-bottom: defaults.$padding-half;
-    + p {
-      margin-top: 0;
-    }
-  }
+	h4, h5, h6 {
+		margin-bottom: defaults.$padding-half;
+		+ p {
+			margin-top: 0;
+		}
+	}
 
-  a:hover {
-    text-decoration-style: solid;
-  }
+	a:hover {
+		text-decoration-style: solid;
+	}
 
-  code {
-    padding: defaults.$padding-eighth defaults.$padding-half;
-    background-color: var(--code-background-color);
-    border-radius: defaults.$border-radius;
-    font-size: defaults.$font-size-small;
+	code {
+		padding: defaults.$padding-eighth defaults.$padding-half;
+		background-color: var(--code-background-color);
+		border-radius: defaults.$border-radius;
+		font-size: defaults.$font-size-small;
 
-    transition-duration: defaults.$transition-theme-timing;
-    transition-property: background-color;
-    @include utils.transition-accessibility;
-  }
+		transition-duration: defaults.$transition-theme-timing;
+		transition-property: background-color;
+		@include utils.transition-accessibility;
+	}
 
-  pre {
-    background-color: var(--pre-background-color);
-    padding: defaults.$padding-base;
-    border-radius: defaults.$border-radius;
-    overflow-x: auto;;
-    line-height: 1.15;
-    white-space: pre-wrap;
+	pre {
+		background-color: var(--pre-background-color);
+		padding: defaults.$padding-base;
+		border-radius: defaults.$border-radius;
+		overflow-x: auto;;
+		line-height: 1.15;
+		white-space: pre-wrap;
 
-    transition-duration: defaults.$transition-theme-timing;
-    transition-property: background-color;
-    @include utils.transition-accessibility;
+		transition-duration: defaults.$transition-theme-timing;
+		transition-property: background-color;
+		@include utils.transition-accessibility;
 
-    code {
-        padding: 0;
-        background-color: transparent;
-    }
-  }
+		code {
+				padding: 0;
+				background-color: transparent;
+		}
+	}
 
-  blockquote {
-    margin: defaults.$padding-base defaults.$padding-double;
+	blockquote {
+		margin: defaults.$padding-base defaults.$padding-double;
 
-    padding: defaults.$padding-half defaults.$padding-base;
-    border-left: defaults.$padding-quarter solid var(--background-color-offset);
-    border-radius: defaults.$border-radius;
+		padding: defaults.$padding-half defaults.$padding-base;
+		border-left: defaults.$padding-quarter solid var(--background-color-offset);
+		border-radius: defaults.$border-radius;
 
-    transition-duration: defaults.$transition-theme-timing;
-    transition-property: border-left;
-    @include utils.transition-accessibility;
+		transition-duration: defaults.$transition-theme-timing;
+		transition-property: border-left;
+		@include utils.transition-accessibility;
 
-    :first-child {
-        margin-top: 0;
-    }
-    :last-child {
-        margin-bottom: 0;
-    }
+		:first-child {
+				margin-top: 0;
+		}
+		:last-child {
+				margin-bottom: 0;
+		}
 
-    .quote-attribution {
-        display: block;
+		.quote-attribution {
+				display: block;
 
-        text-align: right;
-    }
-  }
+				text-align: right;
+		}
+	}
 
-  ul, ol {
-    padding-left: defaults.$padding-quadruple;
-  }
+	ul, ol {
+		padding-left: defaults.$padding-quadruple;
+	}
 
-  section#footnotes {
-    ol {
-        padding-left: defaults.$padding-double;
-    }
-  }
+	section#footnotes {
+		ol {
+				padding-left: defaults.$padding-double;
+		}
+	}
 }
 
 @if config.$buildingForWeb {
-    .littlefoot {
-        --popover-font-family: #{defaults.$font-family-body};
-        --popover-font-size: #{defaults.$font-size-small};
+	.littlefoot {
+		--popover-font-family: #{defaults.$font-family-body};
+		--popover-font-size: #{defaults.$font-size-small};
 
-        code {
-            font-size: defaults.$font-size-x-small;
-        }
-    }
+		code {
+			font-size: defaults.$font-size-x-small;
+		}
+	}
 
-    .littlefoot__button {
-        transform: translateY(-(defaults.$padding-eighth));
-    }
+	.littlefoot__button {
+		transform: translateY(-(defaults.$padding-eighth));
+	}
 }
 
 nav {
-    a, a:hover {
-        text-decoration: none;
-    }
+	a, a:hover {
+		text-decoration: none;
+	}
 }
 
 table {
-    margin-left: auto;
-    margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 
-    border-top: 2px solid var(--font-color);
-    border-bottom: 2px solid var(--font-color);
-    border-collapse: collapse;
-    line-height: 1.2;
+	border-top: 2px solid var(--font-color);
+	border-bottom: 2px solid var(--font-color);
+	border-collapse: collapse;
+	line-height: 1.2;
 
-    caption {
-        margin-bottom: defaults.$padding-quarter;
-    }
+	caption {
+		margin-bottom: defaults.$padding-quarter;
+	}
 
-    th, td {
-        padding: 0 defaults.$padding-base;
-    }
-    th:nth-child(1), td:nth-child(1) {
-        padding-left: 0;
-    }
-    th:nth-last-child(1), td:nth-last-child(1) {
-        padding-right: 0;
-    }
+	th, td {
+		padding: 0 defaults.$padding-base;
+	}
+	th:nth-child(1), td:nth-child(1) {
+		padding-left: 0;
+	}
+	th:nth-last-child(1), td:nth-last-child(1) {
+		padding-right: 0;
+	}
 
-    th {
-        padding-top: defaults.$padding-quarter;
-        padding-bottom: defaults.$padding-quarter;
-        border-bottom: .75px solid var(--font-color);
+	th {
+		padding-top: defaults.$padding-quarter;
+		padding-bottom: defaults.$padding-quarter;
+		border-bottom: .75px solid var(--font-color);
 
-        font-weight: inherit; /* turn off default bolding by most clients */
-    }
-    tbody > tr:nth-child(1) > td {
-        padding-top: defaults.$padding-quarter;
-    }
-    tbody > tr:nth-last-child(1) > td {
-        padding-bottom: defaults.$padding-quarter;
-    }
+		font-weight: inherit; /* turn off default bolding by most clients */
+	}
+	tbody > tr:nth-child(1) > td {
+		padding-top: defaults.$padding-quarter;
+	}
+	tbody > tr:nth-last-child(1) > td {
+		padding-bottom: defaults.$padding-quarter;
+	}
 
-    &, * {
-        transition-property: border-color;
-        transition-duration: 500ms;
-        @include utils.transition-accessibility;
-    }
+	&, * {
+		transition-property: border-color;
+		transition-duration: 500ms;
+		@include utils.transition-accessibility;
+	}
 }
 
 table + table {
-    margin-top: defaults.$padding-double;
+	margin-top: defaults.$padding-double;
 }
 
 @media screen and (max-width: defaults.$md-breakpoint) {
-    table {
-        font-size: defaults.$font-size-small;
-    }
+	table {
+		font-size: defaults.$font-size-small;
+	}
 }
 
 @media screen and (max-width: defaults.$sm-breakpoint) {
-    table {
-        font-size: defaults.$font-size-x-small;
-    }
+	table {
+		font-size: defaults.$font-size-x-small;
+	}
 }

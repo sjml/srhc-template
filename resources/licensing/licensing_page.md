@@ -2,7 +2,7 @@
 title: License Information
 ---
 
-©2024 by [Lorem Ipsum](https://example.com).
+©2025 by [Lorem Ipsum](https://example.com).
 
 ![Logo for the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](/img/by-nc-sa.svg)
 

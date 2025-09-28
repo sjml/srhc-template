@@ -429,7 +429,7 @@
 				<keyword attribute="Flow Control Keyword" String="flow" context="#stay"/>
 				<keyword attribute="Operator Keyword" String="operators" context="#stay"/>
 				<keyword attribute="Builtin Function" String="builtinfuncs" context="#stay"/>
-				<keyword attribute="Definition Keyword" String="defs" context="Definition" />
+				<keyword attribute="Definition Keyword" String="defs" context="Definition"/>
 				<keyword attribute="Flow Control Keyword" String="flow_yield" context="yield"/>
 				<keyword attribute="Flow Control Keyword" String="patternmatching" context="Pattern Matching" lookAhead="1" firstNonSpace="1"/>
 				<keyword attribute="Import" String="import" context="#stay"/>

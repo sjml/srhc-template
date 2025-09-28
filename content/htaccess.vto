@@ -1,0 +1,49 @@
+---
+url: /.htaccess
+no_nav: true
+layout: false
+---
+# serve the pre-generated 404
+ErrorDocument 404 {{ "/404.html" |> url }}
+
+# serve markdown files as plain text with utf8 encoding
+AddType "text/markdown; charset=UTF-8" md
+
+# nobody needs to see the buildInformation file so easily
+<FilesMatch "^buildInformation\.json(\.(gz|br))?$">
+	Require all denied
+</FilesMatch>
+
+
+## AUTOMATICALLY GENERATED rules for serving compressed assets.
+## It assumes pre-compressed files sitting alongside their originals.
+
+<IfModule mod_headers.c>
+{{- for ft of compression.compressibleFiles -}}
+{{ for ct of compression.compressionTypes }}
+
+	# Serve {{ct[1]}}-compressed .{{ft[0]}} files if they exist and client accepts {{ct[1]}}
+	RewriteCond %{HTTP:Accept-encoding} {{ct[0]}}
+	RewriteCond %{REQUEST_FILENAME}\.{{ct[0]}} -s
+	RewriteRule ^(.*)\.{{ft[0]}} $1\.{{ft[0]}}\.{{ct[0]}} [QSA]
+{{ /for -}}
+{{ /for }}
+
+
+	# Serve correct content types and prevent double compression
+{{ for ft of compression.compressibleFiles }}
+{{ for ct of compression.compressionTypes }}
+	RewriteRule \.{{ft[0]}}\.{{ct[0]}}$ - [T={{ft[1]}},{{for idx,ctx of compression.compressionTypes}}E=no-{{ctx[1]}}:1{{if idx < compression.compressionTypes.length - 1 }},{{/if}}{{/for}}]
+{{ /for -}}
+{{ /for }}
+
+
+	# Serve correct encodings and force proxies to cache
+	# compressed content separately from non-compressed.
+{{ for ct of compression.compressionTypes }}
+	<FilesMatch "({{ for idx, ft of compression.compressibleFiles}}\.{{ft[0]}}\.{{ct[0]}}{{if idx < compression.compressibleFiles.length - 1 }}|{{/if}}{{/for}})">
+		Header set Content-Encoding {{ct[2]}}
+		Header append Vary Accept-Encoding
+	</FilesMatch>
+{{ /for }}
+</IfModule>
