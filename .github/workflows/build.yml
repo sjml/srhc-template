@@ -40,6 +40,8 @@ jobs:
     - name: Install dprint (latest)
       run: |
         curl -fsSL https://dprint.dev/install.sh | sh
+        export DPRINT_INSTALL="$HOME/.dprint"
+        export PATH="$DPRINT_INSTALL/bin:$PATH"
     - uses: actions/checkout@v4
       name: Checkout Source Code
     - name: Setup Project
