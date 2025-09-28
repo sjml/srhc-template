@@ -10,6 +10,7 @@ jobs:
     steps:
     - name: Install Dependencies
       run: |
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         brew install deno pandoc tectonic epubcheck imagemagick ghostscript librsvg dprint
         sudo apt-get update
         sudo apt-get install calibre
