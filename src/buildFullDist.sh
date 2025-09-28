@@ -7,7 +7,8 @@ cd ..
 
 FULL_MD=1 deno task build
 deno run -A src/book-binding/buildBooks.ts
-cp static/downloads/* _site/downloads/
+rm -rf _site/downloads
+cp -R static/downloads _site/downloads
 PRODUCTION_MODE=1 deno task build
 
 cd _site
