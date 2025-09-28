@@ -24,7 +24,7 @@ import * as revInfo from "./src/getRevisionInfo.ts";
 
 const site = lume({
 	includes: "./layouts",
-	...(Deno.env.get("PRODUCTION_MODE") === "1" ? {location: new URL("https://shaneliesegang.com/projects/srhc-lume")} : {})
+	...(Deno.env.get("PRODUCTION_MODE") === "1" ? {location: new URL("https://shaneliesegang.com/projects/srhc-template")} : {})
 });
 
 site.use(filterPages({
