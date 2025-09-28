@@ -10,38 +10,9 @@ jobs:
     steps:
     - name: Install Dependencies
       run: |
+        brew install deno pandoc tectonic epubcheck imagemagick ghostscript librsvg dprint
         sudo apt-get update
-        sudo apt-get install librsvg2-bin imagemagick ghostscript calibre
-    - uses: denoland/setup-deno@v2
-      name: "Install Deno (latest v2)"
-      with:
-        deno-version: v2.x
-    - uses: pandoc/actions/setup@main
-      name: Install Pandoc (latest)
-    - name: Set Tool Path
-      run: |
-        mkdir -p $HOME/.local/bin
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Install Tectonic (latest) and EPUBCheck (latest)
-      run: |
-        TECTONIC_VERSION=$(gh release list --repo tectonic-typesetting/tectonic --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | sed -nr 's/.*@(.*)/\1/p')
-        wget https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-        tar xzf tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-        mv tectonic $HOME/.local/bin
-
-        EPUBCHECK_VERSION=$(gh release list --repo w3c/epubcheck --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | cut -c2-)
-        wget https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK_VERSION}/epubcheck-${EPUBCHECK_VERSION}.zip
-        unzip epubcheck-${EPUBCHECK_VERSION}.zip
-        mv epubcheck-${EPUBCHECK_VERSION} $HOME/.local/bin
-        printf "#!/bin/bash\njava -jar $HOME/.local/bin/epubcheck-${EPUBCHECK_VERSION}/epubcheck.jar \"\$@\"" > $HOME/.local/bin/epubcheck
-        chmod +x $HOME/.local/bin/epubcheck
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install dprint (latest)
-      run: |
-        curl -fsSL https://dprint.dev/install.sh | sh
-        echo DPRINT_INSTALL="$HOME/.dprint" >> $GITHUB_ENV
-        echo "$DPRINT_INSTALL/bin" >> $GITHUB_PATH
+        sudo apt-get install calibre
     - uses: actions/checkout@v4
       name: Checkout Source Code
     - name: Setup Project
