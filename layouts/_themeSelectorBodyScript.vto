@@ -23,5 +23,12 @@
 			}
 			syncThemeToLocalStorage();
 		});
+
+		window.addEventListener("beforeprint", (_) => {
+			themeSelector.style.display = "none";
+		});
+		window.addEventListener("afterprint", (_) => {
+			themeSelector.style.display = "flex";
+		});
 	}
 </script>

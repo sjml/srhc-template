@@ -50,8 +50,6 @@ jobs:
     - name: Build Site and Books
       run: |
         ./src/buildFullDist.sh
-      env:
-        ELEVENTY_PREFIX_PATH: projects/srhc-template
     - name: Get Short Git Rev
       run: echo "GIT_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v4
