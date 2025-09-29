@@ -8,18 +8,16 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install librsvg2-bin imagemagick ghostscript calibre
     - uses: denoland/setup-deno@v2
       name: "Install Deno (latest v2)"
       with:
         deno-version: v2.x
     - uses: pandoc/actions/setup@main
       name: Install Pandoc (latest)
-    - name: Install Apt Dependencies
-      uses: awalsh128/cache-apt-pkgs-action@v1
-      with:
-        packages: librsvg2-bin imagemagick ghostscript calibre
-        version: 1.0
-        execute_install_scripts: true
     - name: Set Tool Path
       run: |
         mkdir -p $HOME/.local/bin
