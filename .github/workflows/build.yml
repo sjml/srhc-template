@@ -37,11 +37,6 @@ jobs:
         chmod +x $HOME/.local/bin/epubcheck
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install dprint (latest)
-      run: |
-        curl -fsSL https://dprint.dev/install.sh | sh
-        echo DPRINT_INSTALL="$HOME/.dprint" >> $GITHUB_ENV
-        echo "$HOME/.dprint/bin" >> $GITHUB_PATH
     - uses: actions/checkout@v4
       name: Checkout Source Code
     - name: Setup Project
