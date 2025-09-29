@@ -13,6 +13,7 @@ jobs:
       with:
         packages: librsvg2-bin imagemagick ghostscript calibre
         version: 1.0
+        execute_install_scripts: true
     - uses: denoland/setup-deno@v2
       name: "Install Deno (latest v2)"
       with:
