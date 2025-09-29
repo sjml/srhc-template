@@ -8,3 +8,5 @@
 * accessibility for ToC toggle and theme selector
 * `code` spacing should change for print layout where the gray disappears (maybe outline instead?)
 * copy over full Markdown file?
+  * lume wants to turn it into a webpage if it's in the downloads folder :-/; maybe adding it directly will fix?
+  * maybe rethink the environment flag handling at this point
