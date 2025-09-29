@@ -39,7 +39,7 @@ $color-visited-link-light: $color-link-light !default;
 $color-link-dark: #b0d4ff !default;
 $color-visited-link-dark: $color-link-dark !default;
 
-$body-background-light: $white !default;
+$body-background-light: $white !default; /* update theme-color meta tag in head if this changes */
 $body-background-light-offset: $gray-300 !default;
 $body-font-color-light: $gray-800 !default;
 $code-background-color-light: $gray-200 !default;
@@ -47,7 +47,7 @@ $pre-background-color-light: $gray-100 !default;
 $shadow-color-light: $gray-600 !default;
 $svg-inversion-light: 20% !default;
 
-$body-background-dark: $gray-800 !default;
+$body-background-dark: $gray-800 !default; /* update theme-color meta tag in head if this changes */
 $body-background-dark-offset: $gray-600 !default;
 $body-font-color-dark: $gray-100 !default;
 $code-background-color-dark: $gray-700 !default;
