@@ -12,6 +12,7 @@ export function addSectionAnchors() {
 						anchor.className = "header-anchor";
 						anchor.setAttribute("href", `#${section.id}`);
 						anchor.setAttribute("aria-hidden", "true");
+						anchor.setAttribute("tabindex", "-1");
 						anchor.innerHTML = "§";
 						header!.appendChild(anchor);
 					});

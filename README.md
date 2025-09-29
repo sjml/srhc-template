@@ -2,11 +2,11 @@
 
 [Explore the actual demo site!](https://shaneliesegang.com/projects/srhc-template)
 
-An example site made by the static site generator [Lume](https://lume.land). It's meant to for "book"-style content, i.e. a linear set of prose that you progress through in order, with occasional line-art images and code samples. Extracted from a larger project, partially as motivation to stop futzing with all this tech/build stuff and start finishing the actual content. 
+An example site made by the static site generator [Lume](https://lume.land). It's meant for "book"-style content, i.e. a linear set of prose that you progress through in order, with occasional line-art images and code samples. Extracted from a larger project, partially as motivation to stop futzing with all this tech/build stuff and start finishing the actual content. 
 
 The repository, as it stands, automatically builds both the site itself _and_ downloadable PDF, ePUB, and Kindle formatted ebooks. 
 
-**Aesthetically:** A priority was placed on pleasing and readable typsetting while also adhering as strongly as possible to the standards of each platform. It also had to gracefully handle text in (at least) English, Hebrew, and Greek, which creates some typesetting challenges. It also includes parsing and syntax coloring for a fictional programming language (that is basically Python with a few extra keywords). The front page as well as the first page of content in the book contains a good amount of formatted text to show how everything looks styled. 
+**Aesthetically:** A priority was placed on pleasing and readable typsetting while adhering as strongly as possible to the standards of each platform. It also had to gracefully handle text in (at least) English, Hebrew, and Greek, which creates some typesetting challenges. It includes parsing and syntax coloring for a fictional programming language (that is basically Python with a few extra keywords). The front page as well as the first page of content in the book contains a good amount of formatted text to show how everything looks styled. 
 
 **Technically:** Since this was destined for both print and web output, I wanted to use [Pandoc](https://pandoc.org/) to process the input files for both. This meant building [a plugin to swap out Lume's built-in Markdown handling](/src/lumeMods/pandocMarkdown.ts). A little bit hacky, but it works well! (Note that it is a bit slower since it's taking a performance hit every time it shells out to Pandoc.)
 
@@ -17,11 +17,10 @@ The repository, as it stands, automatically builds both the site itself _and_ do
     * Two-paned navigation with responsive layout that enables easy reading straight through the website
     * Toggleable Light and Dark themes (or default to the system's preferred theme)
     * Pre-generates compressed Brotli and GZipped versions of compressible files, along with the Apache `.htaccess` file to serve them correctly. (Overkill? Yes. But fun overkill.)
-    * All 100s in Lighthouse! (Except the front page; see below.)
+    * All 100s in Lighthouse! (Usually. It can be a little moody.)
   * **Bads:**
     * There are two custom widgets (the table of contents toggle and the theme selector) that are, at the moment, non-accessible. I don't know enough about accessibility to really tackle this, but it's on my list. 
     * The CSS is a little over-engineered at the moment. The final output file is fairly small, which is nice, but the SCSS files are a bit sprawling. 
-    * Front page fails to get all 100s in Lighthouse becuase the cover is a JPEG file instead of something like WebP. An easy enough fix if I wanted to go all-in on WebP, but I don't just yet, and supporting multiple image formats would complicate at least one of the markup or the build. 
 * _**E-Books**_
   * **Goods:**
     * Builds in all(?) popular formats: ePub for the most featureful layout and color stuff, and azw3/mobi for Kindles. 
