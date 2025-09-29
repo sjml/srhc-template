@@ -1,6 +1,6 @@
-import { merge } from "lume/core/utils/object.ts";
-import type { Engine } from "lume/core/renderer.ts";
 import type Site from "lume/core/site.ts";
+import type { Engine } from "lume/core/renderer.ts";
+import { merge } from "lume/core/utils/object.ts";
 
 export interface Options {
 	inputFormat?: string,
@@ -77,9 +77,10 @@ export class PandocEngine implements Engine {
 	}
 }
 
-export function pandoc(userOptions?: Options) {
+export function pandoc(userOptions?: Partial<Options>) {
+	const options = merge(defaults, userOptions);
+
 	return (site: Site) => {
-		const options = merge(defaults, userOptions);
 		const engine = new PandocEngine(options);
 
 		site.loadPages([".md"], {

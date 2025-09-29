@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@dprint/formatter@~0.4.1": "0.4.1",
     "jsr:@libs/xml@^7.0.2": "7.0.2",
     "jsr:@std/bytes@^1.0.6": "1.0.6",
     "jsr:@std/cli@1.0.22": "1.0.22",
@@ -47,6 +48,9 @@
     "npm:svgo@4.0.0": "4.0.0"
   },
   "jsr": {
+    "@dprint/formatter@0.4.1": {
+      "integrity": "96449ab83aa9f72df98caa5030d3f4a921c5c29d9b0e0d0da83d79e2024a9637"
+    },
     "@libs/xml@7.0.2": {
       "integrity": "b0f8eb46328cdfc443e89eeb02dce2a9022c292c6342f2cbddcad8cf06cd5adf"
     },
@@ -876,6 +880,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@dprint/formatter@~0.4.1",
       "jsr:@libs/xml@^7.0.2",
       "jsr:@std/path@^1.1.2",
       "npm:postcss-css-variables@0.19"

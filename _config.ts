@@ -19,6 +19,7 @@ import { pandoc } from "./src/lumeMods/pandocMarkdown.ts";
 import { buildInfo } from "./src/lumeMods/buildInformation.ts";
 import { addSectionAnchors } from "./src/lumeMods/addSectionAnchors.ts";
 import { cacheBust } from "./src/lumeMods/cacheBust.ts";
+import { dprint } from "./src/lumeMods/dprintFormat.ts";
 
 import * as revInfo from "./src/getRevisionInfo.ts";
 
@@ -110,6 +111,11 @@ if (Deno.env.get("PRODUCTION_MODE") === "1") {
 	site.add([".svg"]);
 
 	site.use(buildInfo());
+
+	site.use(await dprint({
+		globalConfig: {useTabs: true},
+		htmlConfig: {scriptIndent: true},
+	}));
 
 	const compressionData = JSON.parse(Deno.readTextFileSync("_data/compression.json"));
 	const compressionExtensions = (compressionData.compressibleFiles as [string, string][]).map(([ext, _mime]) => `.${ext}`);

@@ -1,5 +1,6 @@
 {
 	"imports": {
+		"@dprint/formatter": "jsr:@dprint/formatter@^0.4.1",
 		"@libs/xml": "jsr:@libs/xml@^7.0.2",
 		"@std/path": "jsr:@std/path@^1.1.2",
 		"lume/": "https://deno.land/x/lume@v3.0.11/",
