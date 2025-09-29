@@ -53,7 +53,6 @@ export function buildInfo() {
 			output.softwareVersions.ghostscript = await runProgram("gs", ["--version"], null);
 			output.softwareVersions.calibre = await runProgram("ebook-convert", ["--version"], /calibre ([\d.]*)/)
 			output.softwareVersions.epubcheck = await runProgram("epubcheck", ["--version", "--quiet"], / v(.*)\n/);
-			output.softwareVersions.dprint = await runProgram("dprint", ["--version"], /dprint (.*)\n/);
 			output.softwareVersions.gzip = await runProgram("gzip", ["--version", "2>&1"], null);
 			output.softwareVersions.brotli = await runProgram("brotli", ["--version"], /brotli (.*)\n/);
 			output.softwareVersions.zip = await runProgram("zip", ["--version"], /This is Zip ([\d\.]*)/)
