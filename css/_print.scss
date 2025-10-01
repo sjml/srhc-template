@@ -39,4 +39,12 @@
 	#themeSelectorGUI {
 		display: none;
 	}
+
+	article {
+		color: defaults.$black;
+	}
+
+	article p code {
+		border: solid 1px defaults.$gray-900;
+	}
 }

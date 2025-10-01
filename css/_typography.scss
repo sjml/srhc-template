@@ -3,54 +3,58 @@
 @use "utils";
 
 :root {
-		font-size: defaults.$font-size-base;
+	font-size: defaults.$font-size-base;
 }
 
 body {
-		font-family: defaults.$font-family-body;
-		font-variant-ligatures: common-ligatures;
-		font-feature-settings: "liga", "clig";
+	font-family: defaults.$font-family-body;
+	font-variant-ligatures: common-ligatures;
+	font-feature-settings: "liga", "clig";
 
-		font-weight: var(--body-font-weight-base);
-		@if not config.$buildingForKindle {
-				letter-spacing: 0.4px;
-				text-rendering: optimizeLegibility;
-		}
+	font-weight: var(--body-font-weight-base);
+	@if not config.$buildingForKindle {
+		letter-spacing: 0.4px;
+		text-rendering: optimizeLegibility;
+	}
 }
 
 strong {
-		font-weight: var(--body-font-weight-bold);
+	font-weight: var(--body-font-weight-bold);
 }
 
 @if not config.$buildingForKindle {
-		:lang(he) {
-				font-family: "David Libre", sans-serif;
-		}
-		:lang(la) {
-				font-style: italic;
-		}
+	:lang(he) {
+		font-family: "David Libre", sans-serif;
+	}
+	:lang(la) {
+		font-style: italic;
+	}
+}
+
+cite {
+	font-style: italic;
 }
 
 code {
-		font-family: defaults.$font-family-code;
-		font-variant-ligatures: none;
-		font-feature-settings: normal;
-		font-weight: var(--code-font-weight-base);
+	font-family: defaults.$font-family-code;
+	font-variant-ligatures: none;
+	font-feature-settings: normal;
+	font-weight: var(--code-font-weight-base);
 }
 
 a, a:visited {
-		text-decoration-style: dotted;
-		color: var(--link-color);
+	text-decoration-style: dotted;
+	color: var(--link-color);
 }
 
 h1 {
-		font-size: defaults.$font-size-xx-large;
-		font-weight: var(--body-font-weight-black);
-		font-feature-settings: "smcp" on;
+	font-size: defaults.$font-size-xx-large;
+	font-weight: var(--body-font-weight-black);
+	font-feature-settings: "smcp" on;
 }
 
 .footnote-ref {
-		font-weight: bold;
+	font-weight: bold;
 }
 
 article {
@@ -62,21 +66,21 @@ article {
 		margin-bottom: defaults.$padding-base;
 
 		a.header-anchor {
-				margin-left: defaults.$padding-quarter;
+			margin-left: defaults.$padding-quarter;
 
-				opacity: 0;
-				pointer-events: none;
-				text-decoration: none;
-				color: var(--background-color-offset);
+			opacity: 0;
+			pointer-events: none;
+			text-decoration: none;
+			color: var(--background-color-offset);
 
-				transition-property: opacity;
-				transition-duration: defaults.$transition-responsive-timing;
-				@include utils.transition-accessibility;
+			transition-property: opacity;
+			transition-duration: defaults.$transition-responsive-timing;
+			@include utils.transition-accessibility;
 		}
 
 		&:hover a.header-anchor {
-				opacity: 1;
-				pointer-events: all;
+			opacity: 1;
+			pointer-events: all;
 		}
 	}
 
@@ -141,8 +145,8 @@ article {
 		@include utils.transition-accessibility;
 
 		code {
-				padding: 0;
-				background-color: transparent;
+			padding: 0;
+			background-color: transparent;
 		}
 	}
 
@@ -158,16 +162,16 @@ article {
 		@include utils.transition-accessibility;
 
 		:first-child {
-				margin-top: 0;
+			margin-top: 0;
 		}
 		:last-child {
-				margin-bottom: 0;
+			margin-bottom: 0;
 		}
 
 		.quote-attribution {
-				display: block;
+			display: block;
 
-				text-align: right;
+			text-align: right;
 		}
 	}
 
@@ -177,7 +181,7 @@ article {
 
 	section#footnotes {
 		ol {
-				padding-left: defaults.$padding-double;
+			padding-left: defaults.$padding-double;
 		}
 	}
 }

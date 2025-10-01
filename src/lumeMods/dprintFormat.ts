@@ -2,16 +2,16 @@ import type Site from "lume/core/site.ts";
 import Cache from "lume/core/cache.ts";
 import { merge } from "lume/core/utils/object.ts";
 
-import { type FormatRequest, createFromBuffer } from "@dprint/formatter";
+import { type FormatRequest, createFromBuffer, GlobalConfiguration } from "@dprint/formatter";
 
 // hardcoding this stuff; not meant to be a general-purpose formatter, just for HTML w/script
 const HTML_MODULE_URL = "https://plugins.dprint.dev/g-plane/markup_fmt-v0.24.0.wasm";
 const SCRIPT_MODULE_URL = "https://plugins.dprint.dev/typescript-0.95.11.wasm";
 
 export interface Options {
-	globalConfig?: object,
-	htmlConfig?: object,
-	scriptConfig?: object,
+	globalConfig?: GlobalConfiguration,
+	htmlConfig?: Record<string, unknown>,
+	scriptConfig?: Record<string, unknown>,
 };
 
 export const defaults: Options = {

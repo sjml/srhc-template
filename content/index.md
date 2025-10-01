@@ -4,7 +4,7 @@ layout: frontPage.vto
 templateEngine: [vto, md]
 ---
 
-[![book cover image featuring an extreme closeup of magnets](/img/cover.jpg){.cover}]({{nav.nextPage(nav.nextPage("/", "!no_nav=true").url).url}})
+[![book cover image featuring an extreme closeup of magnets](/img/cover.jpg){.cover fetchpriority=high}]({{nav.nextPage(nav.nextPage("/", "!no_nav=true").url).url}})
 
 This is a demonstration site for a template for [the static site generator Lume](https://lume.land). Most of the text is not very interesting unless you like _lorem ipsum_ but it's all here to just show how navigation and everything will work. The template is meant for a "book" style website where you're exploring linear content that is not deeply nested; just sections and chapters, nothing beyond that. I was inspired by [Alex Shpak's "Hugo Book" theme](https://hugo-book-demo.netlify.app/docs/example/) for [Hugo](https://gohugo.io/), but rebuilt this from scratch to work with Lume and with my own design goals. 
 
