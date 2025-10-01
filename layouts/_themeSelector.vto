@@ -1,5 +1,11 @@
 <div id="themeSelectorGUI">
-	<div class="lozenge">
+	<label for="themeSelect" class="theme-screenReaderOnly">Visual Theme Selector</label>
+	<select id="themeSelect" class="theme-screenReaderOnly">
+		<option value="light">Light</option>
+		<option value="system">System</option>
+		<option value="dark">Dark</option>
+	</select>
+	<div class="lozenge" aria-hidden="true">
 		<div class="theme-lightImg">
 			<img src="/img/theme-light.svg" inline />
 		</div>

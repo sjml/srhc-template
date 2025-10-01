@@ -19,7 +19,6 @@ The repository, as it stands, automatically builds both the site itself _and_ do
     * Pre-generates compressed Brotli and GZipped versions of compressible files, along with the Apache `.htaccess` file to serve them correctly. (Overkill? Yes. But fun overkill.)
     * All 100s in Lighthouse! (Usually. It can be a little moody.)
   * **Bads:**
-    * There are two custom widgets (the table of contents toggle and the theme selector) that are, at the moment, non-accessible. I don't know enough about accessibility to really tackle this, but it's on my list. 
     * The CSS is a little over-engineered at the moment. The final output file is fairly small, which is nice, but the SCSS files are a bit sprawling. 
 * _**E-Books**_
   * **Goods:**

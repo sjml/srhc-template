@@ -87,10 +87,10 @@ nav.tableOfContents {
 
 #tableOfContentsToggle {
 	display: none;
+}
 
-	transition-duration: defaults.$transition-responsive-timing;
-	transition-property: transform;
-	@include utils.transition-accessibility;
+#tableOfContentsToggleLabel {
+	display: none;
 }
 
 main {
@@ -208,6 +208,10 @@ article img.cover {
 }
 
 @media screen and (max-width: defaults.$sm-breakpoint) {
+	#tableOfContentsToggleLabel {
+		display: initial;
+	}
+
 	main {
 		padding: defaults.$padding-half defaults.$padding-base defaults.$padding-base defaults.$padding-base;
 	}

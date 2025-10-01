@@ -124,19 +124,26 @@ a {
 		$tsWidth: 4.25rem;
 		$tsTransitionDuration: 250ms;
 
-		background-color: var(--background-color-offset);
-		width: $tsWidth;
-		height: math.div($tsWidth, 2);
-		border-radius: math.div($tsWidth, 4);
-
 		// none of the no-scripting things seem to actually work,
 		//   so instead we just hide by default and use a script to
 		//   display it.
 		display: none;
 		justify-content: center;
 
+		background-color: var(--background-color-offset);
+		width: $tsWidth;
+		height: math.div($tsWidth, 2);
+		border-radius: math.div($tsWidth, 4);
+		outline: 0px solid Highlight;
+		outline-offset: 3px;
+
 		transition-duration: $tsTransitionDuration;
-		transition-property: background-color;
+		transition-property: background-color outline-width;
+		@include utils.transition-accessibility;
+
+		&:focus-visible, &:focus-within {
+			outline-width: 4px;
+		}
 
 		.lozenge {
 			position: relative;
@@ -150,6 +157,7 @@ a {
 			transition-duration: $tsTransitionDuration;
 			transition-timing-function: ease-out;
 			transition-property: transform, background-color;
+			@include utils.transition-accessibility;
 
 			.theme-lightImg, .theme-systemImg, .theme-darkImg {
 				position: absolute;

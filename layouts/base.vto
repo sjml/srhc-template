@@ -7,7 +7,7 @@
 </head>
 <body>
 	<input type="checkbox" name="tableOfContentsToggle" id="tableOfContentsToggle">
-		<nav class="tableOfContents">
+	<nav class="tableOfContents">
 		<header class="siteBranding">
 			<a href="/">
 				{{ if sitedata.siteIcon }}
@@ -19,7 +19,7 @@
 		{{ include "_tableOfContents.vto" }}
 	</nav>
 	<main>
-		<label for="tableOfContentsToggle">
+		<label for="tableOfContentsToggle" id="tableOfContentsToggleLabel" role="button" aria-controls="tableOfContentsToggle">
 			<span class="tableOfContentsToggle">
 				<span class="tableOfContentsToggleOff">
 					<img src="/img/toc-toggle-off.svg" inline />
@@ -60,7 +60,13 @@
 	{{ include "_themeSelectorBodyScript.vto" }}
 	<script>
 		const toggleCheck = document.getElementById("tableOfContentsToggle");
+		const toggleLabel = document.getElementById("tableOfContentsToggleLabel");
 		const mainElement = document.querySelector("body > main");
+
+		toggleLabel.setAttribute("aria-expanded", toggleCheck.checked);
+		toggleCheck.addEventListener("change", () => {
+			toggleLabel.setAttribute("aria-expanded", toggleCheck.checked);
+		});
 
 		if (mainElement) {
 			const overlay = document.createElement("div");
@@ -68,6 +74,7 @@
 
 			overlay.onclick = (ev) => {
 				toggleCheck.checked = false;
+				toggleLabel.setAttribute("aria-expanded", false);
 			}
 
 			mainElement.insertBefore(overlay, mainElement.firstChild);
