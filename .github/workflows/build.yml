@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+    - name: Install Apt Dependencies
+      uses: awalsh128/cache-apt-pkgs-action@v1.5.3
+      with:
+        packages: librsvg2-bin ghostscript calibre
     - name: Install ImageMagick
       run: |
         # doesn't play nice with the apt caching, so needs to be installed directly
@@ -39,10 +43,6 @@ jobs:
         chmod +x $HOME/.local/bin/epubcheck
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Other Dependencies
-      uses: awalsh128/cache-apt-pkgs-action@v1.5.3
-      with:
-        packages: librsvg2-bin ghostscript calibre
     - uses: actions/checkout@v4
       name: Checkout Source Code
     - name: Setup Project
