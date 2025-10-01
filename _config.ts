@@ -23,15 +23,23 @@ import { dprint } from "./src/lumeMods/dprintFormat.ts";
 
 import * as revInfo from "./src/getRevisionInfo.ts";
 
+
+function getEnvBool(name: string): boolean {
+	const value = Deno.env.get(name);
+	return value === "1" || value?.toLowerCase() === "true" || (!!value && value === "");
+}
+const PRODUCTION_MODE = getEnvBool("PRODUCTION_MODE");
+const FULL_MD = getEnvBool("FULL_MD");
+
+
 const site = lume({
 	includes: "./layouts",
-	...(Deno.env.get("PRODUCTION_MODE") === "1" ? {location: new URL("https://shaneliesegang.com/projects/srhc-template")} : {})
+	...(PRODUCTION_MODE ? {location: new URL("https://shaneliesegang.com/projects/srhc-template")} : {})
 });
 
 site.use(filterPages({
 	fn: (page) => {
-		const envMD = Deno.env.get("FULL_MD");
-		if (page.data.full_md === true && (!envMD || envMD === "0")) {
+		if (page.data.full_md === true && !FULL_MD) {
 			return false;
 		}
 		return true;
@@ -47,7 +55,7 @@ site.ignore("pubs");
 
 site.add("static", ".");
 site.add("css/web.scss", "/css/srhc.css");
-if (Deno.env.get("FULL_MD") === "1") {
+if (FULL_MD) {
 	site.add("css/epub.scss", "/css/srhc-epub.css");
 	site.add("css/kindle.scss", "/css/srhc-kindle.css");
 }
@@ -63,10 +71,10 @@ site.use(sass({
 }));
 site.use(postcss({
 	useDefaultPlugins: false,
-	plugins: Deno.env.get("FULL_MD") === "1" ? [postcssVars()] : [],
+	plugins: FULL_MD ? [postcssVars()] : [],
 }));
 
-if (Deno.env.get("PRODUCTION_MODE") === "1") {
+if (PRODUCTION_MODE) {
 	site.use(cacheBust({
 		extensions: [".css", ".js", ".png", ".svg", ".jpg", ".pdf", ".epub", ".azw3", ".mobi", ".woff2"],
 		// logSkips: true,
@@ -104,7 +112,7 @@ site.parseBasename((basename) => {
 
 site.use(addSectionAnchors());
 
-if (Deno.env.get("PRODUCTION_MODE") === "1") {
+if (PRODUCTION_MODE) {
 	site.use(svgo({
 		options: {multipass: true,},
 	}));
