@@ -28,7 +28,7 @@ async function getModule(url: string, cache: Cache): Promise<Uint8Array> {
 			throw new Error(`Could not fetch ${url}`);
 		}
 		bytes = await resp.bytes();
-		await cache.set([HTML_MODULE_URL], bytes);
+		await cache.set([url], bytes);
 	}
 	return bytes;
 }
