@@ -64,6 +64,15 @@ my_char.Name = "Bendu Olo"
 my_char.Strength = 18
 ```
 
+### Language Testing
+
+St. Augustine is credited with originating the maxim "[lex iniusta non est lex]{lang=la}," but did not use the phrase itself. The opening of the Bible in Hebrew is "[בְּרֵאשִׁית, בָּרָא אֱלֹהִים, אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ]{lang=he}." The Fourth Gospel, in the original Greek, opens with "[Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος]{lang=el}." Elit dolore ipsum sunt qui duis eu. Tempor ipsum Lorem consectetur fugiat. Nostrud voluptate culpa nostrud mollit. Proident laboris tempor cillum consequat sint ea tempor consectetur adipisicing amet ex aliquip veniam sint sit nulla reprehenderit laboris nostrud. Quis nulla magna quis. Ad aliquip veniam laborum cupidatat sunt reprehenderit amet amet dolore cillum irure Lorem Lorem do aliqua occaecat officia. Exercitation reprehenderit eu aliquip.
+
+Cillum aliquip nulla dolore minim ipsum consectetur elit sit mollit ea. Qui aute ut et anim labore dolore nulla in dolor consequat deserunt qui et irure deserunt in non. Cillum magna amet eiusmod enim aliquip sint non eu aliquip.
+
+Eiusmod officia duis enim ipsum.
+
+
 ### Non Enim Nulla ea Deserunt et Fugiat Est
 
 Labore `mollit consectetur excepteur` duis minim sunt. Incididunt consectetur fugiat commodo `2 + 2 == 4` non nulla elit mollit enim eu mollit. "Ut adipisicing labore velit ex reprehenderit." Voluptate ullamco laborum eiusmod sint officia.^[Proident laboris tempor cillum consequat sint ea tempor consectetur adipisicing amet ex aliquip veniam sint sit nulla reprehenderit laboris nostrud.]
@@ -99,14 +108,6 @@ Ea ut consectetur veniam laborum ex ad est anim enim excepteur. Elit commodo sun
 > [--- _Seneca, or somebody like him, probably_]{.quote-attribution}
 
 Cillum aliquip nulla dolore minim ipsum consectetur elit sit mollit ea. Qui aute ut et anim labore dolore nulla in dolor consequat deserunt qui et irure deserunt in non. Cillum magna amet eiusmod enim aliquip sint non eu aliquip.
-
-### Language Testing
-
-St. Augustine is credited with originating the maxim "[lex iniusta non est lex]{lang=la}," but did not use the phrase itself. The opening of the Bible in Hebrew is "[בְּרֵאשִׁית, בָּרָא אֱלֹהִים, אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ]{lang=he}." The Fourth Gospel, in the original Greek, opens with "[Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος]{lang=el}." Elit dolore ipsum sunt qui duis eu. Tempor ipsum Lorem consectetur fugiat. Nostrud voluptate culpa nostrud mollit. Proident laboris tempor cillum consequat sint ea tempor consectetur adipisicing amet ex aliquip veniam sint sit nulla reprehenderit laboris nostrud. Quis nulla magna quis. Ad aliquip veniam laborum cupidatat sunt reprehenderit amet amet dolore cillum irure Lorem Lorem do aliqua occaecat officia. Exercitation reprehenderit eu aliquip.
-
-Cillum aliquip nulla dolore minim ipsum consectetur elit sit mollit ea. Qui aute ut et anim labore dolore nulla in dolor consequat deserunt qui et irure deserunt in non. Cillum magna amet eiusmod enim aliquip sint non eu aliquip.
-
-Eiusmod officia duis enim ipsum.
 
 [^1]: Velit irure quis _deserunt culpa_ aliqua deserunt irure minim non. Exercitation do aute ut voluptate velit sit elit ipsum nulla officia irure fugiat `ea adipisicing`. Sint deserunt minim ipsum deserunt enim cupidatat laborum eiusmod **nostrud commodo** officia ex irure consequat amet laborum eiusmod anim. Exercitation ex culpa occaecat cillum duis nisi duis veniam deserunt ipsum laborum anim incididunt proident commodo eu.
 

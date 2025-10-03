@@ -7,7 +7,7 @@ Deno.mkdirSync("tmp", {recursive: true});
 const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "pdfBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
-const FULLMD_PATH = join(ROOT_PATH, "_site", "full", `${SITEDATA.title.replaceAll(" ", "")}.md`);
+const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
 const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "pdf");
 const PDF_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});

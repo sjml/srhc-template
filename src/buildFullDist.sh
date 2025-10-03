@@ -5,8 +5,7 @@ set -e
 cd "$(dirname "$0")"
 cd ..
 
+rm -rf static/downloads/*
 FULL_MD=1 deno task build
 deno run -A src/book-binding/buildBooks.ts
-rm -rf _site/downloads
-cp -R static/downloads _site/downloads
-PRODUCTION_MODE=1 deno task build
+PRODUCTION_MODE=1 FULL_MD=1 deno task build

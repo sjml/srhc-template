@@ -18,4 +18,6 @@ Here are also some ebook versions in various formats for your tablets and reader
 * [azw3](/downloads/{{filename}}.azw3) ({{ `${localFilePath}.azw3` |> getFileSize }})
 * [mobi](/downloads/{{filename}}.mobi) ({{ `${localFilePath}.mobi` |> getFileSize }})
 
+If you like that sort of thing, you can even read [the whole book in Markdown format](/downloads/{{filename}}.md).
+
 <div class="revisionData"><span class="fullRevisionString">{{ revisionStringFull }}</span><span class="shortRevisionString">{{ revisionStringShort }}</span><time class="revisionTimestamp" datetime="{{ revisionDateString }}">{{ revisionDateString }}</time></div>

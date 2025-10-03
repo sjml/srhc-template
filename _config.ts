@@ -55,7 +55,7 @@ site.ignore("pubs");
 
 site.add("static", ".");
 site.add("css/web.scss", "/css/srhc.css");
-if (FULL_MD) {
+if (FULL_MD && !PRODUCTION_MODE) {
 	site.add("css/epub.scss", "/css/srhc-epub.css");
 	site.add("css/kindle.scss", "/css/srhc-kindle.css");
 }
