@@ -1,6 +1,11 @@
 #import "/pubs/typst/config/styling.typ"
 #show: styling.standard_styles
 
+#set par(
+	spacing: 1.85em,
+	first-line-indent: 0em,
+)
+
 #align(horizon)[
 	©2025 by #link("https://example.com")[Lorem Ipsum];.
 	#v(10mm)
