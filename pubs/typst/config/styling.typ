@@ -30,12 +30,33 @@
 	show link: set text(fill: rgb(0, 0, 204))
 
 	set table(
-		inset: 6pt,
 		stroke: none,
+		inset: (x, y) => {
+			if y == 0 {
+				(x: 0pt, y: 7.5pt)
+			}
+			else if y == 1 {
+				(x: 0pt, top: 7.5pt, bottom: 4pt)
+			}
+			else {
+				(x: 0pt, y: 4pt)
+			}
+		},
+		column-gutter: 12pt,
 	)
+
+	// table captions show go on top
 	show figure.where(
 		kind: table
 	): set figure.caption(position: top)
+
+	// remove numbering from captions
+	//     awaiting the day this can just be a Pandoc flag
+	//     (https://github.com/jgm/pandoc/discussions/11191)
+	show figure.caption: it => [
+		#text(it.body)
+		#v(4.5pt)
+	]
 
 	doc
 }

@@ -13,6 +13,35 @@ const PDF_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});
 const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "")}.pdf`;
 
+function _fixTables(stream: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> {
+	let text = new TextDecoder().decode(stream);
+
+	// change header lower line to 0.6pt
+	text = text.replace(
+		/(table\.header\([^)]*\),)\s*table\.hline\(\)/g,
+		`$1\n    table.hline(stroke: 0.6pt)`
+	);
+
+	// add a 1pt line above the header
+	text = text.replace(
+		/(table\.header\([^)]*\),)/g,
+		`table.hline(stroke: 1pt),\n    $1`
+	);
+
+	// add line at bottom of table
+	text = text.replace(
+		/(#table\([\S\s]*?\],\s*)(\n\s*\)\])/g,
+		`$1\n    table.hline(stroke: 1pt),$2`
+	);
+
+	// inset the last row
+	text = text.replace(
+		/(#table\([\S\s]*?\s*)(.*?,\n\s*table.hline\(stroke: 1pt\),\n\s*\)\])/g,
+		`$1table.cell(inset: (top: 4pt, bottom: 7.5pt))$2`
+	);
+
+	return new TextEncoder().encode(text);
+}
 
 export default async function main(): Promise<boolean> {
 	let fullMD;
@@ -96,7 +125,7 @@ export default async function main(): Promise<boolean> {
 	else {
 		const outPath = join(PDF_DATA_PATH, "srcs", "prelims.typ");
 		Deno.writeFileSync(outPath, header);
-		Deno.writeFileSync(outPath, prelimTexResult.stdout, {append: true});
+		Deno.writeFileSync(outPath, _fixTables(prelimTexResult.stdout), {append: true});
 	}
 
 	const mainTexCmd = new Deno.Command("pandoc", {
@@ -117,7 +146,7 @@ export default async function main(): Promise<boolean> {
 	else {
 		const outPath = join(PDF_DATA_PATH, "srcs", "main.typ");
 		Deno.writeFileSync(outPath, header);
-		Deno.writeFileSync(outPath, mainTexResult.stdout, {append: true});
+		Deno.writeFileSync(outPath, _fixTables(mainTexResult.stdout), {append: true});
 	}
 
 	return true;
