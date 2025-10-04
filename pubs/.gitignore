@@ -1,3 +1,5 @@
 /pdf/srcs/main.tex
 /pdf/srcs/prelims.tex
 /typst/*.pdf
+/typst/srcs/main.typ
+/typst/srcs/prelims.typ

@@ -1,29 +1,5 @@
-#set page(
-	paper: "us-letter",
-	margin: (
-		left: 1.0325in,
-		right: 1.0325in,
-	)
-)
-
-#set text(
-	font: "Alegreya",
-	size: 14pt,
-	weight: "regular"
-)
-
-#set par(
-	justify: true,
-	leading: 0.57em,
-	spacing: 1.85em,
-)
-
-#set list(
-	indent: 1.5em,
-	spacing: 0.8em,
-)
-
-#show link: set text(fill: rgb(0, 0, 204))
+#import "/pubs/typst/config/styling.typ"
+#show: styling.standard_styles
 
 #align(horizon)[
 	©2025 by #link("https://example.com")[Lorem Ipsum];.
@@ -50,3 +26,4 @@
 	#align(center)[The latest version of the text is freely available at\
 	#link("https://example.com/nlen/")]
 ]
+#pagebreak()
