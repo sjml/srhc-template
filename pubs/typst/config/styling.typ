@@ -64,6 +64,7 @@
 	)
 
 	show heading.where(level: 1): it => align(horizon + right)[
+		#pagebreak()
 		#v(-(96pt + 1.2em)) // font size * 2 + spacing * 2
 		#text(font: "Alegreya SC", size: 48pt, weight: "semibold", it.body)
 	]

@@ -7,14 +7,13 @@ const ROOT_DIR = join(__dirname, "..");
 const SCRIPT_NAME = relative(ROOT_DIR, __filename);
 const SRC_DIR = join(ROOT_DIR, "resources", "syntax-highlighting");
 const CSS_TARGET = join(ROOT_DIR, "css", "_code.scss");
-// const LATEX_TARGET = join(ROOT_DIR, "pubs", "pdf", "config", "code.tex");
 const TYPST_TARGET = join(ROOT_DIR, "pubs", "typst", "config", "code.typ");
 
 const WEB_INPUTS = [
 	join(SRC_DIR, "webLight.json"),
 	join(SRC_DIR, "webDark.json"),
 ];
-const LATEX_INPUT = join(SRC_DIR, "webLight.json");
+const PRINT_INPUT = join(SRC_DIR, "webLight.json");
 
 interface TextStyle {
 	"text-color": string|null,
@@ -112,47 +111,8 @@ const cssOutString = `${headerLines.map(h => `// ${h}`).join("\n")}\n\n${cssOutp
 Deno.writeTextFileSync(CSS_TARGET, cssOutString);
 
 
-const styleData: StyleData = JSON.parse(Deno.readTextFileSync(LATEX_INPUT));
 
-// function hexToRGBi(hexColor: string) {
-// 	return hexColor.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-// 			(_m, r, g, b) => '#' + r + r + g + g + b + b)
-// 		.substring(1).match(/.{2}/g)!
-// 		.map(x => parseInt(x, 16));
-// }
-// function _hexToRGBf(hexColor: string) {
-// 	return hexToRGBi(hexColor).map(x => x / 255);
-// }
-
-// const latexPrefix = `\\usepackage{color}
-// \\usepackage{fancyvrb}
-// \\newcommand{\\VerbBar}{|}
-// \\newcommand{\\VERB}{\\Verb[commandchars=\\\\\\{\\}]}
-// \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}
-// \\definecolor{shadecolor}{RGB}{248,249,250} % $gray-100`;
-
-// const latexOutput = Object.entries(styleData["text-styles"]).map(([name, data]) => {
-// 	// let cmd = `\\newcommand{\\${name}Tok}[1]{\\textcolor[rgb]{${hexToRGBf()}}}`
-// 	let cmd = "#1";
-// 	if (data["italic"]) {
-// 		cmd = `\\textit{${cmd}}`;
-// 	}
-// 	if (data["bold"]) {
-// 		cmd = `\\textbf{${cmd}}`;
-// 	}
-// 	if (data["underline"]) {
-// 		cmd = `\\underline{${cmd}}`;
-// 	}
-// 	if (data["text-color"]) {
-// 		cmd = `\\textcolor[RGB]{${hexToRGBi(data["text-color"]).join(",")}}{${cmd}}`;
-// 	}
-
-// 	return `\\newcommand{\\${name}Tok}[1]{${cmd}}`
-// }).join("\n");
-
-// const latexOutString = `${headerLines.map(h => `% ${h}`).join("\n")}\n\n${latexPrefix}\n${latexOutput}\n\n${footerLines.map(h => `% ${h}`).join("\n")}`;
-// Deno.writeTextFileSync(LATEX_TARGET, latexOutString);
-
+const styleData: StyleData = JSON.parse(Deno.readTextFileSync(PRINT_INPUT));
 
 const typstPrefix = `#let EndLine() = raw("\\n")
 #let Skylighting(sourcelines) = {
