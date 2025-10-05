@@ -7,7 +7,8 @@ const ROOT_DIR = join(__dirname, "..");
 const SCRIPT_NAME = relative(ROOT_DIR, __filename);
 const SRC_DIR = join(ROOT_DIR, "resources", "syntax-highlighting");
 const CSS_TARGET = join(ROOT_DIR, "css", "_code.scss");
-const LATEX_TARGET = join(ROOT_DIR, "pubs", "pdf", "config", "code.tex");
+// const LATEX_TARGET = join(ROOT_DIR, "pubs", "pdf", "config", "code.tex");
+const TYPST_TARGET = join(ROOT_DIR, "pubs", "typst", "config", "code.typ");
 
 const WEB_INPUTS = [
 	join(SRC_DIR, "webLight.json"),
@@ -111,42 +112,94 @@ const cssOutString = `${headerLines.map(h => `// ${h}`).join("\n")}\n\n${cssOutp
 Deno.writeTextFileSync(CSS_TARGET, cssOutString);
 
 
-function hexToRGBi(hexColor: string) {
-	return hexColor.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-			(_m, r, g, b) => '#' + r + r + g + g + b + b)
-		.substring(1).match(/.{2}/g)!
-		.map(x => parseInt(x, 16));
-}
-function _hexToRGBf(hexColor: string) {
-	return hexToRGBi(hexColor).map(x => x / 255);
-}
-
-const latexPrefix = `\\usepackage{color}
-\\usepackage{fancyvrb}
-\\newcommand{\\VerbBar}{|}
-\\newcommand{\\VERB}{\\Verb[commandchars=\\\\\\{\\}]}
-\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}
-\\definecolor{shadecolor}{RGB}{248,249,250} % $gray-100`;
-
 const styleData: StyleData = JSON.parse(Deno.readTextFileSync(LATEX_INPUT));
-const latexOutput = Object.entries(styleData["text-styles"]).map(([name, data]) => {
-	// let cmd = `\\newcommand{\\${name}Tok}[1]{\\textcolor[rgb]{${hexToRGBf()}}}`
-	let cmd = "#1";
+
+// function hexToRGBi(hexColor: string) {
+// 	return hexColor.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+// 			(_m, r, g, b) => '#' + r + r + g + g + b + b)
+// 		.substring(1).match(/.{2}/g)!
+// 		.map(x => parseInt(x, 16));
+// }
+// function _hexToRGBf(hexColor: string) {
+// 	return hexToRGBi(hexColor).map(x => x / 255);
+// }
+
+// const latexPrefix = `\\usepackage{color}
+// \\usepackage{fancyvrb}
+// \\newcommand{\\VerbBar}{|}
+// \\newcommand{\\VERB}{\\Verb[commandchars=\\\\\\{\\}]}
+// \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\small}
+// \\definecolor{shadecolor}{RGB}{248,249,250} % $gray-100`;
+
+// const latexOutput = Object.entries(styleData["text-styles"]).map(([name, data]) => {
+// 	// let cmd = `\\newcommand{\\${name}Tok}[1]{\\textcolor[rgb]{${hexToRGBf()}}}`
+// 	let cmd = "#1";
+// 	if (data["italic"]) {
+// 		cmd = `\\textit{${cmd}}`;
+// 	}
+// 	if (data["bold"]) {
+// 		cmd = `\\textbf{${cmd}}`;
+// 	}
+// 	if (data["underline"]) {
+// 		cmd = `\\underline{${cmd}}`;
+// 	}
+// 	if (data["text-color"]) {
+// 		cmd = `\\textcolor[RGB]{${hexToRGBi(data["text-color"]).join(",")}}{${cmd}}`;
+// 	}
+
+// 	return `\\newcommand{\\${name}Tok}[1]{${cmd}}`
+// }).join("\n");
+
+// const latexOutString = `${headerLines.map(h => `% ${h}`).join("\n")}\n\n${latexPrefix}\n${latexOutput}\n\n${footerLines.map(h => `% ${h}`).join("\n")}`;
+// Deno.writeTextFileSync(LATEX_TARGET, latexOutString);
+
+
+const typstPrefix = `#let EndLine() = raw("\\n")
+#let Skylighting(sourcelines) = {
+	let blocks = []
+	let bgcolor = rgb("#f8f9fa");
+	for ln in sourcelines {
+		blocks = blocks + ln + EndLine()
+	}
+	align(center, block(
+		above: 1.2em,
+		width: 85%,
+		inset: (x: 1.4em, y: 1.2em),
+		// would love this, but can't style differently across page breaks
+		//    (https://github.com/typst/typst/issues/735)
+		// radius: 0.5em,
+		fill: bgcolor,
+		align(left, par(leading: 0.4em, blocks))
+	))
+}
+`;
+let typstOutput = Object.entries(styleData["text-styles"]).map(([name, data]) => {
+	const cmd = [];
 	if (data["italic"]) {
-		cmd = `\\textit{${cmd}}`;
+		cmd.push("style: \"italic\"");
 	}
 	if (data["bold"]) {
-		cmd = `\\textbf{${cmd}}`;
+		cmd.push("weight: \"bold\"");
 	}
-	if (data["underline"]) {
-		cmd = `\\underline{${cmd}}`;
+	else {
+		cmd.push("weight: \"light\"");
 	}
 	if (data["text-color"]) {
-		cmd = `\\textcolor[RGB]{${hexToRGBi(data["text-color"]).join(",")}}{${cmd}}`;
+		cmd.push(`fill: rgb("${data["text-color"]}")`);
 	}
-
-	return `\\newcommand{\\${name}Tok}[1]{${cmd}}`
+	let outCmd;
+	if (cmd.length > 0) {
+		outCmd = `text(${cmd.join(', ')}, raw(s))`;
+	}
+	else {
+		outCmd = `text(raw(s))`;
+	}
+	if (data["underline"]) {
+		outCmd = `underline(${outCmd});`;
+	}
+	return `#let ${name}Tok(s) = ${outCmd}`;
 }).join("\n");
+typstOutput += `\n\n#let InlineCode(s) = box(inset: (x: 3pt), outset: (y: 4pt), radius: 1pt, stroke: (0.1pt + rgb("#adb5bd")), fill: rgb("#e9ecef"), s)`;
 
-const latexOutString = `${headerLines.map(h => `% ${h}`).join("\n")}\n\n${latexPrefix}\n${latexOutput}\n\n${footerLines.map(h => `% ${h}`).join("\n")}`;
-Deno.writeTextFileSync(LATEX_TARGET, latexOutString);
+const typstOutString = `${headerLines.map(h => `// ${h}`).join("\n")}\n\n${typstPrefix}\n${typstOutput}\n\n${footerLines.map(h => `// ${h}`).join("\n")}`;
+Deno.writeTextFileSync(TYPST_TARGET, typstOutString);

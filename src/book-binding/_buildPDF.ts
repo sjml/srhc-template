@@ -8,11 +8,40 @@ const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "pdfBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
 const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
-const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "pdf");
+const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "typst");
 const PDF_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});
 const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "")}.pdf`;
 
+function _fixTables(stream: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> {
+	let text = new TextDecoder().decode(stream);
+
+	// change header lower line to 0.6pt
+	text = text.replace(
+		/(table\.header\([^)]*\),)\s*table\.hline\(\)/g,
+		`$1\n    table.hline(stroke: 0.6pt)`
+	);
+
+	// add a 1pt line above the header
+	text = text.replace(
+		/(table\.header\([^)]*\),)/g,
+		`table.hline(stroke: 1pt),\n    $1`
+	);
+
+	// add line at bottom of table
+	text = text.replace(
+		/(#table\([\S\s]*?\],\s*)(\n\s*\)\])/g,
+		`$1\n    table.hline(stroke: 1pt),$2`
+	);
+
+	// inset the last row
+	text = text.replace(
+		/(#table\([\S\s]*?\s*)(.*?,\n\s*table.hline\(stroke: 1pt\),\n\s*\)\])/g,
+		`$1table.cell(inset: (top: 4pt, bottom: 7.5pt))$2`
+	);
+
+	return new TextEncoder().encode(text);
+}
 
 export default async function main(): Promise<boolean> {
 	let fullMD;
@@ -54,52 +83,30 @@ export default async function main(): Promise<boolean> {
 		return false;
 	}
 
-	console.log("PDF Build: Prepping image links and converting SVGs...");
+	console.log("PDF Build: Prepping image links...");
 	new TextDecoder().decode(imgSrcListResult.stdout).split("\n").forEach((src) => {
-		const clean = src.split("?v=")[0];
-		if (clean.endsWith(".svg")) {
-			const outSrc = `${clean.slice(0, -4)}.pdf`;
-			const outPath = join(TMP_DIR, outSrc);
-			Deno.mkdirSync(dirname(outPath), {recursive: true});
-			const convCmd = new Deno.Command("rsvg-convert", {
-				args: [
-					"--keep-aspect-ratio",
-					"--format", "pdf1.5",
-					"--output", outPath,
-					join(ROOT_PATH, "static", clean),
-				],
-				stdout: "piped",
-				stderr: "piped",
-			});
-			const convProcResult = convCmd.outputSync();
-			if (!convProcResult.success) {
-				console.error(`RSVG-CONVERT ERROR: ${new TextDecoder().decode(convProcResult.stderr)}`);
-				return false;
-			}
-			const relFilePath = join("../../", relative(".", outPath));
-			actualContent = actualContent.replaceAll(src, relFilePath);
-		}
-		else if (src.startsWith("/")) {
-			actualContent = actualContent.replaceAll(src, join(Deno.cwd(), join(ROOT_PATH, "static", src)));
+		if (src.startsWith("/")) {
+			actualContent = actualContent.replaceAll(src, `/static${src}`);
 		}
 	});
 
 	// split the preliminaries away from the rest of the book
+	const header = Deno.readFileSync(join(PDF_DATA_PATH, "config", "_header.typ"));
 	const secondSplit = actualContent.indexOf("\n## ");
 	const prelims = actualContent.slice(0, secondSplit);
 	const mainContent = actualContent.slice(secondSplit);
 
 	const PANDOC_ARGS = [
 		"--from", "markdown+implicit_header_references-implicit_figures",
-		"--to", "latex",
+		"--to", "typst",
 		"--shift-heading-level-by=-1",
 		"--top-level-division", "part",
 		"--syntax-highlighting", "pygments",
-		"--lua-filter", join(ROOT_PATH, "src", "pandocFilters", "latexFilters.lua"),
+		"--lua-filter", join(ROOT_PATH, "src", "pandocFilters", "typstFilters.lua"),
 		"--syntax-definition", join("resources", "syntax-highlighting", "pymod", "pymod.xml"),
 	];
 
-	console.log("PDF Build: Generating TeX files...");
+	console.log("PDF Build: Generating Typst files...");
 	const prelimTexCmd = new Deno.Command("pandoc", {
 		args: PANDOC_ARGS,
 		stdin: "piped",
@@ -116,10 +123,9 @@ export default async function main(): Promise<boolean> {
 		return false;
 	}
 	else {
-		Deno.writeFileSync(
-			join(PDF_DATA_PATH, "srcs", "prelims.tex"),
-			prelimTexResult.stdout
-		);
+		const outPath = join(PDF_DATA_PATH, "srcs", "prelims.typ");
+		Deno.writeFileSync(outPath, header);
+		Deno.writeFileSync(outPath, _fixTables(prelimTexResult.stdout), {append: true});
 	}
 
 	const mainTexCmd = new Deno.Command("pandoc", {
@@ -138,11 +144,12 @@ export default async function main(): Promise<boolean> {
 		return false;
 	}
 	else {
-		Deno.writeFileSync(
-			join(PDF_DATA_PATH, "srcs", "main.tex"),
-			mainTexResult.stdout
-		);
+		const outPath = join(PDF_DATA_PATH, "srcs", "main.typ");
+		Deno.writeFileSync(outPath, header);
+		Deno.writeFileSync(outPath, _fixTables(mainTexResult.stdout), {append: true});
 	}
+
+	return true;
 
 	console.log("PDF Build: Building PDF from TeX files...");
 	const tectonicProc = new Deno.Command("tectonic", {
@@ -197,8 +204,8 @@ export default async function main(): Promise<boolean> {
 		// );
 	}
 
-	console.log("PDF Build: Cleaning up...");
-	Deno.removeSync(TMP_DIR, {recursive: true});
+	// console.log("PDF Build: Cleaning up...");
+	// Deno.removeSync(TMP_DIR, {recursive: true});
 	return true;
 };
 
