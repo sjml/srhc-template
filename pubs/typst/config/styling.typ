@@ -45,6 +45,10 @@
 		weight: "regular",
 	)
 
+	show raw: set text(font: "Cascadia Mono")
+	// show raw: set par(spacing: 0.2em)
+
+
 	set par(
 		justify: true,
 		leading: 0.6em,
