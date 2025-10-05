@@ -193,7 +193,8 @@ export default async function main(): Promise<boolean> {
 	const opfPath = join(EPUB_WORKING_DIR, "EPUB", "content.opf");
 	const opfDataStr = Deno.readTextFileSync(opfPath);
 	const opfDoc = parse(opfDataStr);
-	const manifest = opfDoc.package.manifest;
+	// deno-lint-ignore no-explicit-any
+	const manifest = (opfDoc as any).package.manifest;
 	[
 		["text/rights.xhtml", "rights_xhtml"],
 		["text/titlepage.xhtml", "titlepage_xhtml"],
@@ -217,7 +218,8 @@ export default async function main(): Promise<boolean> {
 		"@media-type": "image/png",
 	});
 
-	const spine = opfDoc.package.spine;
+	// deno-lint-ignore no-explicit-any
+	const spine = (opfDoc as any).package.spine;
 	spine.itemref.splice(1, 0, {
 		"@idref": "rights_xhtml",
 	});
