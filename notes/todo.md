@@ -1,8 +1,6 @@
 ## fundaments
 * check out typst instead of latex? 
   * should run with `--ignore-system-fonts`
-  * lists
-  * hr
   * lang tags? typst has its own... `#set text(lang: "de")`
   * table of contents
   * markdown download -> process image links to absolute

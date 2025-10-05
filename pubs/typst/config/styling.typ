@@ -1,4 +1,8 @@
-#let horizontalrule = line(start: (25%,0%), end: (75%,0%))
+#let horizontalrule = {
+	v(1.4em)
+	line(start: (25%,0%), end: (75%,0%), stroke: rgb("#868e96"))
+	v(1.4em)
+}
 
 // the numbers here are just taken from LaTeX's memoir class; I'm not really *this* fussy
 #let standard_styles(doc) = {
@@ -77,6 +81,9 @@
 	show heading.where(level: 3): set text(size: 20pt)
 	show heading.where(level: 3): set block(below: 1.1em)
 
+	show heading.where(level: 4): set text(size: 17pt)
+	show heading.where(level: 4): set block(below: 1em)
+
 	show footnote.entry: set text(size: 11pt)
 
 	show quote.where(block: true): set par(justify: false, spacing: 1em)
@@ -92,8 +99,15 @@
 
 	set list(
 		indent: 1.5em,
-		spacing: 0.8em,
+		spacing: 0.8em
 	)
+	show list: set block(inset: (y: 1em))
+
+	set enum(
+		indent: 1.5em,
+		spacing: 0.8em
+	)
+	show enum: set block(inset: (y: 1em))
 
 	set table(
 		stroke: none,
