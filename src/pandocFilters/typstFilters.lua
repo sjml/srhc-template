@@ -3,6 +3,15 @@ function Span(elem)
 	if elem.classes:includes("kindle-only") then
 		return ""
 	end
+
+  -- right-align quote attributions
+  if elem.classes:includes("quote-attribution") then
+    return {
+      pandoc.RawInline('typst', '#align(right)['),
+      elem,
+      pandoc.RawInline('typst', ']')
+    }
+  end
 end
 
 function Code(elem)

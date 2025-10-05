@@ -47,8 +47,8 @@
 	)
 
 	show raw: set text(font: "Cascadia Mono")
-	// show raw: set par(spacing: 0.2em)
 
+	show link: set text(fill: rgb(0, 0, 204))
 
 	set par(
 		justify: true,
@@ -77,12 +77,23 @@
 	show heading.where(level: 3): set text(size: 20pt)
 	show heading.where(level: 3): set block(below: 1.1em)
 
+	show footnote.entry: set text(size: 11pt)
+
+	show quote.where(block: true): set par(justify: false, spacing: 1em)
+	show quote.where(block: true): it => pad(left: 1.4em, right: 1.4em)[
+		#block(
+			stroke: (left: .25em + gray, rest: none),
+			radius: 1.4em,
+			breakable: false,
+			outset: (y: 1em),
+			inset: (left: 0.8em),
+		)[#it]
+	]
+
 	set list(
 		indent: 1.5em,
 		spacing: 0.8em,
 	)
-
-	show link: set text(fill: rgb(0, 0, 204))
 
 	set table(
 		stroke: none,
