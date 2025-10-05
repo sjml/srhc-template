@@ -71,12 +71,16 @@ site.use(sass({
 }));
 site.use(postcss({
 	useDefaultPlugins: false,
-	plugins: FULL_MD ? [postcssVars()] : [],
+	plugins: (FULL_MD && !PRODUCTION_MODE) ? [postcssVars()] : [],
 }));
 
 if (PRODUCTION_MODE) {
 	site.use(cacheBust({
-		extensions: [".css", ".js", ".png", ".svg", ".jpg", ".pdf", ".epub", ".azw3", ".mobi", ".woff2"],
+		extensions: [
+			".css", ".js", ".svg",
+			".woff2", ".png", ".jpg",
+			 ".pdf", ".epub", ".azw3", ".mobi"
+		],
 		// logSkips: true,
 	}));
 }
