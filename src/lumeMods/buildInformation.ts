@@ -47,7 +47,7 @@ export function buildInfo() {
 			output.softwareVersions.lume = getCurrentVersion().slice(1);
 			output.softwareVersions.git = await runProgram("git", ["--version"], /version (.*)\n/);
 			output.softwareVersions.pandoc = await runProgram("pandoc", ["--version"], /^pandoc (.*)\n/);
-			output.softwareVersions.tectonic = await runProgram("tectonic", ["--version"], /Tectonic (.*)\n/);
+			output.softwareVersions.typst = await runProgram("typst", ["--version"], /typst (.*)\n/);
 			output.softwareVersions.rsvgConvert = await runProgram("rsvg-convert", ["--version"], /version (.*)\n/);
 			output.softwareVersions.pdftk = await runProgram("pdftk", ["--version"], /pdftk\s+(.*?\d+(?:\.\d+)*)(?=\s|$)/);
 			output.softwareVersions.imageMagick = await runProgram("convert", ["--version"], /Version: (.*) https/);
