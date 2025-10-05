@@ -41,7 +41,6 @@
 				]
 			}
 		},
-		footer-descent: 0% + 0pt
 	)
 
 	set text(

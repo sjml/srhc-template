@@ -1,7 +1,9 @@
 #include "srcs/title.typ"
 #include "srcs/rights.typ"
 
-#counter(page).update(0)
+#include "srcs/toc.typ"
+
+#counter(page).update(1)
 #set page(numbering: "i")
 #include "srcs/prelims.typ"
 

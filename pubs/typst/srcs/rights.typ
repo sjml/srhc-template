@@ -1,10 +1,16 @@
 #import "/pubs/typst/config/styling.typ"
 #show: styling.standard_styles
 
+#set page(
+	header: none,
+	footer: none,
+)
+
 #set par(
 	spacing: 1.85em,
 	first-line-indent: 0em,
 )
+#show list: set block(inset: (y: 0em))
 
 #align(horizon)[
 	©2025 by #link("https://example.com")[Lorem Ipsum];.
@@ -31,4 +37,3 @@
 	#align(center)[The latest version of the text is freely available at\
 	#link("https://example.com/nlen/")]
 ]
-#pagebreak()
