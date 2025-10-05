@@ -50,6 +50,9 @@
 		weight: "regular",
 	)
 
+	show text.where(lang: "la"): set text(style: "italic")
+	show text.where(lang: "he"): set text(font: "David Libre")
+
 	show raw: set text(font: "Cascadia Mono")
 
 	show link: set text(fill: rgb(0, 0, 204))

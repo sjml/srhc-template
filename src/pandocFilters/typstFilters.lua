@@ -7,11 +7,21 @@ function Span(elem)
   -- right-align quote attributions
   if elem.classes:includes("quote-attribution") then
     return {
-      pandoc.RawInline('typst', '#align(right)['),
+      pandoc.RawInline("typst", "#align(right)["),
       elem,
-      pandoc.RawInline('typst', ']')
+      pandoc.RawInline("typst", "]")
     }
   end
+
+	-- pass on language stuff
+	local lang = elem.attributes and elem.attributes.lang
+	if lang ~= nil then
+		return {
+			pandoc.RawInline("typst", "#text(lang: \"" .. lang .. "\")["),
+			elem,
+			pandoc.RawInline("typst", "]")
+		}
+	end
 end
 
 function Code(elem)
