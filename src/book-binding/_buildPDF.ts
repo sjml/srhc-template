@@ -152,24 +152,63 @@ export default async function main(): Promise<boolean> {
 	}
 
 	console.log("PDF Build: Adding cover...");
+	const pdfMetaProc = new Deno.Command("pdftk", {
+		args: [
+			join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME),
+			"dump_data",
+		]
+	});
+	const pdfMetaResult = await pdfMetaProc.output();
+	if (!pdfMetaResult.success) {
+		console.error(`PDFTK ERROR: ${new TextDecoder().decode(pdfMetaResult.stderr)}`);
+		return false;
+	}
+
+	const originalMetadata = new TextDecoder().decode(pdfMetaResult.stdout);
+	const labelsFixed = originalMetadata.replace(
+		/^PageLabelNewIndex:\s*(\d+)$/gm,
+		(_, numStr) => {
+			const num = parseInt(numStr);
+			return `PageLabelNewIndex: ${num === 1 ? 1 : num + 1}`;
+		}
+	);
+	Deno.writeTextFileSync(join(TMP_DIR, "pdf_metadata.txt"), labelsFixed);
+
 	const pdfTkProc = new Deno.Command("pdftk", {
 		args: [
 			join(ROOT_PATH, "resources", "demo-assets", "fakeCoverBig.pdf"),
 			join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME),
 			"cat",
 			"output",
-			join(TMP_DIR, "final.pdf"),
+			join(TMP_DIR, "with_cover.pdf"),
 		],
 	});
 	const pdfTkResult = await pdfTkProc.output();
 	if (!pdfTkResult.success) {
-		console.error(`PDFUNITE ERROR: ${new TextDecoder().decode(pdfTkResult.stderr)}`);
+		console.error(`PDFTK ERROR: ${new TextDecoder().decode(pdfTkResult.stderr)}`);
 		return false;
 	}
+
+	const pdfMetaFixProc = new Deno.Command("pdftk", {
+		args: [
+			join(TMP_DIR, "with_cover.pdf"),
+			"update_info",
+			join(TMP_DIR, "pdf_metadata.txt"),
+			"output",
+			join(TMP_DIR, "final.pdf"),
+		]
+	});
+	const pdfMetaFixResult = await pdfMetaFixProc.output();
+	if (!pdfMetaResult.success) {
+		console.error(`PDFTK ERROR: ${new TextDecoder().decode(pdfMetaFixResult.stderr)}`);
+		return false;
+	}
+
 	Deno.copyFileSync(
 		join(TMP_DIR, "final.pdf"),
 		join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME)
 	);
+
 
 	console.log("PDF Build: Cleaning up...");
 	Deno.removeSync(TMP_DIR, {recursive: true});
