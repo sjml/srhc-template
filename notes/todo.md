@@ -1,7 +1,6 @@
 ## fundaments
 * check out typst instead of latex? 
   * should run with `--ignore-system-fonts`
-  * simplify page numbering
   * footnotes
   * blockquotes and citations
   * lang tags? typst has its own... `#set text(lang: "de")`

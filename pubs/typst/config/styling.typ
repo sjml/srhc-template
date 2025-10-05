@@ -2,12 +2,6 @@
 
 // the numbers here are just taken from LaTeX's memoir class; I'm not really *this* fussy
 #let standard_styles(doc) = {
-	let h-on-page(level) = (
-		query(heading.where(level: level))
-			.filter(h => h.location().page() == here().page())
-			.len()
-	)
-
 	set page(
 		paper: "us-letter",
 		margin: (
@@ -16,11 +10,32 @@
 			top: 2.02in,
 			bottom: 1.4in,
 		),
-		header: context if h-on-page(1) == 0 and h-on-page(2) == 0 {
-			align(right)[#counter(page).display()]
+		header: context {
+			let laterDivisions = query(
+				selector(heading.where(level: 1))
+				.or(
+					selector(heading.where(level: 2))
+				).after(here())
+			)
+			if laterDivisions.len() > 0 {
+				let nextDiv = counter(page).at(laterDivisions.first().location()).at(0)
+				let currPage = counter(page).get().at(0)
+				if nextDiv != currPage [
+					#align(right)[#counter(page).display()]
+				]
+			} else { align(right)[#counter(page).display()] }
 		},
-		footer: context if h-on-page(1) == 0 and h-on-page(2) != 0 {
-			align(center)[#counter(page).display()]
+		footer: context {
+			let laterDivisions = query(
+				selector(heading.where(level: 2)).before(here())
+			)
+			if laterDivisions.len() > 0 {
+				let prevDiv = counter(page).at(laterDivisions.last().location()).at(0)
+				let currPage = counter(page).get().at(0)
+				if prevDiv == currPage [
+					#align(center)[#counter(page).display()]
+				]
+			}
 		},
 		footer-descent: 0% + 0pt
 	)
@@ -32,6 +47,7 @@
 	)
 
 	show raw: set text(font: "Cascadia Mono")
+	// show raw: set par(spacing: 0.2em)
 
 
 	set par(
