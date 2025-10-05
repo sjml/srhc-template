@@ -1,4 +1,6 @@
-import { join, dirname, fromFileUrl, relative } from "@std/path";
+import { join, dirname, fromFileUrl } from "@std/path";
+
+import { getImageSrcList } from "../util.ts";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
@@ -61,30 +63,13 @@ export default async function main(): Promise<boolean> {
 	const firstSplit = fullMD.indexOf("\n### ");
 	let actualContent = fullMD.slice(firstSplit);
 
-	// could do some of this with a JSON filter in here but less code == better code
-	const imgSrcListCmd = new Deno.Command("pandoc", {
-		args: [
-			"--from", "markdown+implicit_header_references-implicit_figures",
-			"--to", "json", // dummy output
-			"--lua-filter", join(ROOT_PATH, "src", "pandocFilters", "getImageList.lua"),
-			"-o", "/dev/null"
-		],
-		stdin: "piped",
-		stdout: "piped",
-		stderr: "piped",
-	});
-	const imgSrcList = imgSrcListCmd.spawn();
-	const imgSrcListWriter = imgSrcList.stdin.getWriter();
-	await imgSrcListWriter.write(new TextEncoder().encode(actualContent));
-	await imgSrcListWriter.close();
-	const imgSrcListResult = await imgSrcList.output();
-	if (!imgSrcListResult.success) {
-		console.error(`PANDOC ERROR: ${new TextDecoder().decode(imgSrcListResult.stderr)}`);
+	const imgSrcList = await getImageSrcList(actualContent);
+	if (!imgSrcList) {
 		return false;
 	}
 
 	console.log("PDF Build: Prepping image links...");
-	new TextDecoder().decode(imgSrcListResult.stdout).split("\n").forEach((src) => {
+	imgSrcList.forEach((src) => {
 		if (src.startsWith("/")) {
 			actualContent = actualContent.replaceAll(src, `/static${src}`);
 		}
@@ -149,63 +134,45 @@ export default async function main(): Promise<boolean> {
 		Deno.writeFileSync(outPath, _fixTables(mainTexResult.stdout), {append: true});
 	}
 
-	return true;
-
-	console.log("PDF Build: Building PDF from TeX files...");
-	const tectonicProc = new Deno.Command("tectonic", {
+	console.log("PDF Build: Building PDF from Typst files...");
+	const typstProc = new Deno.Command("typst", {
 		args: [
-			"--outfmt", "pdf",
-			join(PDF_DATA_PATH, "full.tex")
+			"compile",
+			"--root", ROOT_PATH,
+			"--ignore-system-fonts",
+			"--font-path", join(PDF_DATA_PATH, "fonts"),
+			join(PDF_DATA_PATH, "full.typ"),
+			join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME)
 		],
 	});
-	const tectonicResult = await tectonicProc.output();
-	function logErrFilter(log: string) {
-		const tectonicErrStrings = [
-			"Missing character",
-			"accessing absolute path",
-		];
-		const errStrings = log.split("\n").filter(line =>
-			tectonicErrStrings.some(err => line.includes(err))
-		);
-		if (errStrings.length == 0) {
-			return null;
-		}
-		return errStrings;
-	}
-	const tectonicStdErr = new TextDecoder().decode(tectonicResult.stderr);
-	const errStrings = logErrFilter(tectonicStdErr);
-	if (!tectonicResult.success) {
-		console.error(`TECTONIC ERROR: ${tectonicStdErr}`);
-		const timestamp = new Date().toISOString();
-		Deno.writeFileSync(
-			join(ROOT_PATH, "tmp", `tectonic-log-${timestamp}.txt`),
-			tectonicResult.stderr
-		);
+	const typstResult = await typstProc.output();
+	if (!typstResult.success) {
+		console.error(`TYPST ERROR: ${new TextDecoder().decode(typstResult.stderr)}`);
 		return false;
-	}
-	else if (errStrings) {
-		errStrings.forEach(line => console.error(line));
-		const timestamp = new Date().toISOString();
-		Deno.writeFileSync(
-			join(ROOT_PATH, "tmp", `tectonic-log-${timestamp}.txt`),
-			tectonicResult.stderr
-		);
-		return false;
-	}
-	else {
-		Deno.renameSync(
-			join(PDF_DATA_PATH, "full.pdf"),
-			join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME)
-		);
-		// const timestamp = new Date().toISOString();
-		// Deno.writeFileSync(
-		// 	join(ROOT_PATH, "tmp", `tectonic-log-${timestamp}.txt`),
-		// 	tectonicOutput.stderr
-		// );
 	}
 
-	// console.log("PDF Build: Cleaning up...");
-	// Deno.removeSync(TMP_DIR, {recursive: true});
+	console.log("PDF Build: Adding cover...");
+	const pdfTkProc = new Deno.Command("pdftk", {
+		args: [
+			join(ROOT_PATH, "resources", "demo-assets", "fakeCoverBig.pdf"),
+			join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME),
+			"cat",
+			"output",
+			join(TMP_DIR, "final.pdf"),
+		],
+	});
+	const pdfTkResult = await pdfTkProc.output();
+	if (!pdfTkResult.success) {
+		console.error(`PDFUNITE ERROR: ${new TextDecoder().decode(pdfTkResult.stderr)}`);
+		return false;
+	}
+	Deno.copyFileSync(
+		join(TMP_DIR, "final.pdf"),
+		join(PDF_TARGET_DIR, PDF_OUTPUT_FILENAME)
+	);
+
+	console.log("PDF Build: Cleaning up...");
+	Deno.removeSync(TMP_DIR, {recursive: true});
 	return true;
 };
 

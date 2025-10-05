@@ -2,6 +2,8 @@ import { join, dirname, fromFileUrl } from "@std/path";
 
 import { parse, stringify } from "@libs/xml";
 
+import { getImageSrcList } from "../util.ts";
+
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
 const ROOT_PATH = join(__dirname, "..", "..");
@@ -34,29 +36,12 @@ export default async function main(): Promise<boolean> {
 	let actualContent = hrSplits.slice(2).join("\n----\n");
 
 	// could do some of this with a JSON filter in here but less code == better code
-	const imgSrcListCmd = new Deno.Command("pandoc", {
-		args: [
-			"--from", "markdown+implicit_header_references-implicit_figures",
-			"--to", "json", // dummy output
-			"--lua-filter", join(ROOT_PATH, "src", "pandocFilters", "getImageList.lua"),
-			"-o", "/dev/null"
-		],
-		stdin: "piped",
-		stdout: "piped",
-		stderr: "piped",
-	});
-	const imgSrcList = imgSrcListCmd.spawn();
-	const imgSrcListWriter = imgSrcList.stdin.getWriter();
-	await imgSrcListWriter.write(new TextEncoder().encode(actualContent));
-	await imgSrcListWriter.close();
-	const imgSrcListResult = await imgSrcList.output();
-	if (!imgSrcListResult.success) {
-		console.error(`PANDOC ERROR: ${new TextDecoder().decode(imgSrcListResult.stderr)}`);
+	const imgSrcList = await getImageSrcList(actualContent);
+	if (!imgSrcList) {
 		return false;
 	}
-
 	console.log("ePUB Build: Prepping image links and converting SVGs...");
-	new TextDecoder().decode(imgSrcListResult.stdout).split("\n").forEach((src) => {
+	imgSrcList.forEach((src) => {
 		const clean = src.split("?v=")[0];
 		if (clean.endsWith(".svg")) {
 			const outSrc = `${clean.slice(0, -4)}.png`;

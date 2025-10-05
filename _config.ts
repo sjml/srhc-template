@@ -21,6 +21,8 @@ import { addSectionAnchors } from "./src/lumeMods/addSectionAnchors.ts";
 import { cacheBust } from "./src/lumeMods/cacheBust.ts";
 import { dprint } from "./src/lumeMods/dprintFormat.ts";
 
+import { getImageSrcList } from "./src/util.ts";
+
 import * as revInfo from "./src/getRevisionInfo.ts";
 
 
@@ -117,6 +119,24 @@ site.parseBasename((basename) => {
 site.use(addSectionAnchors());
 
 if (PRODUCTION_MODE) {
+	if (FULL_MD) {
+		site.process([".md"], async (pages) => {
+			for (const page of pages) {
+				if (page.data.full_md) {
+					const imgs = await getImageSrcList(page.content as string);
+					if (!imgs) {
+						continue;
+					}
+					for (const imgSrc of imgs) {
+						if (imgSrc.startsWith("/")) {
+							page.content = (page.content as string).replaceAll(imgSrc, `${page.data.sitedata.url}${imgSrc}`);
+						}
+					}
+				}
+			}
+		});
+	}
+
 	site.use(svgo({
 		options: {multipass: true,},
 	}));

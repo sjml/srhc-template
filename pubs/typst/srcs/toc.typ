@@ -25,7 +25,11 @@
 })
 
 #show outline.entry.where(level: 1): it => {
-	block(above: 2.8em, text(weight: "bold", size: 17pt, it.body()))
+	block(above: 2.8em,
+		text(weight: "bold", size: 17pt,
+			link(it.element.location(), text(fill: black, it.body()))
+		)
+	)
 }
 #show outline.entry.where(level: 2): it => {
 	// would be better to calculate this,
@@ -34,9 +38,11 @@
 	let max-page-width = 2.4em
 
 	block(above: 1.4em)[
-		#it.body()
-		#box(width: 1fr, align(right, typst-repeat(gap: 0.4em, text(size: 20pt, "."))))
-		#box(width: max-page-width, align(center, it.page()))
+		#link(it.element.location(), text(fill: black)[
+			#it.body()
+			#box(width: 1fr, align(right, typst-repeat(gap: 0.4em, text(size: 20pt, "."))))
+			#box(width: max-page-width, align(center, it.page()))
+		])
 	]
 }
 
