@@ -11,30 +11,27 @@ jobs:
     - name: Install Apt Dependencies
       uses: awalsh128/cache-apt-pkgs-action@v1.5.3
       with:
-        packages: librsvg2-bin ghostscript calibre
+        packages: librsvg2-bin ghostscript calibre pdftk-java
     - name: Install ImageMagick
       run: |
         # doesn't play nice with the apt caching, so needs to be installed directly
         sudo apt-get update
         sudo apt-get install imagemagick
-    - uses: denoland/setup-deno@v2
-      name: "Install Deno (latest v2)"
+    - name: "Install Deno (latest v2)"
+      uses: denoland/setup-deno@v2
       with:
         deno-version: v2.x
         cache: true
-    - uses: pandoc/actions/setup@main
-      name: Install Pandoc (latest)
+    - name: Install Pandoc (latest)
+      uses: pandoc/actions/setup@main
+    - name: Install Typst (latest)
+      uses: typst-community/setup-typst@v4
     - name: Set Tool Path
       run: |
         mkdir -p $HOME/.local/bin
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Install Tectonic (latest) and EPUBCheck (latest)
+    - name: Install EPUBCheck (latest)
       run: |
-        TECTONIC_VERSION=$(gh release list --repo tectonic-typesetting/tectonic --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | sed -nr 's/.*@(.*)/\1/p')
-        wget https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-        tar xzf tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-        mv tectonic $HOME/.local/bin
-
         EPUBCHECK_VERSION=$(gh release list --repo w3c/epubcheck --limit 1 --exclude-pre-releases --json tagName | jq -r '.[0].tagName' | cut -c2-)
         wget https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK_VERSION}/epubcheck-${EPUBCHECK_VERSION}.zip
         unzip epubcheck-${EPUBCHECK_VERSION}.zip
