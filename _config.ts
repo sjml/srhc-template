@@ -10,7 +10,7 @@ import brotli from "lume/plugins/brotli.ts";
 import gzip from "lume/plugins/gzip.ts";
 import postcss from "lume/plugins/postcss.ts";
 
-import postcssVars from "npm:postcss-css-variables@^0.19.0";
+import postcssVars from "postcss-css-variables";
 
 import { getGenerator } from "lume/core/utils/lume_version.ts";
 

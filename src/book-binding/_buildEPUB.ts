@@ -2,7 +2,7 @@ import { join, dirname, basename, fromFileUrl } from "@std/path";
 import { walk } from "@std/fs/walk";
 
 import { parse, stringify } from "@libs/xml";
-import vento from "npm:ventojs";
+import vento from "ventojs";
 
 import { getImageSrcList } from "../util.ts";
 
