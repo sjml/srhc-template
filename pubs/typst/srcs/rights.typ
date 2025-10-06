@@ -1,6 +1,8 @@
 #import "/pubs/typst/config/styling.typ"
 #show: styling.standard_styles
 
+#let sitedata = json("../../../_data/sitedata.json")
+
 #set page(
 	header: none,
 	footer: none,
@@ -13,7 +15,7 @@
 #show list: set block(inset: (y: 0em))
 
 #align(horizon)[
-	©2025 by #link("https://example.com")[Lorem Ipsum];.
+	©#sitedata.copyrightYear by #link(sitedata.authorUrl)[#sitedata.authorName];.
 	#v(10mm)
 	#image("../../../resources/licensing/by-nc-sa.svg")
 
@@ -35,5 +37,5 @@
 	#v(10mm)
 
 	#align(center)[The latest version of the text is freely available at\
-	#link("https://example.com/nlen/")]
+	#link(sitedata.url + "/")]
 ]

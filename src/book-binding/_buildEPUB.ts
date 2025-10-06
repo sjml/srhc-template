@@ -1,6 +1,8 @@
-import { join, dirname, fromFileUrl } from "@std/path";
+import { join, dirname, basename, fromFileUrl } from "@std/path";
+import { walk } from "@std/fs/walk";
 
 import { parse, stringify } from "@libs/xml";
+import vento from "npm:ventojs";
 
 import { getImageSrcList } from "../util.ts";
 
@@ -20,13 +22,24 @@ const EPUB_OUTPUT_FILENAME = `${EPUB_OUTPUT_BASENAME}.epub`;
 const EPUB_WORKING_DIR = join(TMP_DIR, `${EPUB_OUTPUT_BASENAME}_epub`);
 
 export default async function main(): Promise<boolean> {
-	let fullMD;
+	let fullMD: string;
 	try {
 		fullMD = Deno.readTextFileSync(FULLMD_PATH);
 	}
 	catch (_) {
 		console.error("ERROR: full markdown file doesn't exist. Need to build the site?");
 		return false;
+	}
+
+	console.log("ePUB Build: Rendering templates with metadata...");
+	const ventoEngine = vento();
+
+	for await (const entry of walk(EPUB_DATA_PATH, {includeDirs: false})) {
+		if (entry.path.endsWith(".vto")) {
+			const outName = `${dirname(entry.path)}/${basename(entry.path, ".vto")}`;
+			const output = await ventoEngine.run(entry.path, {sitedata: SITEDATA});
+			await Deno.writeTextFile(outName, output.content);
+		}
 	}
 
 	console.log("ePUB Build: Prepping Markdown sources from built site...");

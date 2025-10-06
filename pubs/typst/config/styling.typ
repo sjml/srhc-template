@@ -131,7 +131,7 @@
 		column-gutter: 12pt,
 	)
 
-	// table captions show go on top
+	// table captions go on top
 	show figure.where(
 		kind: table
 	): set figure.caption(position: top)
@@ -149,5 +149,7 @@
 		it
 		v(1em)
 	}
+
+
 	doc
 }

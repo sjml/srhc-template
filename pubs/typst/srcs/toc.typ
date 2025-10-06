@@ -38,11 +38,21 @@
 	let max-page-width = 2.4em
 
 	block(above: 1.4em)[
-		#link(it.element.location(), text(fill: black)[
-			#it.body()
-			#box(width: 1fr, align(right, typst-repeat(gap: 0.4em, text(size: 20pt, "."))))
-			#box(width: max-page-width, align(center, it.page()))
-		])
+		#link(
+			it.element.location(),
+			text(fill: black)[#it.body()]
+		)
+		#box(
+			width: 1fr,
+			align(right, typst-repeat(gap: 0.4em, text(size: 20pt, ".")))
+		)
+		#link(
+			it.element.location(),
+			box(
+				width: max-page-width,
+				align(center, text(fill: black)[#it.page()])
+			)
+		)
 	]
 }
 

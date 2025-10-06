@@ -2,10 +2,12 @@
 	"imports": {
 		"@dprint/formatter": "jsr:@dprint/formatter@^0.4.1",
 		"@libs/xml": "jsr:@libs/xml@^7.0.2",
+		"@std/fs": "jsr:@std/fs@^1.0.19",
 		"@std/path": "jsr:@std/path@^1.1.2",
 		"lume/": "https://deno.land/x/lume@v3.0.11/",
 		"lume/jsx-runtime": "https://deno.land/x/ssx@v0.1.12/jsx-runtime.ts",
-		"postcss-css-variables": "npm:postcss-css-variables@^0.19.0"
+		"postcss-css-variables": "npm:postcss-css-variables@^0.19.0",
+		"ventojs": "npm:ventojs@^2.1.1"
 	},
 	"tasks": {
 		"lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",

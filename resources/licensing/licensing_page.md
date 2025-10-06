@@ -2,7 +2,7 @@
 title: License Information
 ---
 
-©2025 by [Lorem Ipsum](https://example.com).
+©{{ sitedata.copyrightYear }} by [{{sitedata.authorName}}]({{sitedata.authorUrl}}).
 
 ![Logo for the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](/img/by-nc-sa.svg)
 
@@ -21,4 +21,4 @@ Under the following terms:
 
 **No additional restrictions** --- You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
-The latest version of the text is freely available at [https://example.com/nlen/](https://example.com/nlen/)
+The latest version of the text is freely available at [{{sitedata.url}}/]({{sitedata.url}}/)

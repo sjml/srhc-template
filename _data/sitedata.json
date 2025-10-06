@@ -1,12 +1,15 @@
 {
   "title": "Nulla Laborum Exercitation Nostrud",
+	"lang": "en-US",
   "titleAbbreviation": "nlen",
   "url": "https://example.com/nlen",
+	"copyrightYear": 2025,
   "description": "Mollit exercitation irure veniam ea nulla laborum exercitation nostrud id deserunt ad elit laborum irure.",
   "authorName": "Lorem Ipsum",
   "authorInitials": "LI",
   "authorUrl": "https://example.com",
   "siteIcon": "/img/demo-icon.svg",
+	"urn": "d2952bc7-b97a-4bec-9bc6-44e91c0f9901",
 
   "licenseHumanUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   "licenseLegalUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode",

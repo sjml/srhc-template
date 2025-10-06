@@ -45,7 +45,9 @@
     "npm:postcss-import@16.1.1": "16.1.1_postcss@8.5.6",
     "npm:postcss@8.5.6": "8.5.6",
     "npm:sass@1.93.2": "1.93.2",
-    "npm:svgo@4.0.0": "4.0.0"
+    "npm:svgo@4.0.0": "4.0.0",
+    "npm:ventojs@*": "2.1.1",
+    "npm:ventojs@^2.1.1": "2.1.1"
   },
   "jsr": {
     "@dprint/formatter@0.4.1": {
@@ -601,6 +603,9 @@
         "picocolors"
       ],
       "bin": true
+    },
+    "ventojs@2.1.1": {
+      "integrity": "sha512-DC2MSGVKbgRXcdh5ReSu3IQO2iQq5gUmyMQDFZsy1Jy/NeIB1Dcp+u9CSGAUwD1UtZaGQl4AIrl81DSTHE1lCQ=="
     }
   },
   "remote": {
@@ -882,8 +887,10 @@
     "dependencies": [
       "jsr:@dprint/formatter@~0.4.1",
       "jsr:@libs/xml@^7.0.2",
+      "jsr:@std/fs@^1.0.19",
       "jsr:@std/path@^1.1.2",
-      "npm:postcss-css-variables@0.19"
+      "npm:postcss-css-variables@0.19",
+      "npm:ventojs@^2.1.1"
     ]
   }
 }

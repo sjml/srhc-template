@@ -117,7 +117,7 @@ const styleData: StyleData = JSON.parse(Deno.readTextFileSync(PRINT_INPUT));
 const typstPrefix = `#let EndLine() = raw("\\n")
 #let Skylighting(sourcelines) = {
 	let blocks = []
-	let bgcolor = rgb("#f8f9fa");
+	let bgcolor = rgb("${styleData["background-color"]}");
 	for ln in sourcelines {
 		blocks = blocks + ln + EndLine()
 	}
