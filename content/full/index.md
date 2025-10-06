@@ -6,7 +6,7 @@ templateEngine: [vto, md]
 ---
 
 {{ set filename = sitedata.title.replaceAll(" ", "") }}
-{{ set localFilePath = `static/downloads/${filename}` }}
+{{ set localFilePath = `pubs/web/static/downloads/${filename}` }}
 
 You can download a nicely typeset PDF version of the full book:
 

@@ -15,7 +15,7 @@ const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
 const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
 const EPUB_DATA_PATH = join(ROOT_PATH, "pubs", "epub");
-const EPUB_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
+const EPUB_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(EPUB_TARGET_DIR, {recursive: true});
 const EPUB_OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "");
 const EPUB_OUTPUT_FILENAME = `${EPUB_OUTPUT_BASENAME}.epub`;
@@ -66,7 +66,7 @@ export default async function main(): Promise<boolean> {
 					"--width", "2048",
 					"--format", "png",
 					"--output", outPath,
-					join(ROOT_PATH, "static", clean),
+					join(ROOT_PATH, "pubs", "web", "static", clean),
 				],
 				stdout: "piped",
 				stderr: "piped",
@@ -79,7 +79,7 @@ export default async function main(): Promise<boolean> {
 			actualContent = actualContent.replaceAll(src, outPath);
 		}
 		else if (src.startsWith("/")) {
-			actualContent = actualContent.replaceAll(src, join(Deno.cwd(), join(ROOT_PATH, "static", src)));
+			actualContent = actualContent.replaceAll(src, join(Deno.cwd(), join(ROOT_PATH, "pubs", "web", "static", src)));
 		}
 	});
 	Deno.writeTextFileSync(join(TMP_DIR, "content.md"), actualContent);
@@ -152,10 +152,10 @@ export default async function main(): Promise<boolean> {
 			"compile",
 			"--root", ROOT_PATH,
 			"--ignore-system-fonts",
-			"--font-path", join(EPUB_DATA_PATH, "..", "typst", "fonts"),
+			"--font-path", join(EPUB_DATA_PATH, "..", "pdf", "fonts"),
 			"--ppi", "300",
 			"--pages", "1",
-			join(EPUB_DATA_PATH, "..", "typst", "srcs", "title.typ"),
+			join(EPUB_DATA_PATH, "..", "pdf", "srcs", "title.typ"),
 			join(EPUB_WORKING_DIR, "EPUB", "media", "titlepage.png")
 		],
 		stderr: "piped",

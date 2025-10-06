@@ -35,7 +35,7 @@ const FULL_MD = getEnvBool("FULL_MD");
 
 
 const site = lume({
-	includes: "./layouts",
+	includes: "pubs/web/layouts",
 	...(PRODUCTION_MODE ? {location: new URL("https://shaneliesegang.com/projects/srhc-template")} : {})
 });
 
@@ -55,11 +55,11 @@ site.ignore("notes");
 site.ignore("resources");
 site.ignore("pubs");
 
-site.add("static", ".");
-site.add("css/web.scss", "/css/srhc.css");
+site.add("pubs/web/static", ".");
+site.add("pubs/web/css/web.scss", "/css/srhc.css");
 if (FULL_MD && !PRODUCTION_MODE) {
-	site.add("css/epub.scss", "/css/srhc-epub.css");
-	site.add("css/kindle.scss", "/css/srhc-kindle.css");
+	site.add("pubs/web/css/epub.scss", "/css/srhc-epub.css");
+	site.add("pubs/web/css/kindle.scss", "/css/srhc-kindle.css");
 }
 
 site.data("layout", "page.vto");

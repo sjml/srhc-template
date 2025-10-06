@@ -1,4 +1,4 @@
-#import "/pubs/typst/config/styling.typ"
+#import "/pubs/pdf/config/styling.typ"
 #show: styling.standard_styles
 
 #set page(

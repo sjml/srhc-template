@@ -10,8 +10,8 @@ const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "pdfBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
 const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
-const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "typst");
-const PDF_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
+const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "pdf");
+const PDF_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});
 const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "")}.pdf`;
 
@@ -71,7 +71,7 @@ export default async function main(): Promise<boolean> {
 	console.log("PDF Build: Prepping image links...");
 	imgSrcList.forEach((src) => {
 		if (src.startsWith("/")) {
-			actualContent = actualContent.replaceAll(src, `/static${src}`);
+			actualContent = actualContent.replaceAll(src, `/pubs/web/static${src}`);
 		}
 	});
 
@@ -92,46 +92,46 @@ export default async function main(): Promise<boolean> {
 	];
 
 	console.log("PDF Build: Generating Typst files...");
-	const prelimTexCmd = new Deno.Command("pandoc", {
+	const frontMatterOutputCmd = new Deno.Command("pandoc", {
 		args: PANDOC_ARGS,
 		stdin: "piped",
 		stdout: "piped",
 		stderr: "piped",
 	});
-	const prelimTex = prelimTexCmd.spawn();
-	const prelimTexWriter = prelimTex.stdin.getWriter();
-	await prelimTexWriter.write(new TextEncoder().encode(prelims));
-	await prelimTexWriter.close();
-	const prelimTexResult = await prelimTex.output();
-	if (!prelimTexResult.success) {
-		console.error(`PANDOC ERROR: ${new TextDecoder().decode(prelimTexResult.stderr)}`);
+	const frontMatterOutput = frontMatterOutputCmd.spawn();
+	const frontMatterOutputWriter = frontMatterOutput.stdin.getWriter();
+	await frontMatterOutputWriter.write(new TextEncoder().encode(prelims));
+	await frontMatterOutputWriter.close();
+	const frontMatterOutputResult = await frontMatterOutput.output();
+	if (!frontMatterOutputResult.success) {
+		console.error(`PANDOC ERROR: ${new TextDecoder().decode(frontMatterOutputResult.stderr)}`);
 		return false;
 	}
 	else {
 		const outPath = join(PDF_DATA_PATH, "srcs", "prelims.typ");
 		Deno.writeFileSync(outPath, header);
-		Deno.writeFileSync(outPath, _fixTables(prelimTexResult.stdout), {append: true});
+		Deno.writeFileSync(outPath, _fixTables(frontMatterOutputResult.stdout), {append: true});
 	}
 
-	const mainTexCmd = new Deno.Command("pandoc", {
+	const mainMatterOutputCmd = new Deno.Command("pandoc", {
 		args: PANDOC_ARGS,
 		stdin: "piped",
 		stdout: "piped",
 		stderr: "piped",
 	});
-	const mainTex = mainTexCmd.spawn();
-	const mainTexWriter = mainTex.stdin.getWriter();
-	await mainTexWriter.write(new TextEncoder().encode(mainContent));
-	await mainTexWriter.close();
-	const mainTexResult = await mainTex.output();
-	if (!mainTexResult.success) {
-		console.error(`PANDOC ERROR: ${new TextDecoder().decode(mainTexResult.stderr)}`);
+	const mainMatterOutput = mainMatterOutputCmd.spawn();
+	const mainMatterOutputWriter = mainMatterOutput.stdin.getWriter();
+	await mainMatterOutputWriter.write(new TextEncoder().encode(mainContent));
+	await mainMatterOutputWriter.close();
+	const mainMatterOutputResult = await mainMatterOutput.output();
+	if (!mainMatterOutputResult.success) {
+		console.error(`PANDOC ERROR: ${new TextDecoder().decode(mainMatterOutputResult.stderr)}`);
 		return false;
 	}
 	else {
 		const outPath = join(PDF_DATA_PATH, "srcs", "main.typ");
 		Deno.writeFileSync(outPath, header);
-		Deno.writeFileSync(outPath, _fixTables(mainTexResult.stdout), {append: true});
+		Deno.writeFileSync(outPath, _fixTables(mainMatterOutputResult.stdout), {append: true});
 	}
 
 	console.log("PDF Build: Building PDF from Typst files...");

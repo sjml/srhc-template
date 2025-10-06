@@ -9,7 +9,7 @@ Deno.mkdirSync("tmp", {recursive: true});
 const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "kindleBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
-const KINDLE_TARGET_DIR = join(ROOT_PATH, "static", "downloads");
+const KINDLE_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(KINDLE_TARGET_DIR, {recursive: true});
 const OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "");
 const EPUB_OUTPUT_FILENAME = `${OUTPUT_BASENAME}.epub`;
@@ -44,12 +44,14 @@ export default function main(): boolean {
 	for (const fontFile of Deno.readDirSync(join(KINDLE_WORKING_DIR, "EPUB", "fonts"))) {
 		const pathTo = join("fonts", fontFile.name);
 		Deno.removeSync(join(KINDLE_WORKING_DIR, "EPUB", pathTo));
-		const idx = opfDoc.package.manifest.item.findIndex((item: {"@href"?: string}) => item["@href"] === pathTo);
+		// deno-lint-ignore no-explicit-any
+		const idx = (opfDoc.package as any).manifest.item.findIndex((item: {"@href"?: string}) => item["@href"] === pathTo);
 		if (idx === -1) {
 			console.error(`XML ERROR: could not find item with @href '${pathTo}'`);
 			return false;
 		}
-		opfDoc.package.manifest.item.splice(idx, 1);
+		// deno-lint-ignore no-explicit-any
+		(opfDoc.package as any).manifest.item.splice(idx, 1);
 	}
 
 	const opfOutput = stringify(opfDoc, {

@@ -39,7 +39,7 @@ AddType "text/markdown; charset=UTF-8" md
 
 
 	# Serve correct encodings and force proxies to cache
-	# compressed content separately from non-compressed.
+	#     compressed content separately from non-compressed.
 {{ for ct of compression.compressionTypes }}
 	<FilesMatch "({{ for idx, ft of compression.compressibleFiles}}\.{{ft[0]}}\.{{ct[0]}}{{if idx < compression.compressibleFiles.length - 1 }}|{{/if}}{{/for}})">
 		Header set Content-Encoding {{ct[2]}}
