@@ -1,4 +1,4 @@
-export function getRevisionString(short = false) {
+export function getRevisionString(short: boolean = false): string|null {
 	const args = ["rev-parse", "HEAD"];
 	if (short) {
 		args.splice(1, 0, "--short");
@@ -14,7 +14,7 @@ export function getRevisionString(short = false) {
 	return new TextDecoder().decode(gitInfo.stdout).trim();
 }
 
-export function getRevisionDate() {
+export function getRevisionDate(): string|null {
 	const gitInfoCmd = new Deno.Command("git", {args: ["show", "-s", "--format=%at"]});
 	const gitInfo = gitInfoCmd.outputSync();
 

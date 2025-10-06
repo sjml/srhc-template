@@ -1,6 +1,7 @@
 import { join, dirname, fromFileUrl } from "@std/path";
 
 import { getImageSrcList } from "../util.ts";
+import { getRevisionString } from "../getRevisionInfo.ts";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
@@ -14,6 +15,12 @@ const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "pdf");
 const PDF_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});
 const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "")}.pdf`;
+
+function getCmdOutput(cmd: string, args?: string[]): string {
+	const command = new Deno.Command(cmd, {args, stdout: "piped"});
+	const output = command.outputSync();
+	return new TextDecoder().decode(output.stdout);
+}
 
 function _fixTables(stream: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> {
 	let text = new TextDecoder().decode(stream);
@@ -164,6 +171,21 @@ export default async function main(): Promise<boolean> {
 		return false;
 	}
 
+	const creatorCodes = `InfoBegin
+InfoKey: Title
+InfoValue: ${SITEDATA.title}
+InfoBegin
+InfoKey: Author
+InfoValue: ${SITEDATA.authorName}
+InfoBegin
+InfoKey: Subject
+InfoValue: ${SITEDATA.description}
+InfoBegin
+InfoKey: Creator
+InfoValue: shrc-template (${getRevisionString(true)})
+InfoBegin
+InfoKey: Producer
+InfoValue: ${getCmdOutput("typst", ["--version"])}`;
 	const originalMetadata = new TextDecoder().decode(pdfMetaResult.stdout);
 	const labelsOff = originalMetadata.split("\n").filter(ln => ln.startsWith("PageLabel")).join("\n");
 	const labelsFixed = labelsOff.replace(
@@ -173,7 +195,8 @@ export default async function main(): Promise<boolean> {
 			return `PageLabelNewIndex: ${num === 1 ? 1 : num + 1}`;
 		}
 	);
-	Deno.writeTextFileSync(join(TMP_DIR, "pdf_metadata.txt"), labelsFixed);
+	Deno.writeTextFileSync(join(TMP_DIR, "pdf_metadata.txt"), creatorCodes);
+	Deno.writeTextFileSync(join(TMP_DIR, "pdf_metadata.txt"), labelsFixed, {append: true});
 
 	const pdfTkProc = new Deno.Command("pdftk", {
 		args: [

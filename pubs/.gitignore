@@ -1,6 +1,6 @@
-/typst/*.pdf
-/typst/srcs/main.typ
-/typst/srcs/prelims.typ
+/pdf/*.pdf
+/pdf/srcs/main.typ
+/pdf/srcs/prelims.typ
 /epub/srcs/*.xhtml
 /epub/metadata.md
 /web/static/downloads/*
