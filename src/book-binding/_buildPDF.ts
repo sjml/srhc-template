@@ -165,7 +165,8 @@ export default async function main(): Promise<boolean> {
 	}
 
 	const originalMetadata = new TextDecoder().decode(pdfMetaResult.stdout);
-	const labelsFixed = originalMetadata.replace(
+	const labelsOff = originalMetadata.split("\n").filter(ln => ln.startsWith("PageLabel")).join("\n");
+	const labelsFixed = labelsOff.replace(
 		/^PageLabelNewIndex:\s*(\d+)$/gm,
 		(_, numStr) => {
 			const num = parseInt(numStr);
