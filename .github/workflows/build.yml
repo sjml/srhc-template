@@ -59,7 +59,7 @@ jobs:
       name: Upload Books Artifact
       with:
         name: srhc-demo-books-${{ env.GIT_SHA_SHORT }}
-        path: static/downloads
+        path: pubs/web/static/downloads
     - name: Deploy to Remote
       run: |
         SSH_PATH="$HOME/.ssh"
