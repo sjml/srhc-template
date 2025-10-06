@@ -9,23 +9,22 @@ jobs:
 
     steps:
     - name: Install Apt Dependencies
-      uses: awalsh128/cache-apt-pkgs-action@v1.5.3
-      with:
-        packages: librsvg2-bin calibre
-    - name: Install ImageMagick and pdftk
       run: |
-        # don't play nice with the apt caching, so need to be installed directly
         sudo apt-get update
-        sudo apt-get install imagemagick pdftk-java
+        sudo apt-get install imagemagick librsvg2-bin calibre pdftk-java
+
     - name: "Install Deno (latest v2)"
       uses: denoland/setup-deno@v2
       with:
         deno-version: v2.x
         cache: true
+
     - name: Install Pandoc (latest)
       uses: pandoc/actions/setup@main
+
     - name: Install Typst (latest)
       uses: typst-community/setup-typst@v4
+
     - name: Set Tool Path
       run: |
         mkdir -p $HOME/.local/bin
@@ -40,26 +39,33 @@ jobs:
         chmod +x $HOME/.local/bin/epubcheck
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: actions/checkout@v4
       name: Checkout Source Code
+
     - name: Setup Project
       run: |
         deno install
+
     - name: Build Site and Books
       run: |
         ./src/buildFullDist.sh
+
     - name: Get Short Git Rev
       run: echo "GIT_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
     - uses: actions/upload-artifact@v4
       name: Upload Site Artifact
       with:
         name: srhc-demo-site-${{ env.GIT_SHA_SHORT }}
         path: _site
+
     - uses: actions/upload-artifact@v4
       name: Upload Books Artifact
       with:
         name: srhc-demo-books-${{ env.GIT_SHA_SHORT }}
         path: pubs/web/static/downloads
+
     - name: Deploy to Remote
       run: |
         SSH_PATH="$HOME/.ssh"

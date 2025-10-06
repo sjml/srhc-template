@@ -2,7 +2,7 @@
 
 [Explore the actual demo site!](https://shaneliesegang.com/projects/srhc-template)
 
-An example site made by the static site generator [Lume](https://lume.land). It's meant for "book"-style content, i.e. a linear set of prose that you progress through in order, with occasional line-art images and code samples. Extracted from a larger project, partially as motivation to stop futzing with all this tech/build stuff and start finishing the actual content. 
+The demonstration site of a template for the static site generator [Lume](https://lume.land). It's meant for "book"-style content, i.e. a linear set of prose that you progress through in order, with occasional line-art images and code samples. Extracted from a larger project, partially as motivation to stop futzing with all this tech/build stuff and start finishing the actual content. 
 
 The repository, as it stands, automatically builds both the site itself _and_ downloadable PDF, ePUB, and Kindle formatted ebooks. 
 
