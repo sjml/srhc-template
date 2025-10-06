@@ -3,3 +3,5 @@
 /typst/*.pdf
 /typst/srcs/main.typ
 /typst/srcs/prelims.typ
+/epub/srcs/*.xhtml
+/epub/metadata.md
