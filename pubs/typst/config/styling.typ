@@ -15,30 +15,23 @@
 			bottom: 1.4in,
 		),
 		header: context {
-			let laterDivisions = query(
-				selector(heading.where(level: 1))
-				.or(
-					selector(heading.where(level: 2))
-				).after(here())
+			let q = query(
+				heading.where(level: 1).or(heading.where(level: 2))
+					.after(here()),
 			)
-			if laterDivisions.len() > 0 {
-				let nextDiv = counter(page).at(laterDivisions.first().location()).at(0)
-				let currPage = counter(page).get().at(0)
-				if nextDiv != currPage [
-					#align(right)[#counter(page).display()]
-				]
-			} else { align(right)[#counter(page).display()] }
+			let count = counter(page)
+			if q.len() > 0 and count.at(q.first().location()) != count.get() {
+				align(right, count.display())
+			}
+			else if q.len() == 0 {
+				align(right, count.display())
+			}
 		},
 		footer: context {
-			let laterDivisions = query(
-				selector(heading.where(level: 2)).before(here())
-			)
-			if laterDivisions.len() > 0 {
-				let prevDiv = counter(page).at(laterDivisions.last().location()).at(0)
-				let currPage = counter(page).get().at(0)
-				if prevDiv == currPage [
-					#align(center)[#counter(page).display()]
-				]
+			let q = query(heading.where(level: 2).before(here()))
+			let count = counter(page)
+			if q.len() > 0 and count.at(q.last().location()) == count.get() {
+				align(center, count.display())
 			}
 		},
 	)
