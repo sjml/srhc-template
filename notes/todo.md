@@ -1,2 +1,1 @@
-## fundaments
-* JSON-LD?
+all done for now! :D 
