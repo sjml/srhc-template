@@ -146,26 +146,23 @@ export default async function main(): Promise<boolean> {
 		return false;
 	}
 
-	// grab title page image out of sibling PDF
-	const extractCmd = new Deno.Command("gs", {
+	// render out title page as png from source
+	const extractCmd = new Deno.Command("typst", {
 		args: [
-			"-dSAFER", "-dQUIET", "-dNOPLATFONTS", "-dNOPAUSE", "-dBATCH",
-			`-sOutputFile=${join(EPUB_WORKING_DIR, "EPUB", "media", "titlepage.png")}`,
-			"-sDEVICE=pngalpha",
-			"-r300",
-			"-dTextAlphaBits=4",
-			"-dGraphicsAlphaBits=4",
-			"-dUseCIEColor",
-			"-dUseTrimBox",
-			"-dFirstPage=2",
-			"-dLastPage=2",
-			join(EPUB_TARGET_DIR, `${EPUB_OUTPUT_BASENAME}.pdf`)
+			"compile",
+			"--root", ROOT_PATH,
+			"--ignore-system-fonts",
+			"--font-path", join(EPUB_DATA_PATH, "..", "typst", "fonts"),
+			"--ppi", "300",
+			"--pages", "1",
+			join(EPUB_DATA_PATH, "..", "typst", "srcs", "title.typ"),
+			join(EPUB_WORKING_DIR, "EPUB", "media", "titlepage.png")
 		],
 		stderr: "piped",
 	});
 	const extractResult = extractCmd.outputSync();
 	if (!extractResult.success) {
-		console.error(`GHOSTSCRIPT ERROR: ${new TextDecoder().decode(extractResult.stderr)}`);
+		console.error(`TYPST ERROR: ${new TextDecoder().decode(extractResult.stderr)}`);
 		return false;
 	}
 

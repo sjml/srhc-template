@@ -51,7 +51,6 @@ export function buildInfo() {
 			output.softwareVersions.rsvgConvert = await runProgram("rsvg-convert", ["--version"], /version (.*)\n/);
 			output.softwareVersions.pdftk = await runProgram("pdftk", ["--version"], /pdftk\s+(.*?\d+(?:\.\d+)*)(?=\s|$)/);
 			output.softwareVersions.imageMagick = await runProgram("convert", ["--version"], /Version: (.*) https/);
-			output.softwareVersions.ghostscript = await runProgram("gs", ["--version"], null);
 			output.softwareVersions.calibre = await runProgram("ebook-convert", ["--version"], /calibre ([\d.]*)/)
 			output.softwareVersions.epubcheck = await runProgram("epubcheck", ["--version", "--quiet"], / v(.*)\n/);
 			output.softwareVersions.gzip = await runProgram("gzip", ["--version", "2>&1"], null);

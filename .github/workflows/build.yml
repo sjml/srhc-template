@@ -11,10 +11,10 @@ jobs:
     - name: Install Apt Dependencies
       uses: awalsh128/cache-apt-pkgs-action@v1.5.3
       with:
-        packages: librsvg2-bin ghostscript calibre
+        packages: librsvg2-bin calibre
     - name: Install ImageMagick and pdftk
       run: |
-        # don't play nice with the apt caching, so needs to be installed directly
+        # don't play nice with the apt caching, so need to be installed directly
         sudo apt-get update
         sudo apt-get install imagemagick pdftk-java
     - name: "Install Deno (latest v2)"
