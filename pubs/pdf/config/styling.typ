@@ -75,7 +75,7 @@
 	]
 
 	show heading.where(level: 3): set text(size: 20pt)
-	show heading.where(level: 3): set block(below: 1.1em)
+	show heading.where(level: 3): set block(above: 1.8em, below: 1.1em)
 
 	show heading.where(level: 4): set text(size: 17pt)
 	show heading.where(level: 4): set block(below: 1em)

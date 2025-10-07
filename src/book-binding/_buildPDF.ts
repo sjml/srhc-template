@@ -6,15 +6,15 @@ import { getRevisionString } from "../getRevisionInfo.ts";
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
 const ROOT_PATH = join(__dirname, "..", "..");
-Deno.mkdirSync("tmp", {recursive: true});
+Deno.mkdirSync(join(ROOT_PATH, "tmp"), {recursive: true});
 const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "pdfBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
-const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
+const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "_")}.md`);
 const PDF_DATA_PATH = join(ROOT_PATH, "pubs", "pdf");
 const PDF_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(PDF_TARGET_DIR, {recursive: true});
-const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "")}.pdf`;
+const PDF_OUTPUT_FILENAME = `${SITEDATA.title.replaceAll(" ", "_")}.pdf`;
 
 function getCmdOutput(cmd: string, args?: string[]): string {
 	const command = new Deno.Command(cmd, {args, stdout: "piped"});
@@ -182,7 +182,7 @@ InfoKey: Subject
 InfoValue: ${SITEDATA.description}
 InfoBegin
 InfoKey: Creator
-InfoValue: shrc-template (${getRevisionString(true)})
+InfoValue: srhc-template (${getRevisionString(true)})
 InfoBegin
 InfoKey: Producer
 InfoValue: ${getCmdOutput("typst", ["--version"])}`;

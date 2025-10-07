@@ -5,13 +5,13 @@ import { parse, stringify } from "@libs/xml";
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
 const ROOT_PATH = join(__dirname, "..", "..");
-Deno.mkdirSync("tmp", {recursive: true});
+Deno.mkdirSync(join(ROOT_PATH, "tmp"), {recursive: true});
 const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "kindleBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
 const KINDLE_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(KINDLE_TARGET_DIR, {recursive: true});
-const OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "");
+const OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "_");
 const EPUB_OUTPUT_FILENAME = `${OUTPUT_BASENAME}.epub`;
 const KINDLE_WORKING_DIR = join(TMP_DIR, `${OUTPUT_BASENAME}_epub`);
 

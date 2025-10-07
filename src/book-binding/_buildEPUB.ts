@@ -9,15 +9,15 @@ import { getImageSrcList } from "../util.ts";
 const __dirname = dirname(fromFileUrl(import.meta.url));
 
 const ROOT_PATH = join(__dirname, "..", "..");
-Deno.mkdirSync("tmp", {recursive: true});
+Deno.mkdirSync(join(ROOT_PATH, "tmp"), {recursive: true});
 const TMP_DIR_REL = Deno.makeTempDirSync({prefix: "epubBuild-", dir: "tmp"});
 const TMP_DIR = join(ROOT_PATH, TMP_DIR_REL);
 const SITEDATA = JSON.parse(Deno.readTextFileSync(join(ROOT_PATH, "_data", "sitedata.json")));
-const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "")}.md`);
+const FULLMD_PATH = join(ROOT_PATH, "_site", "downloads", `${SITEDATA.title.replaceAll(" ", "_")}.md`);
 const EPUB_DATA_PATH = join(ROOT_PATH, "pubs", "epub");
 const EPUB_TARGET_DIR = join(ROOT_PATH, "pubs", "web", "static", "downloads");
 Deno.mkdirSync(EPUB_TARGET_DIR, {recursive: true});
-const EPUB_OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "");
+const EPUB_OUTPUT_BASENAME = SITEDATA.title.replaceAll(" ", "_");
 const EPUB_OUTPUT_FILENAME = `${EPUB_OUTPUT_BASENAME}.epub`;
 const EPUB_WORKING_DIR = join(TMP_DIR, `${EPUB_OUTPUT_BASENAME}_epub`);
 
