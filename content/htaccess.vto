@@ -6,9 +6,6 @@ layout: false
 # serve the pre-generated 404
 ErrorDocument 404 {{ "/404.html" |> url }}
 
-# serve markdown files as plain text with utf8 encoding
-AddType "text/markdown; charset=UTF-8" md
-
 # nobody needs to see the buildInformation file so easily
 <FilesMatch "^buildInformation\.json(\.(gz|br))?$">
 	Require all denied
@@ -35,6 +32,14 @@ AddType "text/markdown; charset=UTF-8" md
 {{ for ct of compression.compressionTypes }}
 	RewriteRule \.{{ft[0]}}\.{{ct[0]}}$ - [T={{ft[1]}},{{for idx,ctx of compression.compressionTypes}}E=no-{{ctx[1]}}:1{{if idx < compression.compressionTypes.length - 1 }},{{/if}}{{/for}}]
 {{ /for -}}
+{{ /for }}
+
+
+	# Set correct encodings for text files
+{{ for ft of compression.compressibleFiles }}
+	<FilesMatch "\.{{ft[0]}}(\.gz|\.br)?$">
+		Header set Content-Type "{{ft[1]}}; charset=UTF-8"
+	</FilesMatch>
 {{ /for }}
 
 
