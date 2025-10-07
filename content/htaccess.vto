@@ -37,9 +37,11 @@ ErrorDocument 404 {{ "/404.html" |> url }}
 
 	# Set correct encodings for text files
 {{ for ft of compression.compressibleFiles }}
+	{{ if ft[1].startsWith("text/") }}
 	<FilesMatch "\.{{ft[0]}}(\.gz|\.br)?$">
 		Header set Content-Type "{{ft[1]}}; charset=UTF-8"
 	</FilesMatch>
+	{{ /if }}
 {{ /for }}
 
 

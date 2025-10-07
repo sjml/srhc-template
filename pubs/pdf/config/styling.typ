@@ -43,7 +43,7 @@
 	)
 
 	show text.where(lang: "la"): set text(style: "italic")
-	show text.where(lang: "he"): set text(font: "David Libre")
+	show text.where(lang: "he"): set text(font: "David Libre", dir: direction.rtl)
 
 	show raw: set text(font: "Cascadia Mono")
 
@@ -74,24 +74,33 @@
 		#linebreak()
 	]
 
-	show heading.where(level: 3): set text(size: 20pt)
-	show heading.where(level: 3): set block(above: 1.8em, below: 1.1em)
+	show heading.where(level: 3): it => {
+		set text(size: 20pt)
+		set block(above: 1.8em, below: 1.1em)
+		it
+	}
 
-	show heading.where(level: 4): set text(size: 17pt)
-	show heading.where(level: 4): set block(below: 1em)
+	show heading.where(level: 4): it => {
+		set text(size: 17pt)
+		set block(below: 1em)
+		it
+	}
 
 	show footnote.entry: set text(size: 11pt)
 
-	show quote.where(block: true): set par(justify: false, spacing: 1em)
-	show quote.where(block: true): it => pad(left: 1.4em, right: 1.4em)[
-		#block(
+	show quote.where(block: true): it => {
+		set par(justify: false, spacing: 1em)
+		set block(width: 100%)
+		pad(left: 1.4em, right: 1.4em)[
+			#block(
 			stroke: (left: .25em + gray, rest: none),
 			radius: 1.4em,
 			breakable: false,
 			outset: (y: 1em),
 			inset: (left: 0.8em),
-		)[#it]
-	]
+			)[#it]
+		]
+	}
 
 	set list(
 		indent: 1.5em,

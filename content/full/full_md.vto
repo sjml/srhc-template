@@ -23,6 +23,6 @@ by [{{sitedata.authorName}}]({{sitedata.authorUrl}})
 ### {{ subPage.data.title }}
 {{ set fpath }}{{ subPage.data.page.src.path }}{{ subPage.data.page.src.ext }}{{/set-}}
 {{ set contents }}{{ include `../../${fpath}` }}{{/set-}}
-{{ contents |> pandoc({pandocArgs: ["--to", "markdown", "--shift-heading-level-by", "2", "--id-prefix", subPage.data.basename]}) }}
+{{ contents |> pandoc({pandocArgs: ["--to", "markdown-raw_attribute", "--shift-heading-level-by", "2", "--id-prefix", subPage.data.basename]}) }}
 {{/for}}
 {{/for}}
