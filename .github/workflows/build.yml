@@ -72,7 +72,7 @@ jobs:
         mkdir -p "$SSH_PATH"
         echo "$DEPLOY_KEY" > "$SSH_PATH/deploy_key"
         chmod 600 "$SSH_PATH/deploy_key"
-        rsync -e "ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no" -avz --delete-after --exclude=".*" ./_site/ "$DEPLOY_PATH"
+        rsync -e "ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no" -avz --delete-after ./_site/ "$DEPLOY_PATH"
         rm -rf $SSH_PATH
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
