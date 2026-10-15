@@ -1,4 +1,7 @@
-all done for now! :D 
+## transition from Deno/Lume
+* Deno is being discontinued :(
+* Lume is planning to transition to plain Node.js, but is it worth it?
+    * maybe just time to pull away from frameworks entirely and roll my own?
 
 ## far-flung future
 * font fallbacks with https://github.com/unjs/fontaine
