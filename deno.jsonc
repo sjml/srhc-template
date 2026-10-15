@@ -1,0 +1,91 @@
+{
+	"imports": {
+		"@dprint/formatter": "jsr:@dprint/formatter@^0.5.1",
+		"@libs/xml": "jsr:@libs/xml@^8.0.0",
+		"@std/encoding": "jsr:@std/encoding@^1.0.11",
+		"@std/fs": "jsr:@std/fs@^1.0.24",
+		"@std/path": "jsr:@std/path@^1.1.6",
+		"lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.1/",
+		"lume/jsx-runtime": "https://cdn.jsdelivr.net/gh/oscarotero/ssx@0.1.15/jsx-runtime.ts",
+		"postcss-css-variables": "npm:postcss-css-variables@^0.19.0",
+		"ventojs": "npm:ventojs@^2.4.0"
+	},
+	"tasks": {
+		"lume": {
+			"description": "Run Lume command",
+			"command": "deno run -P=lume lume/cli.ts"
+		},
+		"build": {
+			"description": "Build the site for production",
+			"command": "deno task lume"
+		},
+		"serve": {
+			"description": "Run and serve the site for development",
+			"command": "deno task lume -s"
+		},
+		"new": {
+			"description": "Create new content or code using artifacts",
+			"command": "deno task lume new"
+		}
+	},
+	"compilerOptions": {
+		"types": [
+			"lume/types.ts"
+		],
+		"jsx": "react-jsx",
+		"jsxImportSource": "lume"
+	},
+	"unstable": [
+		"temporal",
+		"fmt-component"
+	],
+	"lint": {
+		"plugins": [
+			"https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.1/lint.ts"
+		],
+		"rules": {
+			"exclude": [
+				"no-import-prefix"
+			]
+		}
+	},
+	"permissions": {
+		"lume": {
+			"read": true,
+			"write": [
+				"./"
+			],
+			"import": [
+				"cdn.jsdelivr.net:443",
+				"jsr.io:443",
+				"deno.land:443",
+				"esm.sh:443"
+			],
+			"net": [
+				"0.0.0.0",
+				"127.0.0.1:9229"
+
+				// --- these were added by lume's upgrade, but I'm dubious
+				// ---   can just allow connections when we're installing
+				// ---   or monkeying with things; don't need to be permanent
+				// "cdn.jsdelivr.net:443",
+				// "data.jsdelivr.com:443",
+				// "jsr.io:443",
+				// "deno.land:443",
+				// "esm.sh:443",
+				// "registry.npmjs.org:443"
+			],
+			"env": true,
+			"run": true,
+			"ffi": true,
+			"sys": true
+		}
+	},
+	"allowScripts": {
+		"deny": [
+			"npm:sharp",
+			"npm:@parcel/watcher"
+		]
+	},
+	"lock": false
+}

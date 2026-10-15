@@ -1,10 +1,10 @@
 import { extname } from "@std/path";
+import { encodeHex } from "@std/encoding";
 
 import type Site from "lume/core/site.ts";
 import { Page } from "lume/core/file.ts";
 import { merge } from "lume/core/utils/object.ts";
 import modifyUrls from "lume/plugins/modify_urls.ts";
-import { encodeHex } from "lume/deps/hex.ts";
 
 export interface Options {
 	extensions: string[];
